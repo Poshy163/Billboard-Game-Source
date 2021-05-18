@@ -4,5 +4,20 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scene/Scenes/Bossfight.unity
+    guid: c7c75927da341164ba3fc3f0ac760481
+  - enabled: 1
+    path: Assets/Scene/Scenes/Level1.unity
+    guid: f3a36350753a1394b95b86702357b09a
+  - enabled: 1
+    path: Assets/Scene/Scenes/Level2.unity
+    guid: 1e90fa36199ca8d48835f0c3eb4b16ee
+  - enabled: 1
+    path: Assets/Scene/Scenes/Level3.unity
+    guid: d639485c8b89fe243a679df4a6ccebdd
+  - enabled: 1
+    path: Assets/Scene/Scenes/tutorial.unity
+    guid: c5501c4d1f93fa84aa7893e0b607cd27
   m_configObjects: {}

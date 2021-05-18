@@ -3,7 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Fodder
+  - ground
+  - arrow
+  - shuriken
+  - Playertarget
+  - Damaged panel
+  - Gargoyle
+  - Bottom
+  - Floating enemy
+  - Summonerpos
+  - Summoner
+  - invisiblewall
   layers:
   - Default
   - TransparentFX
@@ -13,21 +25,21 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Arrow
+  - Player
+  - Enemy
+  - Enemy jumping
+  - ground
+  - shuriken
+  - shurikenkicked
+  - Player charge
+  - Bottom
+  - Kicked Enemy
+  - Summonermoving
+  - tower
+  - castle
+  - portal
+  - invisiblewall
   - 
   - 
   - 
