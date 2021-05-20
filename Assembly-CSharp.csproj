@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\Enemy\greentargetscript.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
      <Compile Include="Assets\Scripts\Other\MathParabola.cs" />
+     <Compile Include="Assets\Scripts\Other\TimerManager.cs" />
      <Compile Include="Assets\Scripts\Spawners\Floatingenemyscript.cs" />
      <Compile Include="Assets\Scripts\Enemy\Bigenemyscript.cs" />
      <Compile Include="Assets\Scripts\Other\particlescript.cs" />
@@ -109,6 +110,8 @@
      <Compile Include="Assets\Scripts\Other\portalscript.cs" />
      <Compile Include="Assets\Scripts\Enemy\gargoyleanimationscript.cs" />
      <Compile Include="Assets\Scripts\Enemy\looktowardsplayer.cs" />
+     <Compile Include="Assets\Scripts\Other\Timer.cs" />
+     <Compile Include="Assets\Scripts\Saving\Saving.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
