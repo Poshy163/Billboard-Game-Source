@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 // ReSharper disable All
@@ -52,9 +53,9 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public Vector3 moveVertical;
 
-    [HideInInspector] public bool shooting;
+    [HideInInspector] public bool shooting = false;
 
-    [HideInInspector] public GameObject enemytodashto;
+    [HideInInspector] public GameObject enemytodashto = null;
 
     private float horizontal;
 
@@ -62,31 +63,31 @@ public class PlayerController : MonoBehaviour
 
     private GameObject DText;
     
-    private float nextkick;
+    private float nextkick = 0f;
 
-    private float kickrate;
+    private float kickrate= 0.34f;
 
-    private float nextdodge;
+    private float nextdodge= 0f;
 
-    private float dodgerate;
+    private float dodgerate = 0.306f;
 
-    private bool dodging;
+    private bool dodging = false;
 
-    private bool grounded;
+    private bool grounded = true;
 
-    private bool charging;
+    private bool charging = false;
 
-    private bool longclick;
+    private bool longclick = false;
 
-    private bool shortclick;
+    private bool shortclick = false;
 
-    private float mouseclickstart;
+    private float mouseclickstart = 0f;
 
     public float slowdownfactor = 0.05f;
 
     public float slowdownlength = 2f;
 
-    private bool inslowmo;
+    private bool inslowmo = false;
 
     [HideInInspector] public int health;
 
@@ -98,8 +99,11 @@ public class PlayerController : MonoBehaviour
 
     public GameObject[] hearts;
 
+
+
     private void Start()
     {
+        health = 5;
         rb = GetComponent<Rigidbody>();
         gunanim = Gun.GetComponent<Animator>();
         kickanim = Kick.GetComponent<Animator>();
@@ -110,35 +114,21 @@ public class PlayerController : MonoBehaviour
         gunanim.SetBool("moving", false);
         gunanim.SetBool("kicking", false);
         gunanim.SetBool("charge", false);
-        shooting = false;
         DText = GameObject.Find("DText");
         DText.SetActive(false);
-        dodging = false;
-        charging = false;
         kickstate(false, false);
         dashscreen.SetActive(false);
         slowmoscreen.SetActive(false);
-        nextkick = 0f;
-        kickrate = 0.34f;
-        nextdodge = 0f;
-        dodgerate = 0.306f;
-        grounded = true;
         origscale = gameObject.transform.localScale;
         Cursor.lockState = CursorLockMode.Locked;
         rb.useGravity = true;
-        mouseclickstart = 0f;
-        longclick = false;
-        shortclick = false;
-        inslowmo = false;
-        enemytodashto = null;
-        health = 5;
         greencrosshair.SetActive(false);
         hearts[0] = GameObject.Find($"Image");
-
         for(var i = 1;i <= 4; i++)
         {
             hearts[i] = GameObject.Find($"Image ({i})");
         }
+
     }
 
     private void Update()
@@ -152,8 +142,8 @@ public class PlayerController : MonoBehaviour
         {
             hearts[i].SetActive(true);
         }
-
-        for (var j = health - 1; j < 5; j++)
+        
+        for (var j = health; j < 5; j++)
         {
             hearts[j].SetActive(false);
         }

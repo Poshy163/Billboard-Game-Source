@@ -2,8 +2,10 @@ using UnityEngine;
 // ReSharper disable All
 //Formatted
 public class Bottomscript : MonoBehaviour
-{    public void OnCollisionEnter(Collision col)
+{ 
+    public void OnTriggerEnter(Collider col)
     {
-        Destroy(col.gameObject, 0f);
+        if(col.tag != "Player")
+            Destroy(col.gameObject, 0f);
     }
 }

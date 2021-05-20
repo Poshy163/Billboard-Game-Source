@@ -1,5 +1,5 @@
 using UnityEngine;
-
+// ReSharper disable All
 public class particlescript : MonoBehaviour
 {
     public float lifetimevalue;
