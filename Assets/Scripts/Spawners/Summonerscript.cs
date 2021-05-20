@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 // ReSharper disable All
+//Formatted 
 public class Summonerscript : MonoBehaviour
 {
     private GameObject player;
@@ -10,9 +11,9 @@ public class Summonerscript : MonoBehaviour
 
     private Color transparentcolor;
 
-    private Color damagedcolor;
+    private Color damagedcolor = new Color(Color.red.r,Color.red.g,Color.red.b,1f);
 
-    private Color almostdeadcolor;
+    private Color almostdeadcolor = new Color(1f,0f,0f,1f);
 
     private Animator anim;
 
@@ -24,7 +25,7 @@ public class Summonerscript : MonoBehaviour
 
     private TrailRenderer trailrenderer;
 
-    private bool lookatplayer;
+    private bool lookatplayer = true;
 
     private bool shooting;
 
@@ -32,15 +33,15 @@ public class Summonerscript : MonoBehaviour
 
     private float enemyspeed;
 
-    private float nextshoot;
+    private float nextshoot = 1f;
 
-    private float shootrate;
+    private float shootrate = 1.63f;
 
-    private float health;
+    private float health = 8f;
 
-    private float nextalmostdeadcolor;
+    private float nextalmostdeadcolor = 0f;
 
-    private float almostdeadcolorrate;
+    private float almostdeadcolorrate = 0.14f;
 
     public GameObject enemysprite;
 
@@ -58,33 +59,30 @@ public class Summonerscript : MonoBehaviour
 
     public GameObject basesummonerposition;
 
-    private bool corrupted;
+    private bool corrupted = false;
 
-    private void Start()
+    public void Start()
     {
         anim = enemysprite.GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         trailrenderer = GetComponent<TrailRenderer>();
-        lookatplayer = true;
-        shooting = false;
-        nextshoot = 1f;
-        shootrate = 1.63f;
-        health = 8f;
-        nextalmostdeadcolor = 0f;
-        almostdeadcolorrate = 0.14f;
         matcolor = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
         transparentcolor = new Color(matcolor.r, matcolor.g, matcolor.b, 0.27f);
-        damagedcolor = new Color(Color.red.r, Color.red.g, Color.red.b, 1f);
-        almostdeadcolor = new Color(1f, 0f, 0f, 1f);
         summonerpositions = GameObject.FindGameObjectsWithTag("Summonerpos");
         transform.position = basesummonerposition.transform.position;
         currentpos = basesummonerposition;
         trailrenderer.enabled = false;
-        corrupted = false;
         finaltext.SetActive(false);
     }
 
-    private void Update()
+    public void shoot ()
+    {
+        soundmanagerscript.playsound("enemyshoot");
+       // Instantiate(projectile,projpos.position,Quaternion.identity).GetComponent<shurikenscript>().spawnedby =
+        //    gameObject.transform.GetChild(0).gameObject;
+    }
+
+    public void Update()
     {
         if (health <= 0f)
         {
@@ -170,13 +168,6 @@ public class Summonerscript : MonoBehaviour
         shooting = true;
     }
 
-    public void shoot()
-    {
-        soundmanagerscript.playsound("enemyshoot");
-        Instantiate(projectile, projpos.position, Quaternion.identity).GetComponent<shurikenscript>().spawnedby =
-            gameObject.transform.GetChild(0).gameObject;
-    }
-
     public void spawnhead()
     {
         Instantiate(floatinghead, projpos.position, Quaternion.identity);
@@ -239,7 +230,7 @@ public class Summonerscript : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision col)
+    public void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Kicked Enemy"))
         {

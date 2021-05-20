@@ -272,12 +272,6 @@ public class fodderenemyscript : MonoBehaviour
         slashing = false;
     }
 
-    public void shurikenthrow()
-    {
-        Instantiate(shuriken, shurikenspawnpos.position, Quaternion.identity).GetComponent<shurikenscript>().spawnedby =
-            gameObject.transform.GetChild(0).gameObject;
-    }
-
     private void OnDrawGizmosSelected()
     {
         if (shurikenspawnpos == null)

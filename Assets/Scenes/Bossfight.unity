@@ -9320,7 +9320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b01082f99f1be34083617fcb8c35cb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextlevel: tutorial
+  nextlevel: LevelSelect
 --- !u!114 &772
 MonoBehaviour:
   m_ObjectHideFlags: 0

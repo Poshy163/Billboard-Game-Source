@@ -40,9 +40,4 @@ public class fodderenemyanimationscript : MonoBehaviour
     {
         fodder.endslash();
     }
-
-    private void shurikenthrow()
-    {
-        fodder.shurikenthrow();
-    }
 }

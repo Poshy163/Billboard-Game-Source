@@ -14,15 +14,16 @@ public class Summoneranimationscript : MonoBehaviour
         summoner.shootstart();
     }
 
-    private void shoot()
-    {
-        summoner.shoot();
-    }
-
     private void spawnhead()
     {
         summoner.spawnhead();
     }
+
+    private void shoot ()
+    {
+        summoner.shoot();
+    }
+
 
     private void shootend()
     {

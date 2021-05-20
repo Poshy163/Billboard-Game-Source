@@ -68,7 +68,7 @@ public class gargoylescript : MonoBehaviour
         anim.SetBool("kickend", true);
         rb = GetComponent<Rigidbody>();
         Invoke("startat", 1f);
-        startattacking = false;
+        startattacking = true;
         lookatplayer = true;
         matcolor = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
         damagedcolor = new Color(Color.red.r, Color.red.g, Color.red.b, 1f);
@@ -140,21 +140,19 @@ public class gargoylescript : MonoBehaviour
         }
     }
 
-    private void resetcolor()
+    private void resetcolor ()
     {
         transform.GetChild(0).GetComponent<SpriteRenderer>().color = matcolor;
     }
-
-    private void startat()
+    private void startat ()
     {
         startattacking = true;
     }
-
-    public void shoot()
+    public void shoot ()
     {
         soundmanagerscript.playsound("enemyshoot");
-        Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<shurikenscript>().spawnedby =
-            gameObject.transform.GetChild(0).gameObject;
+        //Instantiate(bullet,transform.position,Quaternion.identity).GetComponent<shurikenscript>().spawnedby =
+            //gameObject.transform.GetChild(0).gameObject;
     }
 
     public void enemykickedback(float force)
