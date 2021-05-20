@@ -103,6 +103,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         gunanim = Gun.GetComponent<Animator>();
         kickanim = Kick.GetComponent<Animator>();
+        greencrosshair = GameObject.Find("green crosshair");
         damagedpanel = GameObject.FindGameObjectWithTag("Damaged panel");
         damagedpanel.SetActive(false);
         slowmoscreen.SetActive(false);
@@ -132,6 +133,12 @@ public class PlayerController : MonoBehaviour
         enemytodashto = null;
         health = 5;
         greencrosshair.SetActive(false);
+        hearts[0] = GameObject.Find($"Image");
+
+        for(var i = 1;i <= 4; i++)
+        {
+            hearts[i] = GameObject.Find($"Image ({i})");
+        }
     }
 
     private void Update()

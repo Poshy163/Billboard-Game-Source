@@ -55,10 +55,10 @@ public class gargoylescript : MonoBehaviour
 
     private void Start()
     {
-        rotationspeed = 0.7f;
-        rotationspeedslowmo = 0.09f;
+        rotationspeed = 1.6f;
+        rotationspeedslowmo = 0.15f;
         dir = ((Random.Range(0f, 1f) > 0.5f) ? 1 : -1);
-        speed = 3f;
+        speed = 7f;
         nextshoot = 1f;
         shootrate = 1.76f;
         nextalmostdeadcolor = 0f;
@@ -76,7 +76,7 @@ public class gargoylescript : MonoBehaviour
         health = 5f;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (health <= 0f)
         {

@@ -4,10 +4,7 @@ public class rotationscript : MonoBehaviour
 {
     private GameObject player;
 
-    private void Start()
-    { }
-
-    private void Update()
+    private void FixedUpdate()
     {
         transform.Rotate(new Vector3(0f, 0f, 18f), Space.Self);
     }

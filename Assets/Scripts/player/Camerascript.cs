@@ -16,6 +16,7 @@ public class Camerascript : MonoBehaviour
 
     private void Start()
     {
+        portal = GameObject.Find("portal");
         cam = GetComponent<Camera>();
         Cursor.visible = false;
         curtime = 1f;
