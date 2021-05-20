@@ -233,13 +233,6 @@ public class PlayerController : MonoBehaviour
                     enemytodashto.GetComponent<greentargetscript>().SetArrowstate();
                 }
             }
-            else
-            {
-                
-                enemytodashto.transform.parent.gameObject.GetComponent<fodderenemyscript>().enemykickedback(32400f);
-                enemytodashto.transform.parent.position = enemytodashto.transform.position;
-                enemytodashto.GetComponent<greentargetscript>().SetArrowstate();
-            }
 
             enemytodashto = null;
         }

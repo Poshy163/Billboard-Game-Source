@@ -1,17 +1,18 @@
 using UnityEngine;
 // ReSharper disable All
+//Formatted
 public class greentargetscript : MonoBehaviour
 {
     public GameObject greenarrow;
 
     [HideInInspector] public bool arrowstate;
 
-    private void Start()
+    public void Start()
     {
         arrowstate = false;
     }
 
-    private void Update()
+    public void Update()
     {
         greenarrow.SetActive(arrowstate);
     }

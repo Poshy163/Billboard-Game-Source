@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 // ReSharper disable All
+//Formatted
 public class MathParabola
 {
     public static Vector3 Parabola(Vector3 start, Vector3 end, float height, float t)

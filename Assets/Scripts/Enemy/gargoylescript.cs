@@ -2,18 +2,18 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
-#pragma warning disable 414
-
+//Formatted
 // ReSharper disable All
+#pragma warning disable 414
 public class gargoylescript : MonoBehaviour
 {
     private GameObject player;
 
     private Color matcolor;
 
-    private Color damagedcolor;
+    private Color damagedcolor = new Color(Color.red.r,Color.red.g,Color.red.b,1f);
 
-    private Color almostdeadcolor;
+    private Color almostdeadcolor = new Color(1f,0f,0f,1f);
 
     private Animator anim;
 
@@ -27,56 +27,43 @@ public class gargoylescript : MonoBehaviour
 
     public GameObject postorotatearound;
 
-    private bool lookatplayer;
+    private bool lookatplayer = true;
 
     public bool dontattack;
 
-    [HideInInspector] public bool kicked;
+    [HideInInspector] public bool kicked = false;
 
-    private float speed;
+    private float speed = 7f;
 
-    private float nextshoot;
+    private float nextshoot = 1f;
 
-    private float shootrate;
+    private float shootrate = 1.76f;
 
-    private float nextalmostdeadcolor;
+    private float nextalmostdeadcolor = 0f;
 
-    private float almostdeadcolorrate;
+    private float almostdeadcolorrate = 0.14f;
 
-    private bool startattacking;
+    private bool startattacking = true;
 
-    private float health;
+    private float health = 5f;
 
-    private float rotationspeed;
+    private float rotationspeed = 1.6f;
 
-    private float rotationspeedslowmo;
+    private float rotationspeedslowmo = 0.15f;
 
     private int dir;
 
-    private void Start()
+    public void Start()
     {
-        rotationspeed = 1.6f;
-        rotationspeedslowmo = 0.15f;
-        dir = ((Random.Range(0f, 1f) > 0.5f) ? 1 : -1);
-        speed = 7f;
-        nextshoot = 1f;
-        shootrate = 1.76f;
-        nextalmostdeadcolor = 0f;
-        almostdeadcolorrate = 0.14f;
-        kicked = false;
+        dir = ((Random.Range(0f,1f) > 0.5f) ? 1 : -1);
         anim = enemysprite.GetComponent<Animator>();
         anim.SetBool("kickend", true);
         rb = GetComponent<Rigidbody>();
         Invoke("startat", 1f);
-        startattacking = true;
-        lookatplayer = true;
         matcolor = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
-        damagedcolor = new Color(Color.red.r, Color.red.g, Color.red.b, 1f);
-        almostdeadcolor = new Color(1f, 0f, 0f, 1f);
-        health = 5f;
     }
 
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
         if (health <= 0f)
         {
@@ -130,7 +117,6 @@ public class gargoylescript : MonoBehaviour
             transform.RotateAround(postorotatearound.transform.position, Vector3.up, rotationspeedslowmo * dir);
         }
     }
-
     public void takendamage()
     {
         if (health > 1f)
@@ -139,12 +125,11 @@ public class gargoylescript : MonoBehaviour
             Invoke("resetcolor", 0.25f);
         }
     }
-
-    private void resetcolor ()
+    public void resetcolor ()
     {
         transform.GetChild(0).GetComponent<SpriteRenderer>().color = matcolor;
     }
-    private void startat ()
+    public void startat ()
     {
         startattacking = true;
     }
@@ -154,7 +139,6 @@ public class gargoylescript : MonoBehaviour
         //Instantiate(bullet,transform.position,Quaternion.identity).GetComponent<shurikenscript>().spawnedby =
             //gameObject.transform.GetChild(0).gameObject;
     }
-
     public void enemykickedback(float force)
     {
         Instantiate(kickparticles, transform.position, Quaternion.identity).transform.forward =
@@ -169,16 +153,14 @@ public class gargoylescript : MonoBehaviour
         rb.AddForce(transform.forward * -1f * force);
         gameObject.layer = LayerMask.NameToLayer("Kicked Enemy");
     }
-
-    private void endkick()
+    public void endkick()
     {
         rb.velocity = new Vector3(0f, 0f, 0f);
         kicked = false;
         anim.SetBool("kickend", true);
         gameObject.layer = LayerMask.NameToLayer("Enemy jumping");
     }
-
-    private void OnCollisionEnter(Collision col)
+    public void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Kicked Enemy"))
         {

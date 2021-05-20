@@ -26,10 +26,6 @@ public class kickscript : MonoBehaviour
                     collider.transform.parent.GetComponent<gargoylescript>().enemykickedback(20000f);
                 }
             }
-            else if (!collider.transform.parent.gameObject.GetComponent<fodderenemyscript>().kicked)
-            {
-                collider.transform.parent.gameObject.GetComponent<fodderenemyscript>().enemykickedback(29140f);
-            }
         }
     }
 
@@ -47,11 +43,6 @@ public class kickscript : MonoBehaviour
                 }
             }
         }
-        else if (kickedenemy.GetComponent<fodderenemyscript>().kicked)
-        {
-            result = true;
-        }
-
         return result;
     }
 }
