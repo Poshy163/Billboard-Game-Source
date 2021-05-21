@@ -11,6 +11,8 @@ public class Summonerscript : MonoBehaviour
 
     private Color transparentcolor;
 
+    private Color Unkillablecolor = new Color(1,0.9170542f,0.006289184f,1);
+
     private Color damagedcolor = new Color(Color.red.r,Color.red.g,Color.red.b,1f);
 
     private Color almostdeadcolor = new Color(1f,0f,0f,1f);
@@ -37,7 +39,7 @@ public class Summonerscript : MonoBehaviour
 
     private float shootrate = 1.63f;
 
-    private float health = 8f;
+    private float health = 30f;
 
     private float nextalmostdeadcolor = 0f;
 
@@ -183,6 +185,12 @@ public class Summonerscript : MonoBehaviour
         transform.GetChild(0).GetComponent<SpriteRenderer>().color = damagedcolor;
         Invoke("resetcolor", 0.098f);
     }
+
+    public void Unkillable()
+    {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().color = Unkillablecolor;
+    }
+    
 
     private void resetcolor()
     {

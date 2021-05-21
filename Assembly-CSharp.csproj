@@ -51,7 +51,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Spawners\castlepillarscript.cs" />
-     <Compile Include="Assets\Scripts\Spawners\Summoneranimationscript.cs" />
+     <Compile Include="Assets\Scripts\Enemy\Summoneranimationscript.cs" />
      <Compile Include="Assets\Scripts\player\kickscript.cs" />
      <Compile Include="Assets\Scripts\Other\soundmanagerscript.cs" />
      <Compile Include="Assets\Scripts\Enemy\greentargetscript.cs" />
@@ -70,7 +70,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\Scripts\player\arrowscript.cs" />
-     <Compile Include="Assets\Scripts\Spawners\Summonerscript.cs" />
+     <Compile Include="Assets\Scripts\Enemy\Summonerscript.cs" />
      <Compile Include="Assets\Scripts\player\PlayerController.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
@@ -78,7 +78,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
-     <Compile Include="Assets\Scripts\Spawners\summonerposscript.cs" />
+     <Compile Include="Assets\Scripts\Enemy\summonerposscript.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />

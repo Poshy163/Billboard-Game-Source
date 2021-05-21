@@ -3,13 +3,7 @@ using UnityEngine;
 public class summonerposscript : MonoBehaviour
 {
     public GameObject castlepiller;
-
-    private void Start()
-    { }
-
-    private void Update()
-    { }
-
+    
     public void corruptpillar()
     {
         foreach (Transform transform in castlepiller.transform)

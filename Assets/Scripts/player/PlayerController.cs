@@ -148,15 +148,16 @@ public class PlayerController : MonoBehaviour
             hearts[j].SetActive(false);
         }
 
-        if (health == 1)
+        if (health == 0)
         {
+            doslowmotion();
             DText.SetActive(true);
             Gun.SetActive(false);
             damagedpanel.SetActive(true);
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && Application.platform != RuntimePlatform.WebGLPlayer)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
@@ -223,7 +224,6 @@ public class PlayerController : MonoBehaviour
                     enemytodashto.GetComponent<greentargetscript>().SetArrowstate();
                 }
             }
-
             enemytodashto = null;
         }
         else
@@ -443,6 +443,7 @@ public class PlayerController : MonoBehaviour
 
     public void dodge()
     {
+        health--;
         rb.useGravity = false;
         transform.localScale -= new Vector3(0f, 0.1f, 0f);
         dashscreen.SetActive(true);
