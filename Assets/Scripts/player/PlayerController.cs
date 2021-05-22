@@ -1,5 +1,3 @@
-using System;
-using TMPro;
 using UnityEngine;
 // ReSharper disable All
 #pragma warning disable 414
@@ -17,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 origscale;
 
-    private GameObject damagedpanel;
+    public GameObject damagedpanel;
 
     public LayerMask whatcanbekicked;
 
@@ -108,8 +106,8 @@ public class PlayerController : MonoBehaviour
         gunanim = Gun.GetComponent<Animator>();
         kickanim = Kick.GetComponent<Animator>();
         greencrosshair = GameObject.Find("green crosshair");
-        damagedpanel = GameObject.FindGameObjectWithTag("Damaged panel");
-        damagedpanel.SetActive(false);
+        try { damagedpanel = GameObject.FindGameObjectWithTag("Damaged panel");
+        damagedpanel.SetActive(false);}catch { }
         slowmoscreen.SetActive(false);
         gunanim.SetBool("moving", false);
         gunanim.SetBool("kicking", false);
@@ -136,8 +134,8 @@ public class PlayerController : MonoBehaviour
         horizontal = horizontalaxis();
         vertical = verticalaxis();
         moveinput = new Vector3(horizontal, 0f, vertical).normalized;
-        movehorizontal = transform.right * moveinput.x;
-        moveVertical = transform.forward * moveinput.z;
+        movehorizontal = transform.right * moveinput.x * Time.deltaTime * 100;
+        moveVertical = transform.forward * moveinput.z * Time.deltaTime * 100;
         for (var i = 0; i < health; i++)
         {
             hearts[i].SetActive(true);
@@ -263,7 +261,7 @@ public class PlayerController : MonoBehaviour
                 shortclick = false;
             }
 
-            if (shortclick && !longclick && !shooting && !Kick.activeSelf && !dodging)
+            if (shortclick && !shooting && !Kick.activeSelf && !dodging)
             {
                 if (enemytodashto == null)
                 {
@@ -310,8 +308,8 @@ public class PlayerController : MonoBehaviour
                 rb.AddForce(transform.up * 1300f);
             }
 
-            mouseinput = new Vector3(Input.GetAxisRaw("Mouse Y"), -1f * Input.GetAxisRaw("Mouse X"), 0f) *
-                         mousesensitivity;
+            //change to delta time if wanting to slow the camera with time
+            mouseinput = new Vector3(Input.GetAxisRaw("Mouse Y") * Time.fixedUnscaledDeltaTime * 30, -1f * Input.GetAxisRaw("Mouse X") * Time.fixedUnscaledDeltaTime * 30, 0f) * mousesensitivity;
             var angle = viewcam.transform.rotation.eulerAngles.x - mouseinput.x;
             viewcam.transform.rotation = Quaternion.Euler(Clampangle(angle, minangleofrotation, maxangleofrotation),
                 viewcam.transform.rotation.eulerAngles.y, viewcam.transform.rotation.eulerAngles.z);

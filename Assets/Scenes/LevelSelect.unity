@@ -1020,7 +1020,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &103
 GameObject:
   m_ObjectHideFlags: 0
@@ -7491,6 +7491,11 @@ PrefabInstance:
       propertyPath: greencrosshair
       value: 
       objectReference: {fileID: 108}
+    - target: {fileID: 1711793678033795207, guid: b2a3952796ed0ce4d8f792a51d864e62,
+        type: 3}
+      propertyPath: damagedpanel
+      value: 
+      objectReference: {fileID: 102}
     - target: {fileID: 1711793678033795691, guid: b2a3952796ed0ce4d8f792a51d864e62,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7550,6 +7555,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1711793678033795939, guid: b2a3952796ed0ce4d8f792a51d864e62,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2a3952796ed0ce4d8f792a51d864e62, type: 3}
