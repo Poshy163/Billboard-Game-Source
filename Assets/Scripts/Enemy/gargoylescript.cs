@@ -73,6 +73,7 @@ public class gargoylescript : MonoBehaviour
             }
 
             Instantiate(kickparticles, transform.position, Quaternion.identity).transform.forward = transform.forward;
+            PlayerController.SlowTimer.value += 5;
             Destroy(gameObject, 0f);
         }
 

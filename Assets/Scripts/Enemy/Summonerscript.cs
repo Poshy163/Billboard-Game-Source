@@ -96,11 +96,10 @@ public class Summonerscript : MonoBehaviour
                 var gameObject = array[i];
                 if (!(gameObject.name == "gargoyle sprite"))
                 {
-                    
                     gameObject.GetComponent<gargoylescript>().enemykickedback(5f);
                 }
             }
-
+            PlayerController.SlowTimer.value += 5;
             Destroy(this.gameObject, 0f);
         }
 

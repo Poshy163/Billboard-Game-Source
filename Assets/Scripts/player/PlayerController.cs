@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+
 // ReSharper disable All
 #pragma warning disable 414
 public class PlayerController : MonoBehaviour
@@ -10,6 +12,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 mouseinput;
 
     private Animator gunanim;
+
+    public static Slider SlowTimer;
 
     private Animator kickanim;
 
@@ -101,6 +105,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        SlowTimer = GameObject.Find("TimeSlider").GetComponent<Slider>();
         health = 5;
         rb = GetComponent<Rigidbody>();
         gunanim = Gun.GetComponent<Animator>();
@@ -161,7 +166,7 @@ public class PlayerController : MonoBehaviour
         }
 
         slowmoscreen.SetActive(inslowmo);
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(1) && SlowTimer.value > 0.5f)
         {
             charging = false;
             dodging = false;
@@ -169,13 +174,43 @@ public class PlayerController : MonoBehaviour
             dodgerate -= 3f;
         }
 
+        if (SlowTimer.value < 0.25f)
+        {
+            SlowTimer.value = 0.30f;
+            charging = false;
+            dodging = false;
+            inslowmo = !inslowmo;
+            dodgerate -= 3f;
+        }
+        else if (SlowTimer.value >= 100)
+        {
+            SlowTimer.gameObject.SetActive(false);
+        }
+        else
+        {
+            SlowTimer.gameObject.SetActive(true);
+        }
+        
+
         if (!inslowmo)
         {
             resettimescale();
+            RegenSlider();
         }
         else if (inslowmo)
         {
             doslowmotion();
+            DrainSlowMo();
+        }
+
+        void DrainSlowMo()
+        {
+            SlowTimer.value -= (float) (Time.deltaTime * 400f);
+        }
+        
+        void RegenSlider()
+        {
+            SlowTimer.value += (float) (Time.deltaTime * 25f);
         }
 
         if (charging && enemytodashto != null)
@@ -309,7 +344,7 @@ public class PlayerController : MonoBehaviour
             }
 
             //change to delta time if wanting to slow the camera with time
-            mouseinput = new Vector3(Input.GetAxisRaw("Mouse Y") * Time.fixedUnscaledDeltaTime * 30, -1f * Input.GetAxisRaw("Mouse X") * Time.fixedUnscaledDeltaTime * 30, 0f) * mousesensitivity;
+            mouseinput = new Vector3(Input.GetAxisRaw("Mouse Y"), -1f * Input.GetAxisRaw("Mouse X"), 0f) * mousesensitivity;
             var angle = viewcam.transform.rotation.eulerAngles.x - mouseinput.x;
             viewcam.transform.rotation = Quaternion.Euler(Clampangle(angle, minangleofrotation, maxangleofrotation),
                 viewcam.transform.rotation.eulerAngles.y, viewcam.transform.rotation.eulerAngles.z);
