@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
         }
 
         slowmoscreen.SetActive(inslowmo);
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(1) && SlowTimer.value > 0.5f)
+        if (Input.GetMouseButtonDown(1) && SlowTimer.value > 0.5f)
         {
             charging = false;
             dodging = false;

@@ -40,7 +40,7 @@ public class soundmanagerscript : MonoBehaviour
 
         if (name == "enemyshoot")
         {
-            source.PlayOneShot(enemyshoot);
+            source.PlayOneShot(enemyshoot, 0.1f);
             return;
         }
 
