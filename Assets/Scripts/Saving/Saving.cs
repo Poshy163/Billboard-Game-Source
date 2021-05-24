@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
 using System.Text;
 using UnityEngine;
 using MongoDB.Bson;
@@ -7,7 +6,7 @@ using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using Newtonsoft.Json;
-
+// ReSharper disable PossibleNullReferenceException
 #pragma warning disable 618
 
 namespace Saving
@@ -16,6 +15,7 @@ namespace Saving
     {
         private void CheckLevelTime(double time)
         {
+            
         }
 
         public static void GetData(string name)
@@ -25,8 +25,8 @@ namespace Saving
             var database = client.GetDatabase("Time");
             var collection = database.GetCollection<BsonDocument>("TestCollection");
             var documents = collection.Find(filter).ToList();
-            dynamic jsonFile = Newtonsoft.Json.JsonConvert.DeserializeObject(ToJson(documents.ToBsonDocument()));
-
+            //TODO maybe fix this, it will somehow break and i wont know hwy
+            dynamic jsonFile = Newtonsoft.Json.JsonConvert.DeserializeObject(ToJson(documents[0]));
             Debug.Log(jsonFile["Time"] + "");
         }
 
