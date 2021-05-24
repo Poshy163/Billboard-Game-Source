@@ -1,18 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Newtonsoft.Json;
 
-public class Saving : MonoBehaviour
+namespace Saving
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Saving : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

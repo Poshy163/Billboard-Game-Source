@@ -27,9 +27,6 @@ public class soundmanagerscript : MonoBehaviour
         dodge = Resources.Load<AudioClip>("dodge");
     }
 
-    private void Update()
-    { }
-
     public static void playsound(string name)
     {
         if (name == "arrowshoot")

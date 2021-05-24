@@ -6,132 +6,57 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
-
     private Vector3 moveinput;
-
     private Vector3 mouseinput;
-
     private Animator gunanim;
-
     public static Slider SlowTimer;
-
     private Animator kickanim;
-
     private Vector3 origscale;
-
     public GameObject damagedpanel;
-
     public LayerMask whatcanbekicked;
-
     public float movespeed;
-
     public float dodgespeed;
-
     public float chargespeed;
-
     public float mousesensitivity;
-
     public float kickrange;
-
     public Camera viewcam;
-
     public GameObject Gun;
-
     public GameObject arrow;
-
     public GameObject grapplearrow;
-
     public GameObject Kick;
-
     public GameObject vaultkick;
-
     public GameObject dashscreen;
-
     public GameObject slowmoscreen;
-
     public Transform arrowspawnpos;
-
     [HideInInspector] public Vector3 movehorizontal;
-
     [HideInInspector] public Vector3 moveVertical;
-
     [HideInInspector] public bool shooting = false;
-
     [HideInInspector] public GameObject enemytodashto = null;
-
     private float horizontal;
-
     private float vertical;
-
     private GameObject DText;
-    
     private float nextkick = 0f;
-
     private float kickrate= 0.34f;
-
     private float nextdodge= 0f;
-
     private float dodgerate = 0.306f;
-
     private bool dodging = false;
-
     private bool grounded = true;
-
     private bool charging = false;
-
     private bool longclick = false;
-
     private bool shortclick = false;
-
     private float mouseclickstart = 0f;
-
     public float slowdownfactor = 0.05f;
-
     public float slowdownlength = 2f;
-
     private bool inslowmo = false;
-
     [HideInInspector] public int health;
-
     public float minangleofrotation;
-
     public float maxangleofrotation;
-
     public GameObject greencrosshair;
-
     public GameObject[] hearts;
 
 
-
-    private void Start()
-    {
-        SlowTimer = GameObject.Find("TimeSlider").GetComponent<Slider>();
-        health = 5;
-        rb = GetComponent<Rigidbody>();
-        gunanim = Gun.GetComponent<Animator>();
-        kickanim = Kick.GetComponent<Animator>();
-        greencrosshair = GameObject.Find("green crosshair");
-        try { damagedpanel = GameObject.FindGameObjectWithTag("Damaged panel");
-        damagedpanel.SetActive(false);}catch { }
-        slowmoscreen.SetActive(false);
-        gunanim.SetBool("moving", false);
-        gunanim.SetBool("kicking", false);
-        gunanim.SetBool("charge", false);
-        DText = GameObject.Find("DText");
-        DText.SetActive(false);
-        kickstate(false, false);
-        dashscreen.SetActive(false);
-        slowmoscreen.SetActive(false);
-        origscale = gameObject.transform.localScale;
-        Cursor.lockState = CursorLockMode.Locked;
-        rb.useGravity = true;
-        greencrosshair.SetActive(false);
-        hearts[0] = GameObject.Find($"Image");
-        for(var i = 1;i <= 4; i++)
-        {
-            hearts[i] = GameObject.Find($"Image ({i})");
-        }
-
+    private void Start() {
+        AssignVar();
     }
 
     private void Update()
@@ -141,6 +66,12 @@ public class PlayerController : MonoBehaviour
         moveinput = new Vector3(horizontal, 0f, vertical).normalized;
         movehorizontal = transform.right * moveinput.x * Time.deltaTime * 100;
         moveVertical = transform.forward * moveinput.z * Time.deltaTime * 100;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
+        #region Health
         for (var i = 0; i < health; i++)
         {
             hearts[i].SetActive(true);
@@ -159,12 +90,9 @@ public class PlayerController : MonoBehaviour
             damagedpanel.SetActive(true);
             return;
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-
+        #endregion
+        
+        #region slow mode 
         slowmoscreen.SetActive(inslowmo);
         if (Input.GetMouseButtonDown(1) && SlowTimer.value > 0.5f)
         {
@@ -190,8 +118,8 @@ public class PlayerController : MonoBehaviour
         {
             SlowTimer.gameObject.SetActive(true);
         }
-        
 
+        
         if (!inslowmo)
         {
             resettimescale();
@@ -212,7 +140,9 @@ public class PlayerController : MonoBehaviour
         {
             SlowTimer.value += (float) (Time.deltaTime * 25f);
         }
+        #endregion
 
+        #region dashing
         if (charging && enemytodashto != null)
         {
             if (Vector3.Distance(transform.position, enemytodashto.transform.position) > 1.06f)
@@ -358,8 +288,10 @@ public class PlayerController : MonoBehaviour
 
             greencrosshair.SetActive(true);
         }
+        #endregion
     }
 
+    #region Movement
     private int verticalaxis()
     {
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Z))
@@ -430,7 +362,9 @@ public class PlayerController : MonoBehaviour
 
         return angle;
     }
+    #endregion
 
+    #region Move and Shoot
     public void kickstate(bool state, bool vault)
     {
         if (vault)
@@ -468,12 +402,27 @@ public class PlayerController : MonoBehaviour
         viewcam.GetComponent<Camerascript>().camershake(60.34f);
         shooting = true;
     }
+    public void Shootarrow()
+    {
+        Instantiate(arrow, arrowspawnpos.position, Quaternion.identity).transform.forward = viewcam.transform.forward;
+    }
+
+    public void Shootgrapplearrow()
+    {
+        soundmanagerscript.playsound("arrowshoot");
+        Instantiate(grapplearrow, arrowspawnpos.position, Quaternion.identity).transform.forward =
+            viewcam.transform.forward;
+    }
+
 
     public void shootend()
     {
         shooting = false;
     }
 
+    #endregion
+
+    #region Dodge
     public void dodge()
     {
         health--;
@@ -504,19 +453,10 @@ public class PlayerController : MonoBehaviour
         viewcam.fieldOfView = 60f;
         dodging = false;
     }
+    
+    #endregion
 
-    public void Shootarrow()
-    {
-        Instantiate(arrow, arrowspawnpos.position, Quaternion.identity).transform.forward = viewcam.transform.forward;
-    }
-
-    public void Shootgrapplearrow()
-    {
-        soundmanagerscript.playsound("arrowshoot");
-        Instantiate(grapplearrow, arrowspawnpos.position, Quaternion.identity).transform.forward =
-            viewcam.transform.forward;
-    }
-
+    #region Kicking
     public void kickdamage()
     {
         var array = Physics.OverlapSphere(arrowspawnpos.position, kickrange, whatcanbekicked);
@@ -532,22 +472,9 @@ public class PlayerController : MonoBehaviour
         damagedpanel.SetActive(true);
         Invoke("resetpanel", 0.089f);
     }
+    #endregion
 
-    private void resetpanel()
-    {
-        damagedpanel.SetActive(false);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (arrowspawnpos == null)
-        {
-            return;
-        }
-
-        Gizmos.DrawWireSphere(arrowspawnpos.position, kickrange);
-    }
-
+    #region SlowMode Functions
     private void doslowmotion()
     {
         enddodge();
@@ -566,7 +493,55 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;
     }
+    #endregion
 
+    #region Other
+    void AssignVar()
+    {
+        SlowTimer = GameObject.Find("TimeSlider").GetComponent<Slider>();
+        health = 5;
+        rb = GetComponent<Rigidbody>();
+        gunanim = Gun.GetComponent<Animator>();
+        kickanim = Kick.GetComponent<Animator>();
+        greencrosshair = GameObject.Find("green crosshair");
+        try { damagedpanel = GameObject.FindGameObjectWithTag("Damaged panel");
+            damagedpanel.SetActive(false);}catch { }
+        slowmoscreen.SetActive(false);
+        gunanim.SetBool("moving", false);
+        gunanim.SetBool("kicking", false);
+        gunanim.SetBool("charge", false);
+        DText = GameObject.Find("DText");
+        DText.SetActive(false);
+        kickstate(false, false);
+        dashscreen.SetActive(false);
+        slowmoscreen.SetActive(false);
+        origscale = gameObject.transform.localScale;
+        Cursor.lockState = CursorLockMode.Locked;
+        rb.useGravity = true;
+        greencrosshair.SetActive(false);
+        hearts[0] = GameObject.Find($"Image");
+        for(var i = 1;i <= 4; i++)
+        {
+            hearts[i] = GameObject.Find($"Image ({i})");
+        }
+
+    }
+    
+
+    private void resetpanel()
+    {
+        damagedpanel.SetActive(false);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (arrowspawnpos == null)
+        {
+            return;
+        }
+
+        Gizmos.DrawWireSphere(arrowspawnpos.position, kickrange);
+    }
     private void OnCollisionStay(Collision col)
     {
         grounded = true;
@@ -593,4 +568,5 @@ public class PlayerController : MonoBehaviour
             health = 1;
         }
     }
+    #endregion
 }
