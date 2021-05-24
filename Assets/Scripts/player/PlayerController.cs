@@ -55,7 +55,9 @@ public class PlayerController : MonoBehaviour
     public GameObject[] hearts;
 
 
-    private void Start() {
+    private void Start()
+    {
+        Saving.Saving.GetData("Joshua");
         AssignVar();
     }
 
