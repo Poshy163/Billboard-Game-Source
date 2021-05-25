@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
     public float maxangleofrotation;
     public GameObject greencrosshair;
     public GameObject[] hearts;
+    public static GameObject Endlv;
 
 
     private void Start()
@@ -498,6 +499,8 @@ public class PlayerController : MonoBehaviour
     #region Other
     void AssignVar()
     {
+        Endlv = GameObject.Find("Endlv");
+        Endlv.SetActive(false);
         SlowTimer = GameObject.Find("TimeSlider").GetComponent<Slider>();
         health = 5;
         rb = GetComponent<Rigidbody>();

@@ -1,6 +1,6 @@
 using Other;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using System.Collections;
 // ReSharper disable All
 public class portalscript : MonoBehaviour
 {
@@ -10,11 +10,20 @@ public class portalscript : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             try
-            { 
-                GameObject.Find("EventSystem").GetComponent<Timer>().AddScore(transform.GetChild(0).name, nextlevel);
+            {
+                StartCoroutine(LoadScene());
             } 
             catch { }
            
         }
+    }
+
+
+    public IEnumerator LoadScene()
+    {
+        yield return new WaitForSeconds(0.01f);
+        PlayerController.Endlv.SetActive(true);
+        yield return new WaitForSeconds(0.05f);
+        GameObject.Find("EventSystem").GetComponent<Timer>().AddScore(transform.GetChild(0).name.ToString(), nextlevel);
     }
 }

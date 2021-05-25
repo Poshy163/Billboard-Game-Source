@@ -6,7 +6,6 @@ using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using Newtonsoft.Json;
-using System.Threading.Tasks;
 // ReSharper disable PossibleNullReferenceException
 #pragma warning disable 618
 
@@ -15,11 +14,11 @@ namespace Saving
     public class Saving : MonoBehaviour
     {
         public static void CheckLevelTime(string name, double time, short level)
-        {
+        {    
             if(double.Parse(GetData(name,time,level)) > time)
             {
-              DeleteDatabaseEntry(name,time,1);
-              SendToDatabase(name,time,1);
+              DeleteDatabaseEntry(name,time,level);
+              SendToDatabase(name,time,level);
             }
         }
 
@@ -37,12 +36,12 @@ namespace Saving
         }
         public static string GetData(string name, double time, short level = 0)
         {
-            var filter = new BsonDocument { { "Name", name } };
-            var client = new MongoClient("mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
-            var database = client.GetDatabase("Time");
-            var collection = database.GetCollection<BsonDocument>($"Level {level}");
             try
             {
+                var filter = new BsonDocument { { "Name", name } };
+                var client = new MongoClient("mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
+                var database = client.GetDatabase("Time");
+                var collection = database.GetCollection<BsonDocument>($"Level {level}");
                 var documents = collection.Find(filter).ToList();
                 //TODO maybe fix this, it will somehow break and i wont know why
                 dynamic jsonFile = Newtonsoft.Json.JsonConvert.DeserializeObject(ToJson(documents[0]));
@@ -58,7 +57,6 @@ namespace Saving
         }
         public static void SendToDatabase(string name, double time , short level = 0)
         {
-            Debug.Log("SENT");
             var client = new MongoClient("mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
             var database = client.GetDatabase("Time");
             var collection = database.GetCollection<BsonDocument>($"Level {level}");
