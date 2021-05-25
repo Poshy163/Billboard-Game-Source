@@ -65,8 +65,8 @@ public class PlayerController : MonoBehaviour
         horizontal = horizontalaxis();
         vertical = verticalaxis();
         moveinput = new Vector3(horizontal, 0f, vertical).normalized;
-        movehorizontal = transform.right * moveinput.x * Time.deltaTime * 100;
-        moveVertical = transform.forward * moveinput.z * Time.deltaTime * 100;
+        movehorizontal = transform.right * moveinput.x * Time.deltaTime * 250;
+        moveVertical = transform.forward * moveinput.z * Time.deltaTime * 250;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();

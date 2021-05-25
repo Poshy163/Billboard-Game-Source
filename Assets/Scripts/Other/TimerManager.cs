@@ -12,7 +12,6 @@ namespace Other
 {
     public class TimerManager : MonoBehaviour
     {
-        private static float[] _timeList = new float[100];
         public static bool gamePlaying = true;
         private Text _timertxt;
 
