@@ -6,6 +6,7 @@ using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 // ReSharper disable PossibleNullReferenceException
 #pragma warning disable 618
 
@@ -13,44 +14,61 @@ namespace Saving
 {
     public class Saving : MonoBehaviour
     {
-        private void CheckLevelTime(double time)
+        public static void CheckLevelTime(string name, double time, short level)
         {
-            if (GetData("Joshua") < time)
+            if(double.Parse(GetData(name,time,level)) > time)
             {
-                Debug.Log("Added time");
-                //Add time 
+              DeleteDatabaseEntry(name,time,1);
+              SendToDatabase(name,time,1);
             }
-                
-                
         }
-        //For the checking of time
-        public static double GetData(string name, short level = 0)
+
+
+        public static void DeleteDatabaseEntry(string name,double time,short level )
+        {
+            var filter = new BsonDocument { { "Name",name } };
+            var client = new MongoClient("mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
+            var database = client.GetDatabase("Time");
+            var collection = database.GetCollection<BsonDocument>($"Level {level}");
+
+             var documents = collection.Find(filter).ToList();
+             collection.DeleteMany(documents[0]);
+          
+        }
+        public static string GetData(string name, double time, short level = 0)
         {
             var filter = new BsonDocument { { "Name", name } };
             var client = new MongoClient("mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
             var database = client.GetDatabase("Time");
-            var collection = database.GetCollection<BsonDocument>(level == 0 ?
-                $"Level {level}" : "TestCollection");
-            var documents = collection.Find(filter).ToList();
-            
-            //TODO maybe fix this, it will somehow break and i wont know why
-            dynamic jsonFile = Newtonsoft.Json.JsonConvert.DeserializeObject(ToJson(documents[0]));
-            return jsonFile["Time"];
+            var collection = database.GetCollection<BsonDocument>($"Level {level}");
+            try
+            {
+                var documents = collection.Find(filter).ToList();
+                //TODO maybe fix this, it will somehow break and i wont know why
+                dynamic jsonFile = Newtonsoft.Json.JsonConvert.DeserializeObject(ToJson(documents[0]));
+                return jsonFile["Time"];
+            }
+            catch 
+            {
+                SendToDatabase(name,time,level);
+                return "";
+            }
+            //TODO fix this its so bad and wont work plz plz plz plz plz 
+
         }
         public static void SendToDatabase(string name, double time , short level = 0)
         {
+            Debug.Log("SENT");
             var client = new MongoClient("mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
             var database = client.GetDatabase("Time");
-            var collection = database.GetCollection<BsonDocument>(level == 0 ?
-                $"Level {level}" : "TestCollection");
-            
+            var collection = database.GetCollection<BsonDocument>($"Level {level}");
+
             var document = new BsonDocument
             {
                 {"Name" , name},
                 {"Time", time}
             };
             collection.InsertOne(document);
-            GetData(name);
         }
         private static string ToJson(BsonDocument bson)
         {

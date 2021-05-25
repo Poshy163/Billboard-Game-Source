@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -26,9 +27,10 @@ namespace Other
             _timertxt.text = $"{Math.Round(_timer,2)}";
         }
 
-        public void AddScore(string name)
+        public void AddScore ( string name,string nextlevel)
         {
-            TimerManager.OnLevelComplete(int.Parse(name),_timer);
+             Saving.Saving.CheckLevelTime(GlobalVar.Name,_timer,short.Parse(name));
+             SceneManager.LoadScene(nextlevel,LoadSceneMode.Single);
         }
     }
 }

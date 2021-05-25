@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-
 // ReSharper disable All
 #pragma warning disable 414
 public class PlayerController : MonoBehaviour
@@ -57,7 +56,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        Saving.Saving.GetData("Joshua");
         AssignVar();
     }
 

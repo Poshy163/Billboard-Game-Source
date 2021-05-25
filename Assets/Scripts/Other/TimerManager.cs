@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 // ReSharper disable All
 
@@ -18,18 +20,6 @@ namespace Other
         private void Start()
         {
             DontDestroyOnLoad(gameObject);
-        }
-
-        public static void OnLevelComplete(int level, float time)
-        {
-            if(_timeList[level] == 0)
-            {
-                _timeList[level] = time;
-            }
-            else if (_timeList.ElementAt(level) < time)
-            {
-                _timeList[level] = time;
-            }
         }
     }
 }
