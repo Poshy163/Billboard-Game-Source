@@ -27,9 +27,9 @@ namespace Other
             _timertxt.text = $"{Math.Round(_timer,2)}";
         }
 
-        public void AddScore ( string name,string nextlevel)
+        public void AddScore (short lvname,string nextlevel)
         {
-             Saving.Saving.CheckLevelTime(GlobalVar.Name,_timer,short.Parse(name));
+             Saving.Saving.CheckLevelTime(GlobalVar.Name,_timer,lvname);
              SceneManager.LoadScene(nextlevel,LoadSceneMode.Single);
         }
     }

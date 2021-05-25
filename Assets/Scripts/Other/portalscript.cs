@@ -1,6 +1,7 @@
 using Other;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 // ReSharper disable All
 public class portalscript : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class portalscript : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         PlayerController.Endlv.SetActive(true);
         yield return new WaitForSeconds(0.05f);
-        GameObject.Find("EventSystem").GetComponent<Timer>().AddScore(transform.GetChild(0).name.ToString(), nextlevel);
+        try
+        {
+            GameObject.Find("EventSystem").GetComponent<Timer>().AddScore(short.Parse(transform.GetChild(0).name.ToString()),nextlevel);
+        }
+        catch { SceneManager.LoadScene(nextlevel,LoadSceneMode.Single); }
     }
 }
