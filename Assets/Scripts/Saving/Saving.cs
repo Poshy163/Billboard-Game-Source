@@ -18,28 +18,31 @@ namespace Saving
             
         }
 
-        public static void GetData(string name)
+        public static void GetData(string name, short level = 0)
         {
             var filter = new BsonDocument { { "Name", name } };
             var client = new MongoClient("mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
             var database = client.GetDatabase("Time");
-            var collection = database.GetCollection<BsonDocument>("TestCollection");
+            var collection = database.GetCollection<BsonDocument>(level == 0 ?
+                $"Level {level}" : "TestCollection");
             var documents = collection.Find(filter).ToList();
-            //TODO maybe fix this, it will somehow break and i wont know hwy
+            
+            //TODO maybe fix this, it will somehow break and i wont know why
             dynamic jsonFile = Newtonsoft.Json.JsonConvert.DeserializeObject(ToJson(documents[0]));
             Debug.Log(jsonFile["Time"] + "");
         }
 
-        public static void SendToDatabase(string name, double time)
+        public static void SendToDatabase(string name, double time , short level = 0)
         {
             var client = new MongoClient("mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
             var database = client.GetDatabase("Time");
-            var collection = database.GetCollection<BsonDocument>("TestCollection");
-
+            var collection = database.GetCollection<BsonDocument>(level == 0 ?
+                $"Level {level}" : "TestCollection");
+            
             var document = new BsonDocument
             {
                 {"Name" , name},
-                {"Time", time},
+                {"Time", time}
             };
             collection.InsertOne(document);
             GetData(name);
