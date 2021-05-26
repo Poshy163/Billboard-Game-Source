@@ -18,7 +18,6 @@ namespace Saving
         public static void CheckLevelTime(string name, double time, short level)
         {
             if (!(double.Parse(GetData(name, time, level)) > time)) return;
-            Debug.Log("New best time");
             DeleteDatabaseEntry(name,time,level);
             SendToDatabase(name,time,level);
         }
@@ -58,17 +57,6 @@ namespace Saving
                 collection.InsertOne(document);
                 return true;
             }
-        }
-        private static string Sha256Hash(string rawData)
-        {
-            var sha256Hash = SHA256.Create();
-            var bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-            var builder = new StringBuilder();  
-            foreach (var t in bytes)
-            {
-                builder.Append(t.ToString("x2"));
-            }  
-            return builder.ToString();
         }
         private static void DeleteDatabaseEntry(string name,double time,short level )
         {
@@ -131,6 +119,17 @@ namespace Saving
                 jWriter.WriteToken(reader);
             }
             return sb.ToString();
+        }
+        private static string Sha256Hash(string rawData)
+        {
+            var sha256Hash = SHA256.Create();
+            var bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+            var builder = new StringBuilder();  
+            foreach (var t in bytes)
+            {
+                builder.Append(t.ToString("x2"));
+            }  
+            return builder.ToString();
         }
     }
 }
