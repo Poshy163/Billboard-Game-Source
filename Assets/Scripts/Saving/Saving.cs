@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
@@ -22,8 +21,6 @@ namespace Saving
             DeleteDatabaseEntry(name,time,level);
             SendToDatabase(name,time,level);
         }
-
-
         public static bool Login(string name, string password)
         {
             var filter = new BsonDocument { { "Name", name } };
@@ -34,7 +31,6 @@ namespace Saving
             dynamic jsonFile = Newtonsoft.Json.JsonConvert.DeserializeObject(ToJson(documents[0]));
             return jsonFile["Password"] == Sha256Hash(password);
         }
-
         public static bool SignUp(string name, string password)
         {
             try
@@ -62,22 +58,17 @@ namespace Saving
                 return true;
             }
         }
-        static string Sha256Hash(string rawData) 
+        private static string Sha256Hash(string rawData)
         {
-            using (var sha256Hash = SHA256.Create())  
+            var sha256Hash = SHA256.Create();
+            var bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+            var builder = new StringBuilder();  
+            foreach (var t in bytes)
             {
-                var bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-                var builder = new StringBuilder();  
-                foreach (var t in bytes)
-                {
-                    builder.Append(t.ToString("x2"));
-                }  
-                return builder.ToString();  
+                builder.Append(t.ToString("x2"));
             }  
-        }  
-        
-
-
+            return builder.ToString();
+        }
         private static void DeleteDatabaseEntry(string name,double time,short level )
         {
             var filter = new BsonDocument { { "Name",name } };

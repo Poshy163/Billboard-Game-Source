@@ -62,11 +62,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 0;
         horizontal = horizontalaxis();
         vertical = verticalaxis();
         moveinput = new Vector3(horizontal, 0f, vertical).normalized;
-        movehorizontal = transform.right * moveinput.x * Time.deltaTime * 250;
-        moveVertical = transform.forward * moveinput.z * Time.deltaTime * 250;
+        movehorizontal = transform.right * moveinput.x;
+        moveVertical = transform.forward * moveinput.z;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
