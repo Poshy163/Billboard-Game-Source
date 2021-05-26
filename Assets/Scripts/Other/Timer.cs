@@ -11,9 +11,14 @@ namespace Other
         private float _timer = 0;
         private Text _timertxt;
         private static double[] _timeList = new double[100];
-        void Start()
+        void Awake()
         {
             _timertxt = GameObject.Find("Timer").GetComponent<Text>();
+        }
+
+        private void Start()
+        {
+            _timertxt.gameObject.SetActive(true);
         }
 
         private void Update()

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static Saving.Saving;
 // ReSharper disable All
 #pragma warning disable 414
 public class PlayerController : MonoBehaviour
@@ -57,13 +58,12 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        GameObject.Find("Timer").SetActive(false);
         AssignVar();
     }
 
     private void Update()
     {
-        Application.targetFrameRate = 60;
-        QualitySettings.vSyncCount = 0;
         horizontal = horizontalaxis();
         vertical = verticalaxis();
         moveinput = new Vector3(horizontal, 0f, vertical).normalized;
@@ -428,7 +428,6 @@ public class PlayerController : MonoBehaviour
     #region Dodge
     public void dodge()
     {
-        health--;
         rb.useGravity = false;
         transform.localScale -= new Vector3(0f, 0.1f, 0f);
         dashscreen.SetActive(true);

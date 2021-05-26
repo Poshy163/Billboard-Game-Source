@@ -18,6 +18,7 @@ namespace Saving
         public static void CheckLevelTime(string name, double time, short level)
         {
             if (!(double.Parse(GetData(name, time, level)) > time)) return;
+            Debug.Log("New best time");
             DeleteDatabaseEntry(name,time,level);
             SendToDatabase(name,time,level);
         }
