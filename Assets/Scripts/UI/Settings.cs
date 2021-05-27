@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System.Net;
+using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -53,21 +55,82 @@ public class Settings:MonoBehaviour
 
     public void Awake()
     {
-        if(!Application.isEditor)
+        //if(!Application.isEditor)
             CheckVersionNumber();
     }
 
     void CheckVersionNumber()
     {
+        string path = @"C:\Users\s210262\Desktop\TempBulid";
+        DirectoryInfo di;
         //TODO add version checking here
-        bool Install = false;
+        bool Install = true;
 
         if(Install)
         {
-            Application.OpenURL("https://www.google.com/");
-            Application.Quit();
+
+            ///Application.OpenURL("https://github.com/Poshy163/Billboard-Game");
+            //Application.Quit();
+
+            if(!Directory.Exists(path))
+            {
+                di = Directory.CreateDirectory(path);
+            }
+
+            // using(var client = new WebClient())
+            // {
+            //     client.DownloadFile("https://github.com/user/project/archive/v1.4.zip",@"L:\Program");
+            // }
+
+
+            downloadFile("https://api.github.com/repos/nodatime/nodatime/zipball",path);
         }
 
+    }
+    public static void downloadFile ( string sourceURL,string destinationPath )
+    {
+        Debug.Log("Downloading");
+        long fileSize = 0;
+        int bufferSize = 1024;
+        bufferSize *= 1000;
+        long existLen = 0;
+
+        System.IO.FileStream saveFileStream;
+        if(System.IO.File.Exists(destinationPath))
+        {
+            System.IO.FileInfo destinationFileInfo = new System.IO.FileInfo(destinationPath);
+            existLen = destinationFileInfo.Length;
+        }
+
+        if(existLen > 0)
+            saveFileStream = new System.IO.FileStream(destinationPath,
+                                                      System.IO.FileMode.Append,
+                                                      System.IO.FileAccess.Write,
+                                                      System.IO.FileShare.ReadWrite);
+        else
+            saveFileStream = new System.IO.FileStream(destinationPath,
+                                                      System.IO.FileMode.Create,
+                                                      System.IO.FileAccess.Write,
+                                                      System.IO.FileShare.ReadWrite);
+
+        System.Net.HttpWebRequest httpReq;
+        System.Net.HttpWebResponse httpRes;
+        httpReq = (System.Net.HttpWebRequest)System.Net.HttpWebRequest.Create(sourceURL);
+        httpReq.AddRange((int)existLen);
+        System.IO.Stream resStream;
+        httpRes = (System.Net.HttpWebResponse)httpReq.GetResponse();
+        resStream = httpRes.GetResponseStream();
+
+        fileSize = httpRes.ContentLength;
+
+        int byteSize;
+        byte[] downBuffer = new byte[bufferSize];
+
+        while((byteSize = resStream.Read(downBuffer,0,downBuffer.Length)) > 0)
+        {
+            saveFileStream.Write(downBuffer,0,byteSize);
+        }
+        saveFileStream.Close();
     }
 
 }
