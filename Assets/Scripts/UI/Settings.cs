@@ -50,4 +50,24 @@ public class Settings:MonoBehaviour
         SceneManager.LoadScene("Settings");
 
     }
+
+    public void Awake()
+    {
+        if(!Application.isEditor)
+            CheckVersionNumber();
+    }
+
+    void CheckVersionNumber()
+    {
+        //TODO add version checking here
+        bool Install = false;
+
+        if(Install)
+        {
+            Application.OpenURL("https://www.google.com/");
+            Application.Quit();
+        }
+
+    }
+
 }

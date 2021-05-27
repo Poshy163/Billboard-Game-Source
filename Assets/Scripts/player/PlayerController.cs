@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
         AssignVar();
     }
 
-    private void Update()
+    public void Update()
     {
         horizontal = horizontalaxis();
         vertical = verticalaxis();
@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
         
         #region slow mode 
         slowmoscreen.SetActive(inslowmo);
-        if (Input.GetMouseButtonDown(1) && SlowTimer.value > 0.5f)
+        if (Input.GetMouseButtonDown(1) && SlowTimer.value > 0.5f || Input.GetKeyDown(KeyCode.E) && SlowTimer.value > 0.5f)
         {
             charging = false;
             dodging = false;
@@ -555,6 +555,9 @@ public class PlayerController : MonoBehaviour
     {
         if(col.gameObject.tag == "Delete")
         {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Endlv.gameObject.SetActive(true);
             if(!string.IsNullOrEmpty(GlobalVar.Name))
                 Settings.PermDeleteAccount();
         }
