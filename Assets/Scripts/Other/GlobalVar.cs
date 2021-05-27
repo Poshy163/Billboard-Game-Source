@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class GlobalVar : MonoBehaviour
 {
-    public static string Name = "Joshua";
+    public static string Name = null;
 }

@@ -2,9 +2,8 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-    <_TargetFrameworkDirectories>non_empty_path_generated_by_unity.rider.package</_TargetFrameworkDirectories>
-    <_FullFrameworkReferenceAssemblyPaths>non_empty_path_generated_by_unity.rider.package</_FullFrameworkReferenceAssemblyPaths>
-    <DisableHandlePackageFileConflicts>true</DisableHandlePackageFileConflicts>
+    <CscToolPath>C:\Program Files\Unity\Hub\Editor\2020.1.10f1\Editor\Data\Tools\RoslynScripts</CscToolPath>
+    <CscToolExe>unity_csc.bat</CscToolExe>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{116c7723-b85a-c834-2098-acbdc1d02864}</ProjectGuid>
+    <ProjectGuid>{23776C11-5AB8-34C8-2098-ACBDC1D02864}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -30,7 +29,6 @@
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -40,7 +38,6 @@
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <NoConfig>true</NoConfig>
@@ -49,6 +46,14 @@
     <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2020.1.10f1\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2020.1.10f1\Editor\Data\Managed/UnityEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Spawners\castlepillarscript.cs" />
      <Compile Include="Assets\Scripts\Enemy\Summoneranimationscript.cs" />
@@ -110,6 +115,7 @@
      <Compile Include="Assets\Scripts\Saving\Saving.cs" />
      <Compile Include="Assets\Scripts\Enemy\gargoyleanimationscript.cs" />
      <Compile Include="Assets\Scripts\Enemy\looktowardsplayer.cs" />
+     <Compile Include="Assets\Scripts\UI\Settings.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -135,34 +141,31 @@
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
      <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>L:/Billboard-Game-Source/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>L:/Billboard-Game-Source/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>L:/Billboard-Game-Source/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>L:/Billboard-Game-Source/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>L:/Billboard-Game-Source/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>L:/Billboard-Game-Source/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VisualStudio.Editor">
- <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+ <HintPath>L:/Billboard-Game-Source/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>L:/Billboard-Game-Source/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.10f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
+ <HintPath>L:/Billboard-Game-Source/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.10f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -347,26 +350,29 @@
  <Reference Include="UnityEngine.XRModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.10f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
  </Reference>
- <Reference Include="UnityEditor">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.10f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
- </Reference>
  <Reference Include="DnsClient">
- <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Assets/Databases/Plugins/DnsClient.dll</HintPath>
+ <HintPath>L:/Billboard-Game-Source/Assets/Databases/Plugins/DnsClient.dll</HintPath>
  </Reference>
  <Reference Include="MongoDB.Bson">
- <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Assets/Databases/Plugins/MongoDB.Bson.dll</HintPath>
+ <HintPath>L:/Billboard-Game-Source/Assets/Databases/Plugins/MongoDB.Bson.dll</HintPath>
  </Reference>
  <Reference Include="MongoDB.Driver.Core">
- <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Assets/Databases/Plugins/MongoDB.Driver.Core.dll</HintPath>
+ <HintPath>L:/Billboard-Game-Source/Assets/Databases/Plugins/MongoDB.Driver.Core.dll</HintPath>
  </Reference>
  <Reference Include="MongoDB.Driver">
- <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Assets/Databases/Plugins/MongoDB.Driver.dll</HintPath>
+ <HintPath>L:/Billboard-Game-Source/Assets/Databases/Plugins/MongoDB.Driver.dll</HintPath>
  </Reference>
  <Reference Include="Newtonsoft.Json">
- <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Assets/Databases/Plugins/Newtonsoft.Json.dll</HintPath>
+ <HintPath>L:/Billboard-Game-Source/Assets/Databases/Plugins/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="System.Buffers">
- <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Assets/Databases/Plugins/System.Buffers.dll</HintPath>
+ <HintPath>L:/Billboard-Game-Source/Assets/Databases/Plugins/System.Buffers.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.10f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.iOS.Extensions.Common">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.10f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.10f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

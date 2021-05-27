@@ -40,6 +40,11 @@ namespace Other
              SceneManager.LoadScene(nextlevel,LoadSceneMode.Single);
         }
 
+        public void AddScore ( short lvname )
+        {
+            Saving.Saving.CheckLevelTime(GlobalVar.Name,_timer,lvname);
+        }
+
         public void FinalTime( short lvname )
         {
             _timeList[lvname] = _timer;

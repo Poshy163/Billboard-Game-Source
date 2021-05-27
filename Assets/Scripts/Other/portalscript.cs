@@ -29,6 +29,7 @@ public class portalscript : MonoBehaviour
         {
             try
             {
+                GameObject.Find("EventSystem").GetComponent<Timer>().AddScore(short.Parse(transform.GetChild(0).name.ToString()));
                 GameObject.Find("EventSystem").GetComponent<Timer>().FinalTime(short.Parse(transform.GetChild(0).name.ToString()));
             }
             catch { SceneManager.LoadScene("LevelSelect",LoadSceneMode.Single); }

@@ -553,6 +553,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
+        if(col.gameObject.tag == "Delete")
+        {
+            if(!string.IsNullOrEmpty(GlobalVar.Name))
+                Settings.PermDeleteAccount();
+        }
+
         if (col.gameObject.tag == "shuriken")
         {
             takendamage();

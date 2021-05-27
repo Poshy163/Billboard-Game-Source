@@ -15,28 +15,44 @@ namespace Saving
 {
     public class Saving : MonoBehaviour
     {
+        private static string MongoLogin = "mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
         public static void CheckLevelTime(string name, double time, short level)
         {
-            if (!(double.Parse(GetData(name, time, level)) > time)) return;
-            DeleteDatabaseEntry(name,time,level);
+            if (!(double.Parse(GetData(name, time, level)) > time)) return;;
+            DeleteDatabaseEntry(name,level);
             SendToDatabase(name,time,level);
         }
-        public static bool Login(string name, string password)
+        public static void DeleteUser(string name)
         {
-            var filter = new BsonDocument { { "Name", name } };
-            var client = new MongoClient("mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
+            var filter = new BsonDocument { { "Name",name } };
+            var client = new MongoClient(MongoLogin);
             var database = client.GetDatabase("UserDetails");
             var collection = database.GetCollection<BsonDocument>($"Login Details");
             var documents = collection.Find(filter).ToList();
-            dynamic jsonFile = Newtonsoft.Json.JsonConvert.DeserializeObject(ToJson(documents[0]));
-            return jsonFile["Password"] == Sha256Hash(password);
+            collection.DeleteMany(documents[0]);
+        }
+        public static bool Login(string name, string password)
+        {
+            try
+            {
+                var filter = new BsonDocument { { "Name",name } };
+                var client = new MongoClient(MongoLogin);
+                var database = client.GetDatabase("UserDetails");
+                var collection = database.GetCollection<BsonDocument>($"Login Details");
+                var documents = collection.Find(filter).ToList();
+                dynamic jsonFile = Newtonsoft.Json.JsonConvert.DeserializeObject(ToJson(documents[0]));
+                return jsonFile["Password"] == Sha256Hash(password);
+            }
+            catch 
+            { return false; }
+
         }
         public static bool SignUp(string name, string password)
         {
             try
             { 
                 var filter = new BsonDocument { { "Name", name } };
-                var client = new MongoClient("mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
+                var client = new MongoClient(MongoLogin);
                 var database = client.GetDatabase("UserDetails");
                 var collection = database.GetCollection<BsonDocument>($"Login Details");
                 var documents = collection.Find(filter).ToList();
@@ -45,7 +61,7 @@ namespace Saving
             }
             catch 
             {
-                var client = new MongoClient("mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
+                var client = new MongoClient(MongoLogin);
                 var database = client.GetDatabase("UserDetails");
                 var collection = database.GetCollection<BsonDocument>($"Login Details");
 
@@ -58,10 +74,10 @@ namespace Saving
                 return true;
             }
         }
-        private static void DeleteDatabaseEntry(string name,double time,short level )
+        public static void DeleteDatabaseEntry(string name,short level )
         {
             var filter = new BsonDocument { { "Name",name } };
-            var client = new MongoClient("mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
+            var client = new MongoClient(MongoLogin);
             var database = client.GetDatabase("Time");
             var collection = database.GetCollection<BsonDocument>($"Level {level}");
 
@@ -74,7 +90,7 @@ namespace Saving
             try
             {
                 var filter = new BsonDocument { { "Name", name } };
-                var client = new MongoClient("mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
+                var client = new MongoClient(MongoLogin);
                 var database = client.GetDatabase("Time");
                 var collection = database.GetCollection<BsonDocument>($"Level {level}");
                 var documents = collection.Find(filter).ToList();
@@ -91,7 +107,7 @@ namespace Saving
         }
         private static void SendToDatabase(string name, double time , short level = 0)
         {
-            var client = new MongoClient("mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
+            var client = new MongoClient(MongoLogin);
             var database = client.GetDatabase("Time");
             var collection = database.GetCollection<BsonDocument>($"Level {level}");
 
