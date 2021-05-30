@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace GameLauncher
 {
-    enum LauncherStatus
+    internal enum LauncherStatus
     {
         ready,
         failed,
@@ -16,17 +16,16 @@ namespace GameLauncher
         downloadingUpdate
     }
 
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        private string rootPath;
-        private string versionFile;
-        private string gameZip;
-        private string gameExe;
+        private readonly string rootPath;
+        private readonly string versionFile;
+        private readonly string gameZip;
+        private readonly string gameExe;
+        private readonly string ZipName = "NewVersion";
 
         private LauncherStatus _status;
+
         internal LauncherStatus Status
         {
             get => _status;
@@ -38,15 +37,19 @@ namespace GameLauncher
                     case LauncherStatus.ready:
                         PlayButton.Content = "Play";
                         break;
+
                     case LauncherStatus.failed:
                         PlayButton.Content = "Update Failed - Retry";
                         break;
+
                     case LauncherStatus.downloadingGame:
                         PlayButton.Content = "Downloading Game";
                         break;
+
                     case LauncherStatus.downloadingUpdate:
                         PlayButton.Content = "Downloading Update";
                         break;
+
                     default:
                         break;
                 }
@@ -59,8 +62,8 @@ namespace GameLauncher
 
             rootPath = Directory.GetCurrentDirectory();
             versionFile = Path.Combine(rootPath, "Version.txt");
-            gameZip = Path.Combine(rootPath, "Build.zip");
-            gameExe = Path.Combine(rootPath, "Build", "Pirate Game.exe");
+            gameZip = Path.Combine(rootPath, ZipName + ".zip");
+            gameExe = Path.Combine(rootPath, ZipName, "CryptoAPI.exe");
         }
 
         private void CheckForUpdates()
@@ -108,11 +111,12 @@ namespace GameLauncher
                 else
                 {
                     Status = LauncherStatus.downloadingGame;
-                    _onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1R3GT_VINzmNoXKtvnvuJw6C86-k3Jr5s"));
+                    // get online version somehow
+                    _onlineVersion = new Version(webClient.DownloadString("https://github.com/Poshy163/CryptoAPI.git"));
                 }
-
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadGameCompletedCallback);
-                webClient.DownloadFileAsync(new Uri("https://drive.google.com/uc?export=download&id=1SNA_3P5wVp4tZi5NKhiGAAD6q4ilbaaf"), gameZip, _onlineVersion);
+                webClient.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; " + "Windows NT 5.2; .NET CLR 1.0.3705;)");
+                webClient.DownloadFileAsync(new Uri("https://api.github.com/repos/Poshy163/CryptoAPI/zipball"), ZipName + ".zip");
             }
             catch (Exception ex)
             {
@@ -125,13 +129,12 @@ namespace GameLauncher
         {
             try
             {
-                string onlineVersion = ((Version)e.UserState).ToString();
+                //string onlineVersion = ((Version)e.UserState).ToString();
                 ZipFile.ExtractToDirectory(gameZip, rootPath, true);
                 File.Delete(gameZip);
+                // File.WriteAllText(versionFile, onlineVersion);
 
-                File.WriteAllText(versionFile, onlineVersion);
-
-                VersionText.Text = onlineVersion;
+                //VersionText.Text = onlineVersion;
                 Status = LauncherStatus.ready;
             }
             catch (Exception ex)
@@ -150,8 +153,10 @@ namespace GameLauncher
         {
             if (File.Exists(gameExe) && Status == LauncherStatus.ready)
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo(gameExe);
-                startInfo.WorkingDirectory = Path.Combine(rootPath, "Build");
+                ProcessStartInfo startInfo = new ProcessStartInfo(gameExe)
+                {
+                    WorkingDirectory = Path.Combine(rootPath, "Build")
+                };
                 Process.Start(startInfo);
 
                 Close();
@@ -163,13 +168,13 @@ namespace GameLauncher
         }
     }
 
-    struct Version
+    internal struct Version
     {
         internal static Version zero = new Version(0, 0, 0);
 
-        private short major;
-        private short minor;
-        private short subMinor;
+        private readonly short major;
+        private readonly short minor;
+        private readonly short subMinor;
 
         internal Version(short _major, short _minor, short _subMinor)
         {
@@ -177,6 +182,7 @@ namespace GameLauncher
             minor = _minor;
             subMinor = _subMinor;
         }
+
         internal Version(string _version)
         {
             string[] versionStrings = _version.Split('.');
