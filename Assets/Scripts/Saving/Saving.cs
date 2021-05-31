@@ -121,7 +121,7 @@ namespace Saving
         private static string ToJson(BsonDocument bson)
         {
             var stream = new MemoryStream();
-            using (BsonBinaryWriter writer = new BsonBinaryWriter(stream))
+            using (var writer = new BsonBinaryWriter(stream))
             {
                 BsonSerializer.Serialize(writer, typeof(BsonDocument), bson);
             }

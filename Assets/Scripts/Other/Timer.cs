@@ -49,7 +49,7 @@ namespace Other
         {
             _timeList[lvname] = _timer;
             double finaltime = 0;
-            foreach(double time in _timeList)
+            foreach(var time in _timeList)
                 finaltime += time;
             Saving.Saving.CheckLevelTime(GlobalVar.Name,finaltime,0);
             SceneManager.LoadScene("LevelSelect",LoadSceneMode.Single);

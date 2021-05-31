@@ -11,16 +11,17 @@ namespace UI
 {
     public class Settings : MonoBehaviour
     {
+
         public GameObject panel;
         public TMP_Text debugtxt;
 
         public void Login()
         {
-            string name = GameObject.Find("NameLogin").GetComponent<TMP_InputField>().text.Trim();
-            string password = GameObject.Find("PasswordLogin").GetComponent<TMP_InputField>().text.Trim();
-            if (Saving.Saving.Login(name, password))
+            var localname = GameObject.Find("NameLogin").GetComponent<TMP_InputField>().text.Trim();
+            var password = GameObject.Find("PasswordLogin").GetComponent<TMP_InputField>().text.Trim();
+            if (Saving.Saving.Login(localname, password))
             {
-                GlobalVar.Name = name;
+                GlobalVar.Name = localname;
                 debugtxt.text = "Done Login";
                 SceneManager.LoadScene("LevelSelect");
 
@@ -31,11 +32,11 @@ namespace UI
 
         public void SignUp()
         {
-            string name = GameObject.Find("NameSignUp").GetComponent<TMP_InputField>().text.Trim();
-            string password = GameObject.Find("PasswordSignUp").GetComponent<TMP_InputField>().text.Trim();
-            if (Saving.Saving.SignUp(name, password))
+            var localname = GameObject.Find("NameSignUp").GetComponent<TMP_InputField>().text.Trim();
+            var password = GameObject.Find("PasswordSignUp").GetComponent<TMP_InputField>().text.Trim();
+            if (Saving.Saving.SignUp(localname, password))
             {
-                GlobalVar.Name = name;
+                GlobalVar.Name = localname;
                 debugtxt.text = "Done Sign up";
                 SceneManager.LoadScene("LevelSelect");
             }
@@ -51,8 +52,9 @@ namespace UI
                 {
                     Saving.Saving.DeleteDatabaseEntry(GlobalVar.Name, i);
                 }
-                catch
-                { }
+                catch {
+                    //Ignored
+                }
             }
 
             Saving.Saving.DeleteUser(GlobalVar.Name);
@@ -60,6 +62,13 @@ namespace UI
 
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
+        }
     }
 
 }
