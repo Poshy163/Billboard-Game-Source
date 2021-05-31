@@ -63,7 +63,7 @@ namespace GameLauncher
             rootPath = Directory.GetCurrentDirectory();
             versionFile = Path.Combine(rootPath, "Version.txt");
             gameZip = Path.Combine(rootPath, ZipName + ".zip");
-            gameExe = Path.Combine(rootPath, ZipName, "CryptoAPI.exe");
+            gameExe = Path.Combine(rootPath, "Poshy163-Billboard-Game-6ac3238", "Billboard Shooter.exe");
         }
 
         private void CheckForUpdates()
@@ -133,7 +133,6 @@ namespace GameLauncher
                 ZipFile.ExtractToDirectory(gameZip, rootPath, true);
                 File.Delete(gameZip);
                 // File.WriteAllText(versionFile, onlineVersion);
-
                 //VersionText.Text = onlineVersion;
                 Status = LauncherStatus.ready;
             }

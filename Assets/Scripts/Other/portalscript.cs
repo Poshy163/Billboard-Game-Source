@@ -12,7 +12,7 @@ public class portalscript : MonoBehaviour
         {
             try
             {
-                GetComponent<PlayerController>().health = 5;
+                GameObject.Find("Player").GetComponent<PlayerController>().health = 5;
                 StartCoroutine(LoadScene());
                 
             } 
