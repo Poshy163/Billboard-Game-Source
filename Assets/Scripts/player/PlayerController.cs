@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        GameObject.Find("Timer").SetActive(false);
+        GameObject.Find("Timer").SetActive(true);
         AssignVar();
     }
 

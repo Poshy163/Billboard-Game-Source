@@ -12,7 +12,9 @@ public class portalscript : MonoBehaviour
         {
             try
             {
+                GetComponent<PlayerController>().health = 5;
                 StartCoroutine(LoadScene());
+                
             } 
             catch { }
            

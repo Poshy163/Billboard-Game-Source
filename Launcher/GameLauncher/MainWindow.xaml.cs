@@ -116,7 +116,7 @@ namespace GameLauncher
                 }
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadGameCompletedCallback);
                 webClient.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; " + "Windows NT 5.2; .NET CLR 1.0.3705;)");
-                webClient.DownloadFileAsync(new Uri("https://api.github.com/repos/Poshy163/CryptoAPI/zipball"), ZipName + ".zip");
+                webClient.DownloadFileAsync(new Uri("https://api.github.com/repos/Poshy163/Billboard-Game/zipball"), ZipName + ".zip");
             }
             catch (Exception ex)
             {
