@@ -17,3 +17,5 @@ C:\GitHub\Repos\Billboard-Game-Source\Launcher\GameLauncher\obj\Debug\netcoreapp
 C:\GitHub\Repos\Billboard-Game-Source\Launcher\GameLauncher\obj\Debug\netcoreapp3.1\GameLauncher.dll
 C:\GitHub\Repos\Billboard-Game-Source\Launcher\GameLauncher\obj\Debug\netcoreapp3.1\GameLauncher.pdb
 C:\GitHub\Repos\Billboard-Game-Source\Launcher\GameLauncher\obj\Debug\netcoreapp3.1\GameLauncher.genruntimeconfig.cache
+C:\GitHub\Repos\Billboard-Game-Source\Launcher\GameLauncher\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\GitHub\Repos\Billboard-Game-Source\Launcher\GameLauncher\obj\Debug\netcoreapp3.1\GameLauncher.csproj.CopyComplete

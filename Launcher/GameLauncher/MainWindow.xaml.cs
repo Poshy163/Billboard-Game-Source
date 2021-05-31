@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
+using System.Net.Http;
 using System.Windows;
 
 namespace GameLauncher
@@ -77,10 +79,10 @@ namespace GameLauncher
                 {
                     WebClient webClient = new WebClient();
                     Version onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1R3GT_VINzmNoXKtvnvuJw6C86-k3Jr5s"));
-
-                    if (onlineVersion.IsDifferentThan(localVersion))
+                    //Add version check
+                    if (1 == 1)
                     {
-                        InstallGameFiles(true, onlineVersion);
+                        InstallGameFiles(true);
                     }
                     else
                     {
@@ -95,11 +97,11 @@ namespace GameLauncher
             }
             else
             {
-                InstallGameFiles(false, Version.zero);
+                InstallGameFiles(false);
             }
         }
 
-        private void InstallGameFiles(bool _isUpdate, Version _onlineVersion)
+        private void InstallGameFiles(bool _isUpdate)
         {
             try
             {
@@ -111,8 +113,13 @@ namespace GameLauncher
                 else
                 {
                     Status = LauncherStatus.downloadingGame;
-                    // get online version somehow
-                    _onlineVersion = new Version(webClient.DownloadString("https://github.com/Poshy163/CryptoAPI.git"));
+                    var client = new HttpClient();
+                    client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6.0)");
+                    var json = client.GetAsync("https://api.github.com/repos/Poshy163/Billboard-Game/commits").Result.Content.ReadAsStringAsync().Result;
+                    dynamic commits = JArray.Parse(json);
+                    string lastCommit = commits[0].commit.message;
+                    string LatestRealese = lastCommit.Split("\n")[0].Split(" ")[1];
+                    MessageBox.Show(LatestRealese);
                 }
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadGameCompletedCallback);
                 webClient.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; " + "Windows NT 5.2; .NET CLR 1.0.3705;)");
@@ -132,7 +139,7 @@ namespace GameLauncher
                 //string onlineVersion = ((Version)e.UserState).ToString();
                 ZipFile.ExtractToDirectory(gameZip, rootPath, true);
                 File.Delete(gameZip);
-                // File.WriteAllText(versionFile, onlineVersion);
+                //File.WriteAllText(versionFile, onlineVersion);
                 //VersionText.Text = onlineVersion;
                 Status = LauncherStatus.ready;
             }
@@ -164,66 +171,6 @@ namespace GameLauncher
             {
                 CheckForUpdates();
             }
-        }
-    }
-
-    internal struct Version
-    {
-        internal static Version zero = new Version(0, 0, 0);
-
-        private readonly short major;
-        private readonly short minor;
-        private readonly short subMinor;
-
-        internal Version(short _major, short _minor, short _subMinor)
-        {
-            major = _major;
-            minor = _minor;
-            subMinor = _subMinor;
-        }
-
-        internal Version(string _version)
-        {
-            string[] versionStrings = _version.Split('.');
-            if (versionStrings.Length != 3)
-            {
-                major = 0;
-                minor = 0;
-                subMinor = 0;
-                return;
-            }
-
-            major = short.Parse(versionStrings[0]);
-            minor = short.Parse(versionStrings[1]);
-            subMinor = short.Parse(versionStrings[2]);
-        }
-
-        internal bool IsDifferentThan(Version _otherVersion)
-        {
-            if (major != _otherVersion.major)
-            {
-                return true;
-            }
-            else
-            {
-                if (minor != _otherVersion.minor)
-                {
-                    return true;
-                }
-                else
-                {
-                    if (subMinor != _otherVersion.subMinor)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        public override string ToString()
-        {
-            return $"{major}.{minor}.{subMinor}";
         }
     }
 }
