@@ -21,9 +21,8 @@ namespace GameLauncher
     public partial class MainWindow : Window
     {
         private readonly string rootPath;
-        private readonly string versionFile;
         private readonly string gameZip;
-        private readonly string gameExe;
+        private string gameExe;
         private readonly string ZipName = "NewVersion";
 
         private LauncherStatus _status;
@@ -61,43 +60,49 @@ namespace GameLauncher
         public MainWindow()
         {
             InitializeComponent();
-
             rootPath = Directory.GetCurrentDirectory();
-            versionFile = Path.Combine(rootPath, "Version.txt");
             gameZip = Path.Combine(rootPath, ZipName + ".zip");
-            gameExe = Path.Combine(rootPath, "Poshy163-Billboard-Game-6ac3238", "Billboard Shooter.exe");
+        }
+
+        private void UpdateFilePaths(string local)
+        {
+            gameExe = Path.Combine(rootPath, "Poshy163-Billboard-Game-" + local, "Billboard Shooter.exe");
         }
 
         private void CheckForUpdates()
         {
-            if (File.Exists(versionFile))
-            {
-                Version localVersion = new Version(File.ReadAllText(versionFile));
-                VersionText.Text = localVersion.ToString();
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6.0)");
+            var json = client.GetAsync("https://api.github.com/repos/Poshy163/Billboard-Game/commits").Result.Content.ReadAsStringAsync().Result;
+            dynamic commits = JArray.Parse(json);
+            string lastCommit = commits[0].commit.message;
+            string OnlineVerion = lastCommit.Split("\n")[0].Split(" ")[1];
+            string LocalFileName = (commits[0].sha);
+            string ShortFile = LocalFileName.Substring(0, 7);
 
-                try
+            UpdateFilePaths(ShortFile);
+            string localVersion = File.ReadAllText(Path.Combine(rootPath, "Poshy163-Billboard-Game-" + ShortFile, "Version.txt"));
+            MessageBox.Show(localVersion);
+            VersionText.Text = localVersion.ToString();
+
+            try
+            {
+                if (localVersion != OnlineVerion)
                 {
-                    WebClient webClient = new WebClient();
-                    Version onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1R3GT_VINzmNoXKtvnvuJw6C86-k3Jr5s"));
-                    //Add version check
-                    if (1 == 1)
-                    {
-                        InstallGameFiles(true);
-                    }
-                    else
-                    {
-                        Status = LauncherStatus.ready;
-                    }
+                    Status = LauncherStatus.downloadingGame;
+                    InstallGameFiles(true);
                 }
-                catch (Exception ex)
+                else
                 {
-                    Status = LauncherStatus.failed;
-                    MessageBox.Show($"Error checking for game updates: {ex}");
+                    Status = LauncherStatus.ready;
+                    MessageBox.Show("Up to date");
+                    return;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                InstallGameFiles(false);
+                Status = LauncherStatus.failed;
+                MessageBox.Show($"Error checking for game updates: {ex}");
             }
         }
 
@@ -108,18 +113,7 @@ namespace GameLauncher
                 WebClient webClient = new WebClient();
                 if (_isUpdate)
                 {
-                    Status = LauncherStatus.downloadingUpdate;
-                }
-                else
-                {
-                    Status = LauncherStatus.downloadingGame;
-                    var client = new HttpClient();
-                    client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6.0)");
-                    var json = client.GetAsync("https://api.github.com/repos/Poshy163/Billboard-Game/commits").Result.Content.ReadAsStringAsync().Result;
-                    dynamic commits = JArray.Parse(json);
-                    string lastCommit = commits[0].commit.message;
-                    string LatestRealese = lastCommit.Split("\n")[0].Split(" ")[1];
-                    MessageBox.Show(LatestRealese);
+                    Status = LauncherStatus.ready;
                 }
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadGameCompletedCallback);
                 webClient.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; " + "Windows NT 5.2; .NET CLR 1.0.3705;)");
@@ -136,11 +130,8 @@ namespace GameLauncher
         {
             try
             {
-                //string onlineVersion = ((Version)e.UserState).ToString();
                 ZipFile.ExtractToDirectory(gameZip, rootPath, true);
                 File.Delete(gameZip);
-                //File.WriteAllText(versionFile, onlineVersion);
-                //VersionText.Text = onlineVersion;
                 Status = LauncherStatus.ready;
             }
             catch (Exception ex)
@@ -157,20 +148,20 @@ namespace GameLauncher
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("hit");
             if (File.Exists(gameExe) && Status == LauncherStatus.ready)
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo(gameExe)
-                {
-                    WorkingDirectory = Path.Combine(rootPath, "Build")
-                };
+                MessageBox.Show("Starting");
+                ProcessStartInfo startInfo = new ProcessStartInfo(gameExe);
                 Process.Start(startInfo);
-
                 Close();
             }
             else if (Status == LauncherStatus.failed)
             {
+                MessageBox.Show("Launcher Failed, retrying");
                 CheckForUpdates();
             }
+            //Its skipping to here for no apparent reason
         }
     }
 }
