@@ -18,7 +18,9 @@ namespace Other
 
         private void Start()
         {
-            _timertxt.gameObject.SetActive(true);
+            TimerManager.gamePlaying = true;
+            if(TimerManager.gamePlaying)
+              _timertxt.gameObject.SetActive(true);
         }
 
         private void Update()
@@ -42,11 +44,14 @@ namespace Other
 
         public void AddScore ( short lvname )
         {
+            if(string.IsNullOrEmpty(GlobalVar.Name)) return;
             Saving.Saving.CheckLevelTime(GlobalVar.Name,_timer,lvname);
         }
 
         public void FinalTime( short lvname )
         {
+            if(string.IsNullOrEmpty(GlobalVar.Name))
+                SceneManager.LoadScene("LevelSelect",LoadSceneMode.Single);
             _timeList[lvname] = _timer;
             double finaltime = 0;
             foreach(var time in _timeList)

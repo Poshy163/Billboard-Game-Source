@@ -32,11 +32,6 @@ public class Camerascript : MonoBehaviour
             Time.timeScale = (Time.timeScale != 0f) ? 0 : 1;
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
         if (canchecknow && GameObject.FindGameObjectsWithTag("Gargoyle").Length == 0 &&
             GameObject.FindGameObjectsWithTag("Summoner").Length == 0)
         {

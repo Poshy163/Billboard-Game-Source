@@ -8,7 +8,7 @@ public class portalscript : MonoBehaviour
     public string nextlevel;
     public void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.CompareTag("Player"))
         {
             try
             {

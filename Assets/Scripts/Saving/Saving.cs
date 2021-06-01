@@ -80,18 +80,17 @@ namespace Saving
         }
         public static List<KeyValuePair<string, float>> GetTopTimes(string localName, short level)
         {
+            //TODO also get the local name of the user and display thier ranking 
             var topTime = new Dictionary<string, float>();
             var client = new MongoClient(MongoLogin);
             var database = client.GetDatabase("Time");
             var collection = database.GetCollection<BsonDocument>($"Level {level}");
-            var documents = collection.Find(new BsonDocument()).ToList();
-            
+            var documents = collection.Find(new BsonDocument()).ToList();            
             foreach (var doc in documents)
             {
                 dynamic jsonFile = Newtonsoft.Json.JsonConvert.DeserializeObject(ToJson(doc));
                 topTime.Add(jsonFile["Name"].ToString(), float.Parse(jsonFile["Time"].ToString()));
             }
-
             var myList = topTime.ToList();
             myList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
             return myList;
@@ -102,7 +101,6 @@ namespace Saving
             var client = new MongoClient(MongoLogin);
             var database = client.GetDatabase("Time");
             var collection = database.GetCollection<BsonDocument>($"Level {level}");
-
              var documents = collection.Find(filter).ToList();
              collection.DeleteMany(documents[0]);
           
@@ -116,7 +114,6 @@ namespace Saving
                 var database = client.GetDatabase("Time");
                 var collection = database.GetCollection<BsonDocument>($"Level {level}");
                 var documents = collection.Find(filter).ToList();
-                //TODO maybe fix this, it will somehow break and i wont know why
                 dynamic jsonFile = Newtonsoft.Json.JsonConvert.DeserializeObject(ToJson(documents[0]));
                 return jsonFile["Time"];
             }
@@ -125,14 +122,12 @@ namespace Saving
                 SendToDatabase(name,time,level);
                 return short.MaxValue.ToString();
             }
-            //TODO fix this its so bad and wont work 
         }
         private static void SendToDatabase(string name, double time , short level = 0)
         {
             var client = new MongoClient(MongoLogin);
             var database = client.GetDatabase("Time");
             var collection = database.GetCollection<BsonDocument>($"Level {level}");
-
             var document = new BsonDocument
             {
                 {"Name" , name},

@@ -1,5 +1,6 @@
 using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static Saving.Saving;
 // ReSharper disable All
@@ -73,6 +74,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
+        }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            Endlv.SetActive(true);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         #region Health
@@ -556,11 +563,11 @@ public class PlayerController : MonoBehaviour
     {
         if(col.gameObject.tag == "Delete")
         {
+            if(string.IsNullOrEmpty(GlobalVar.Name)) return;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             Endlv.gameObject.SetActive(true);
-            if(!string.IsNullOrEmpty(GlobalVar.Name))
-                Settings.PermDeleteAccount();
+            Settings.PermDeleteAccount();
         }
 
         if (col.gameObject.tag == "shuriken")
@@ -579,7 +586,7 @@ public class PlayerController : MonoBehaviour
 
         if (col.gameObject.tag == "invisiblewall")
         {
-            health = 1;
+            health = 0;
         }
     }
     #endregion
