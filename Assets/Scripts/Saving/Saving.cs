@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
@@ -76,8 +78,7 @@ namespace Saving
                 return true;
             }
         }
-
-        public static Dictionary<string, float> GetTopTimes(string localName, short level)
+        public static List<KeyValuePair<string, float>> GetTopTimes(string localName, short level)
         {
             var topTime = new Dictionary<string, float>();
             var client = new MongoClient(MongoLogin);
@@ -88,13 +89,13 @@ namespace Saving
             foreach (var doc in documents)
             {
                 dynamic jsonFile = Newtonsoft.Json.JsonConvert.DeserializeObject(ToJson(doc));
-                Debug.Log("" + jsonFile );
+                topTime.Add(jsonFile["Name"].ToString(), float.Parse(jsonFile["Time"].ToString()));
             }
 
-
-            return topTime;
+            var myList = topTime.ToList();
+            myList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+            return myList;
         }
-        
         public static void DeleteDatabaseEntry(string name,short level )
         {
             var filter = new BsonDocument { { "Name",name } };
