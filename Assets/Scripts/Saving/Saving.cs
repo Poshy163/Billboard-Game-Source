@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
@@ -9,13 +10,14 @@ using MongoDB.Driver;
 using Newtonsoft.Json;
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable ParameterHidesMember
+// ReSharper disable ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
 #pragma warning disable 618
 
 namespace Saving
 {
     public class Saving : MonoBehaviour
     {
-        private static string MongoLogin = "mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
+        private const string MongoLogin = "mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
         public static void CheckLevelTime(string name, double time, short level)
         {
             if (!(double.Parse(GetData(name, time, level)) > time)) return;;
@@ -74,6 +76,25 @@ namespace Saving
                 return true;
             }
         }
+
+        public static Dictionary<string, float> GetTopTimes(string localName, short level)
+        {
+            var topTime = new Dictionary<string, float>();
+            var client = new MongoClient(MongoLogin);
+            var database = client.GetDatabase("Time");
+            var collection = database.GetCollection<BsonDocument>($"Level {level}");
+            var documents = collection.Find(new BsonDocument()).ToList();
+            
+            foreach (var doc in documents)
+            {
+                dynamic jsonFile = Newtonsoft.Json.JsonConvert.DeserializeObject(ToJson(doc));
+                Debug.Log("" + jsonFile );
+            }
+
+
+            return topTime;
+        }
+        
         public static void DeleteDatabaseEntry(string name,short level )
         {
             var filter = new BsonDocument { { "Name",name } };
