@@ -20,8 +20,8 @@ namespace GameLauncher
 
     public partial class MainWindow : Window
     {
-        private string rootPath;
-        private string gameZip;
+        private readonly string rootPath;
+        private readonly string gameZip;
         private readonly string gameExe;
         private readonly string ZipName = "NewVersion";
         private readonly string GameFolderName = "Game";
@@ -70,14 +70,23 @@ namespace GameLauncher
 
         private void CheckForUpdates()
         {
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6.0)");
-            string json = client.GetAsync("https://api.github.com/repos/Poshy163/Billboard-Game/commits").Result.Content.ReadAsStringAsync().Result;
-            dynamic commits;
-            try { commits = JArray.Parse(json); } catch { MessageBox.Show(json + ""); return; }
-            lastCommit = commits[0].commit.message;
-            string OnlineVerion = lastCommit.Split("\n")[0].Split(" ")[1];
             string localVersion = "0.0.0";
+            string OnlineVerion = "0.0.0.0";
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6.0)");
+                string json = client.GetAsync("https://api.github.com/repos/Poshy163/Billboard-Game/commits").Result.Content.ReadAsStringAsync().Result;
+                dynamic commits;
+                try { commits = JArray.Parse(json); } catch { MessageBox.Show(json + ""); return; }
+                lastCommit = commits[0].commit.message;
+                OnlineVerion = lastCommit.Split("\n")[0].Split(" ")[1];
+            }
+            catch (Exception ex)
+            {
+                Status = LauncherStatus.failed;
+                MessageBox.Show($"Error checking for game updates: {ex}");
+            }
             try
             {
                 localVersion = File.ReadAllText(Path.Combine(rootPath, GameFolderName, "Version.txt"));
@@ -182,7 +191,7 @@ namespace GameLauncher
             {
                 string loction = d.ToString();
                 string[] temp = loction.Split(char.Parse(@"\"));
-                return temp[temp.Length - 1];
+                return temp[^1];
             }
             return null;
         }
