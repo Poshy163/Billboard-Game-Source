@@ -63,6 +63,7 @@ namespace GameLauncher
         public MainWindow()
         {
             InitializeComponent();
+            Progress.Visibility = Visibility.Hidden;
             rootPath = Directory.GetCurrentDirectory();
             gameZip = Path.Combine(rootPath, ZipName + ".zip");
             gameExe = Path.Combine(rootPath, GameFolderName, GameName);
@@ -91,16 +92,14 @@ namespace GameLauncher
             {
                 localVersion = File.ReadAllText(Path.Combine(rootPath, GameFolderName, "Version.txt"));
             }
-            catch
-            {
-                MessageBox.Show("Fresh Install");
-            }
+            catch { }
             VersionText.Text = localVersion;
 
             try
             {
                 if (localVersion != OnlineVerion)
                 {
+                    Progress.Visibility = Visibility.Visible;
                     Status = LauncherStatus.downloadingGame;
                     InstallGameFiles(true);
                 }
@@ -126,9 +125,11 @@ namespace GameLauncher
                 {
                     Status = LauncherStatus.downloadingUpdate;
                 }
-
+                Progress.Value++;
                 webClient.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; " + "Windows NT 5.2; .NET CLR 1.0.3705;)");
+                Progress.Value++;
                 webClient.DownloadFileAsync(new Uri("https://api.github.com/repos/Poshy163/Billboard-Game/zipball"), ZipName + ".zip");
+                Progress.Value++;
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadGameCompletedCallback);
             }
             catch (Exception ex)
@@ -146,12 +147,17 @@ namespace GameLauncher
                 {
                     Directory.Delete(Path.Combine(rootPath, GameFolderName), true);
                 }
-
+                Progress.Value++;
                 ZipFile.ExtractToDirectory(gameZip, Path.Combine(rootPath, "TempFolder"), true);
+                Progress.Value++;
                 Directory.Move(Path.Combine(rootPath, "TempFolder", FindFolder()), Path.Combine(rootPath, GameFolderName));
+                Progress.Value++;
                 Directory.Delete(Path.Combine(rootPath, "TempFolder"));
+                Progress.Value++;
                 File.Delete(gameZip);
+                Progress.Value++;
                 Status = LauncherStatus.ready;
+                Progress.Visibility = Visibility.Hidden;
             }
             catch (Exception ex)
             {
@@ -184,7 +190,6 @@ namespace GameLauncher
         {
             string searchQuery = "*" + "Poshy163-Billboard-Game" + "*";
             string folderName = rootPath;
-
             DirectoryInfo directory = new DirectoryInfo(folderName);
             DirectoryInfo[] directories = directory.GetDirectories(searchQuery, SearchOption.AllDirectories);
             foreach (DirectoryInfo d in directories)
