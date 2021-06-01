@@ -1,26 +1,18 @@
 using UnityEngine;
-using System.Collections;
-
 
 namespace TMPro.Examples
 {
-
     public class Benchmark02 : MonoBehaviour
     {
-
-        public int SpawnType = 0;
+        public int SpawnType;
         public int NumberOfNPC = 12;
 
         private TextMeshProFloatingText floatingText_Script;
 
 
-        void Start()
+        private void Start()
         {
-
             for (var i = 0; i < NumberOfNPC; i++)
-            {
-
-
                 if (SpawnType == 0)
                 {
                     // TextMesh Pro Implementation
@@ -86,10 +78,6 @@ namespace TMPro.Examples
                     floatingText_Script = go.AddComponent<TextMeshProFloatingText>();
                     floatingText_Script.SpawnType = 0;
                 }
-
-
-
-            }
         }
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+
 // ReSharper disable All
 #pragma warning disable 649
 #pragma warning disable 414
@@ -6,18 +7,6 @@ using UnityEngine;
 
 public class Floatingenemyscript : MonoBehaviour
 {
-    private GameObject player;
-
-    private Color matcolor;
-
-    private Color damagedcolor;
-
-    private Animator anim;
-
-    private Rigidbody rb;
-
-    private Vector3 dir;
-
     [HideInInspector] public bool kicked;
 
     public GameObject enemysprite;
@@ -26,14 +15,25 @@ public class Floatingenemyscript : MonoBehaviour
 
     public float speed;
 
-    private void Start()
+    private Animator anim;
+
+    private Color damagedcolor;
+
+    private Vector3 dir;
+
+    private Color matcolor;
+    private GameObject player;
+
+    private Rigidbody rb;
+
+    private void Awake()
     {
         anim = enemysprite.GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         kicked = false;
     }
 
-    private void Awake()
+    private void Start()
     {
         anim = enemysprite.GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
@@ -67,31 +67,6 @@ public class Floatingenemyscript : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, maxDistanceDelta);
     }
 
-    public void enemykickedback(Vector3 direction)
-    {
-        gameObject.layer = LayerMask.NameToLayer("Kicked Enemy");
-        anim.SetTrigger("kicked");
-        kicked = true;
-        dir = direction;
-        Invoke("Destroythehead", 4.89f);
-    }
-
-    public void takendamage()
-    {
-        transform.GetChild(0).GetComponent<SpriteRenderer>().color = damagedcolor;
-        Invoke("resetcolor", 0.098f);
-    }
-
-    private void resetcolor()
-    {
-        transform.GetChild(0).GetComponent<SpriteRenderer>().color = matcolor;
-    }
-
-    private void Destroythehead()
-    {
-        Destroy(gameObject, 0f);
-    }
-
     private void OnCollisionEnter(Collision col)
     {
         if (kicked)
@@ -121,5 +96,30 @@ public class Floatingenemyscript : MonoBehaviour
 
             rb.velocity = new Vector3(0f, 0f, 0f);
         }
+    }
+
+    public void enemykickedback(Vector3 direction)
+    {
+        gameObject.layer = LayerMask.NameToLayer("Kicked Enemy");
+        anim.SetTrigger("kicked");
+        kicked = true;
+        dir = direction;
+        Invoke("Destroythehead", 4.89f);
+    }
+
+    public void takendamage()
+    {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().color = damagedcolor;
+        Invoke("resetcolor", 0.098f);
+    }
+
+    private void resetcolor()
+    {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().color = matcolor;
+    }
+
+    private void Destroythehead()
+    {
+        Destroy(gameObject, 0f);
     }
 }

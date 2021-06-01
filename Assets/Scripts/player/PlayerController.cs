@@ -2,18 +2,13 @@ using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static Saving.Saving;
+
 // ReSharper disable All
 #pragma warning disable 414
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody rb;
-    private Vector3 moveinput;
-    private Vector3 mouseinput;
-    private Animator gunanim;
     public static Slider SlowTimer;
-    private Animator kickanim;
-    private Vector3 origscale;
+    public static GameObject Endlv;
     public GameObject damagedpanel;
     public LayerMask whatcanbekicked;
     public float movespeed;
@@ -34,28 +29,33 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public Vector3 moveVertical;
     [HideInInspector] public bool shooting = false;
     [HideInInspector] public GameObject enemytodashto = null;
-    private float horizontal;
-    private float vertical;
-    private GameObject DText;
-    private float nextkick = 0f;
-    private float kickrate= 0.34f;
-    private float nextdodge= 0f;
-    private float dodgerate = 0.306f;
-    private bool dodging = false;
-    private bool grounded = true;
-    private bool charging = false;
-    private bool longclick = false;
-    private bool shortclick = false;
-    private float mouseclickstart = 0f;
     public float slowdownfactor = 0.05f;
     public float slowdownlength = 2f;
-    private bool inslowmo = false;
     [HideInInspector] public int health;
     public float minangleofrotation;
     public float maxangleofrotation;
     public GameObject greencrosshair;
     public GameObject[] hearts;
-    public static GameObject Endlv;
+    private bool charging = false;
+    private float dodgerate = 0.306f;
+    private bool dodging = false;
+    private GameObject DText;
+    private bool grounded = true;
+    private Animator gunanim;
+    private float horizontal;
+    private bool inslowmo = false;
+    private Animator kickanim;
+    private float kickrate = 0.34f;
+    private bool longclick = false;
+    private float mouseclickstart = 0f;
+    private Vector3 mouseinput;
+    private Vector3 moveinput;
+    private float nextdodge = 0f;
+    private float nextkick = 0f;
+    private Vector3 origscale;
+    private Rigidbody rb;
+    private bool shortclick = false;
+    private float vertical;
 
 
     private void Start()
@@ -76,18 +76,19 @@ public class PlayerController : MonoBehaviour
             Application.Quit();
         }
 
-        if(Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             Endlv.SetActive(true);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         #region Health
+
         for (var i = 0; i < health; i++)
         {
             hearts[i].SetActive(true);
         }
-        
+
         for (var j = health; j < 5; j++)
         {
             hearts[j].SetActive(false);
@@ -101,11 +102,14 @@ public class PlayerController : MonoBehaviour
             damagedpanel.SetActive(true);
             return;
         }
+
         #endregion
-        
-        #region slow mode 
+
+        #region slow mode
+
         slowmoscreen.SetActive(inslowmo);
-        if (Input.GetMouseButtonDown(1) && SlowTimer.value > 0.5f || Input.GetKeyDown(KeyCode.E) && SlowTimer.value > 0.5f)
+        if (Input.GetMouseButtonDown(1) && SlowTimer.value > 0.5f ||
+            Input.GetKeyDown(KeyCode.E) && SlowTimer.value > 0.5f)
         {
             charging = false;
             dodging = false;
@@ -130,7 +134,7 @@ public class PlayerController : MonoBehaviour
             SlowTimer.gameObject.SetActive(true);
         }
 
-        
+
         if (!inslowmo)
         {
             resettimescale();
@@ -146,14 +150,16 @@ public class PlayerController : MonoBehaviour
         {
             SlowTimer.value -= (float) (Time.deltaTime * 400f);
         }
-        
+
         void RegenSlider()
         {
             SlowTimer.value += (float) (Time.deltaTime * 25f);
         }
+
         #endregion
 
         #region dashing
+
         if (charging && enemytodashto != null)
         {
             if (Vector3.Distance(transform.position, enemytodashto.transform.position) > 1.06f)
@@ -192,12 +198,12 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
-                    
                     enemytodashto.transform.parent.gameObject.GetComponent<gargoylescript>().enemykickedback(23000f);
                     enemytodashto.transform.parent.position = enemytodashto.transform.position;
                     enemytodashto.GetComponent<greentargetscript>().SetArrowstate();
                 }
             }
+
             enemytodashto = null;
         }
         else
@@ -285,7 +291,8 @@ public class PlayerController : MonoBehaviour
             }
 
             //change to delta time if wanting to slow the camera with time
-            mouseinput = new Vector3(Input.GetAxisRaw("Mouse Y"), -1f * Input.GetAxisRaw("Mouse X"), 0f) * mousesensitivity;
+            mouseinput = new Vector3(Input.GetAxisRaw("Mouse Y"), -1f * Input.GetAxisRaw("Mouse X"), 0f) *
+                         mousesensitivity;
             var angle = viewcam.transform.rotation.eulerAngles.x - mouseinput.x;
             viewcam.transform.rotation = Quaternion.Euler(Clampangle(angle, minangleofrotation, maxangleofrotation),
                 viewcam.transform.rotation.eulerAngles.y, viewcam.transform.rotation.eulerAngles.z);
@@ -299,10 +306,12 @@ public class PlayerController : MonoBehaviour
 
             greencrosshair.SetActive(true);
         }
+
         #endregion
     }
 
     #region Movement
+
     private int verticalaxis()
     {
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Z))
@@ -373,9 +382,11 @@ public class PlayerController : MonoBehaviour
 
         return angle;
     }
+
     #endregion
 
     #region Move and Shoot
+
     public void kickstate(bool state, bool vault)
     {
         if (vault)
@@ -413,6 +424,7 @@ public class PlayerController : MonoBehaviour
         viewcam.GetComponent<Camerascript>().camershake(60.34f);
         shooting = true;
     }
+
     public void Shootarrow()
     {
         Instantiate(arrow, arrowspawnpos.position, Quaternion.identity).transform.forward = viewcam.transform.forward;
@@ -434,6 +446,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Dodge
+
     public void dodge()
     {
         rb.useGravity = false;
@@ -463,10 +476,11 @@ public class PlayerController : MonoBehaviour
         viewcam.fieldOfView = 60f;
         dodging = false;
     }
-    
+
     #endregion
 
     #region Kicking
+
     public void kickdamage()
     {
         var array = Physics.OverlapSphere(arrowspawnpos.position, kickrange, whatcanbekicked);
@@ -482,9 +496,11 @@ public class PlayerController : MonoBehaviour
         damagedpanel.SetActive(true);
         Invoke("resetpanel", 0.089f);
     }
+
     #endregion
 
     #region SlowMode Functions
+
     private void doslowmotion()
     {
         enddodge();
@@ -503,9 +519,11 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;
     }
+
     #endregion
 
     #region Other
+
     void AssignVar()
     {
         Endlv = GameObject.Find("Endlv");
@@ -516,8 +534,14 @@ public class PlayerController : MonoBehaviour
         gunanim = Gun.GetComponent<Animator>();
         kickanim = Kick.GetComponent<Animator>();
         greencrosshair = GameObject.Find("green crosshair");
-        try { damagedpanel = GameObject.FindGameObjectWithTag("Damaged panel");
-            damagedpanel.SetActive(false);}catch { }
+        try
+        {
+            damagedpanel = GameObject.FindGameObjectWithTag("Damaged panel");
+            damagedpanel.SetActive(false);
+        }
+        catch
+        { }
+
         slowmoscreen.SetActive(false);
         gunanim.SetBool("moving", false);
         gunanim.SetBool("kicking", false);
@@ -532,13 +556,12 @@ public class PlayerController : MonoBehaviour
         rb.useGravity = true;
         greencrosshair.SetActive(false);
         hearts[0] = GameObject.Find($"Image");
-        for(var i = 1;i <= 4; i++)
+        for (var i = 1; i <= 4; i++)
         {
             hearts[i] = GameObject.Find($"Image ({i})");
         }
-
     }
-    
+
 
     private void resetpanel()
     {
@@ -554,6 +577,7 @@ public class PlayerController : MonoBehaviour
 
         Gizmos.DrawWireSphere(arrowspawnpos.position, kickrange);
     }
+
     private void OnCollisionStay(Collision col)
     {
         grounded = true;
@@ -561,9 +585,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.tag == "Delete")
+        if (col.gameObject.tag == "Delete")
         {
-            if(string.IsNullOrEmpty(GlobalVar.Name)) return;
+            if (string.IsNullOrEmpty(GlobalVar.Name)) return;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             Endlv.gameObject.SetActive(true);
@@ -589,5 +613,6 @@ public class PlayerController : MonoBehaviour
             health = 0;
         }
     }
+
     #endregion
 }

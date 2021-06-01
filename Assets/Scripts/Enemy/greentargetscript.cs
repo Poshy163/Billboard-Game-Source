@@ -1,4 +1,5 @@
 using UnityEngine;
+
 // ReSharper disable All
 //Formatted
 public class greentargetscript : MonoBehaviour

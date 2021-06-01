@@ -1,24 +1,11 @@
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
+
 //Formatted
 // ReSharper disable All
 #pragma warning disable 414
 public class gargoylescript : MonoBehaviour
 {
-    private GameObject player;
-
-    private Color matcolor;
-
-    private Color damagedcolor = new Color(Color.red.r,Color.red.g,Color.red.b,1f);
-
-    private Color almostdeadcolor = new Color(1f,0f,0f,1f);
-
-    private Animator anim;
-
-    private Rigidbody rb;
-
     public GameObject enemysprite;
 
     public GameObject bullet;
@@ -27,35 +14,46 @@ public class gargoylescript : MonoBehaviour
 
     public GameObject postorotatearound;
 
-    private bool lookatplayer = true;
-
     public bool dontattack;
 
     [HideInInspector] public bool kicked = false;
 
-    private float speed = 7f;
-
-    private float nextshoot = 1f;
-
-    private float shootrate = 1.76f;
-
-    private float nextalmostdeadcolor = 0f;
+    private Color almostdeadcolor = new Color(1f, 0f, 0f, 1f);
 
     private float almostdeadcolorrate = 0.14f;
 
-    private bool startattacking = true;
+    private Animator anim;
+
+    private Color damagedcolor = new Color(Color.red.r, Color.red.g, Color.red.b, 1f);
+
+    private int dir;
 
     private float health = 5f;
+
+    private bool lookatplayer = true;
+
+    private Color matcolor;
+
+    private float nextalmostdeadcolor = 0f;
+
+    private float nextshoot = 1f;
+    private GameObject player;
+
+    private Rigidbody rb;
 
     private float rotationspeed = 1.6f;
 
     private float rotationspeedslowmo = 0.15f;
 
-    private int dir;
+    private float shootrate = 1.76f;
+
+    private float speed = 7f;
+
+    private bool startattacking = true;
 
     public void Start()
     {
-        dir = ((Random.Range(0f,1f) > 0.5f) ? 1 : -1);
+        dir = ((Random.Range(0f, 1f) > 0.5f) ? 1 : -1);
         anim = enemysprite.GetComponent<Animator>();
         anim.SetBool("kickend", true);
         rb = GetComponent<Rigidbody>();
@@ -78,7 +76,7 @@ public class gargoylescript : MonoBehaviour
         }
 
         player = GameObject.FindGameObjectWithTag("Player");
-        var worldPosition =  new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+        var worldPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
         var worldPosition2 = new Vector3(player.transform.position.x, player.transform.position.y,
             player.transform.position.z);
         if (lookatplayer)
@@ -118,49 +116,7 @@ public class gargoylescript : MonoBehaviour
             transform.RotateAround(postorotatearound.transform.position, Vector3.up, rotationspeedslowmo * dir);
         }
     }
-    public void takendamage()
-    {
-        if (health > 1f)
-        {
-            transform.GetChild(0).GetComponent<SpriteRenderer>().color = damagedcolor;
-            Invoke("resetcolor", 0.25f);
-        }
-    }
-    public void resetcolor ()
-    {
-        transform.GetChild(0).GetComponent<SpriteRenderer>().color = matcolor;
-    }
-    public void startat ()
-    {
-        startattacking = true;
-    }
-    public void shoot ()
-    {
-        soundmanagerscript.playsound("enemyshoot");
-        //Instantiate(bullet,transform.position,Quaternion.identity).GetComponent<shurikenscript>().spawnedby =
-            //gameObject.transform.GetChild(0).gameObject;
-    }
-    public void enemykickedback(float force)
-    {
-        Instantiate(kickparticles, transform.position, Quaternion.identity).transform.forward =
-            enemysprite.transform.forward;
-        health -= 5f;
-        nextshoot += 1f;
-        kicked = true;
-        takendamage();
-        Invoke("endkick", 0.67f);
-        anim.SetBool("kickend", false);
-        anim.SetTrigger("kicked");
-        rb.AddForce(transform.forward * -1f * force);
-        gameObject.layer = LayerMask.NameToLayer("Kicked Enemy");
-    }
-    public void endkick()
-    {
-        rb.velocity = new Vector3(0f, 0f, 0f);
-        kicked = false;
-        anim.SetBool("kickend", true);
-        gameObject.layer = LayerMask.NameToLayer("Enemy jumping");
-    }
+
     public void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Kicked Enemy"))
@@ -207,5 +163,54 @@ public class gargoylescript : MonoBehaviour
         {
             dir *= -1;
         }
+    }
+
+    public void takendamage()
+    {
+        if (health > 1f)
+        {
+            transform.GetChild(0).GetComponent<SpriteRenderer>().color = damagedcolor;
+            Invoke("resetcolor", 0.25f);
+        }
+    }
+
+    public void resetcolor()
+    {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().color = matcolor;
+    }
+
+    public void startat()
+    {
+        startattacking = true;
+    }
+
+    public void shoot()
+    {
+        soundmanagerscript.playsound("enemyshoot");
+        //Instantiate(bullet,transform.position,Quaternion.identity).GetComponent<shurikenscript>().spawnedby =
+        //gameObject.transform.GetChild(0).gameObject;
+    }
+
+    public void enemykickedback(float force)
+    {
+        Instantiate(kickparticles, transform.position, Quaternion.identity).transform.forward =
+            enemysprite.transform.forward;
+        health -= 5f;
+        nextshoot += 1f;
+        kicked = true;
+        takendamage();
+        Invoke("endkick", 0.67f);
+        anim.SetBool("kickend", false);
+        anim.SetTrigger("kicked");
+        rb.AddForce(transform.forward * -1f * force);
+        gameObject.layer = LayerMask.NameToLayer("Kicked Enemy");
+    }
+
+    public void endkick()
+    {
+        rb.velocity = new Vector3(0f, 0f, 0f);
+        kicked = false;
+        anim.SetBool("kickend", true);
+        gameObject.layer = LayerMask.NameToLayer("Enemy jumping");
     }
 }

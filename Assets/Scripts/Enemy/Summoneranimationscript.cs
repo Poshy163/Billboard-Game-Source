@@ -1,4 +1,5 @@
 using UnityEngine;
+
 // ReSharper disable All
 public class Summoneranimationscript : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Summoneranimationscript : MonoBehaviour
         summoner.spawnhead();
     }
 
-    private void shoot ()
+    private void shoot()
     {
         summoner.shoot();
     }

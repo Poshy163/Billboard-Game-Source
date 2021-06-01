@@ -1,9 +1,10 @@
 using UnityEngine;
+
 // ReSharper disable All
 public class summonerposscript : MonoBehaviour
 {
     public GameObject castlepiller;
-    
+
     public void corruptpillar()
     {
         foreach (Transform transform in castlepiller.transform)

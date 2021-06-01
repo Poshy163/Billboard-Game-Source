@@ -1,10 +1,9 @@
 using UnityEngine;
+
 // ReSharper disable All
 
 public class arrowscript : MonoBehaviour
 {
-    private Rigidbody rb;
-
     public float speed;
 
     public float speedincreaseduringslowmo;
@@ -12,6 +11,7 @@ public class arrowscript : MonoBehaviour
     public bool cancausegrapple;
 
     [HideInInspector] public bool hit;
+    private Rigidbody rb;
 
     private void Start()
     {

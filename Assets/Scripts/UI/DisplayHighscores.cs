@@ -1,41 +1,42 @@
-﻿using UnityEngine;
-using static Saving.Saving;
+﻿using System;
 using TMPro;
-using System;
-using Other;
+using UnityEngine;
+using static Saving.Saving;
+
+// ReSharper disable IdentifierTypo
 
 namespace UI
 {
     public class DisplayHighscores : MonoBehaviour
     {
         public static bool LoadHighScores = true;
+
         private void Start()
         {
-            if(LoadHighScores)
+            if (LoadHighScores)
                 LoadHighScore();
             else
                 UnloadHighScore();
         }
-        void LoadHighScore()
-        {
-            for(int z = 0;z <= GlobalVar.amountOfLevels;z++)
-            {
-                var times = GetTopTimes("Joshua",(short)z);
-                GameObject gme = GameObject.Find($"Level {z}");
-                GameObject panel = gme.transform.GetChild(0).gameObject;
-                if(gme.name == "Level 0")
-                    gme.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = "Overall Time";
-                else
-                    gme.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = gme.name;
 
-                for(int i = 0;i <= 4;i++) //This is 5 
+        private static void LoadHighScore()
+        {
+            for (var z = 0; z <= GlobalVar.amountOfLevels; z++)
+            {
+                var times = GetTopTimes("Joshua", (short) z);
+                var gme = GameObject.Find($"Level {z}");
+                var panel = gme.transform.GetChild(0).gameObject;
+                gme.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text =
+                    gme.name == "Level 0" ? "Overall Time" : gme.name;
+
+                for (var i = 0; i <= 4; i++) //This is 5, can be changed
                 {
-                    TMP_Text nametxt = panel.transform.GetChild(i).gameObject.GetComponent<TMP_Text>();
-                    TMP_Text timetxt = panel.transform.GetChild(i + 5).gameObject.GetComponent<TMP_Text>();
+                    var nametxt = panel.transform.GetChild(i).gameObject.GetComponent<TMP_Text>();
+                    var timetxt = panel.transform.GetChild(i + 5).gameObject.GetComponent<TMP_Text>();
                     try
                     {
                         nametxt.text = $"{i + 1}. {times[i].Key}";
-                        timetxt.text = $"{Math.Round(times[i].Value,2)}s";
+                        timetxt.text = $"{Math.Round(times[i].Value, 2)}s";
                     }
                     catch
                     {
@@ -45,11 +46,12 @@ namespace UI
                 }
             }
         }
-        void UnloadHighScore()
+
+        private static void UnloadHighScore()
         {
-            for(int i = 0; i <= GlobalVar.amountOfLevels;i++)
+            for (var i = 0; i <= GlobalVar.amountOfLevels; i++)
             {
-                GameObject gme = GameObject.Find($"Level {i}");
+                var gme = GameObject.Find($"Level {i}");
                 gme.SetActive(false);
             }
         }

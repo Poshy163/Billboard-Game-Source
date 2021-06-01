@@ -1,18 +1,17 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 // ReSharper disable All
 #pragma warning disable 414
 public class Camerascript : MonoBehaviour
 {
+    public GameObject portal;
     private Camera cam;
+
+    private bool canchecknow;
 
     private float curtime;
 
-    public GameObject portal;
-
     private bool playedwonsound;
-
-    private bool canchecknow;
 
     private void Start()
     {

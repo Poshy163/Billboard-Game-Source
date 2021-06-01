@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+
 // ReSharper disable All
 #pragma warning disable 414
 public class castlescript : MonoBehaviour
@@ -16,13 +17,13 @@ public class castlescript : MonoBehaviour
 
     [HideInInspector] public List<GameObject> spawnedgargoyle;
 
-    private bool nextspawned;
-
     public bool tospawn;
 
     public Material wallmaterial;
 
     public Material corruptedwallmaterial;
+
+    private bool nextspawned;
 
     private void Start()
     {
@@ -31,14 +32,6 @@ public class castlescript : MonoBehaviour
         if (tospawn)
         {
             Invoke("Spawngargoyles", 0.003f);
-        }
-    }
-
-    public void Spawngargoyles()
-    {
-        if (gameObject.activeSelf && spawnedgargoyle.Count < 1)
-        {
-            spawn();
         }
     }
 
@@ -51,6 +44,14 @@ public class castlescript : MonoBehaviour
         }
 
         gameObject.GetComponent<MeshRenderer>().material = wallmaterial;
+    }
+
+    public void Spawngargoyles()
+    {
+        if (gameObject.activeSelf && spawnedgargoyle.Count < 1)
+        {
+            spawn();
+        }
     }
 
     public void spawn()

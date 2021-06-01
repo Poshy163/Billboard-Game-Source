@@ -1,4 +1,5 @@
 using UnityEngine;
+
 // ReSharper disable All
 public class playeranimationfunctions : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class playeranimationfunctions : MonoBehaviour
         controller.shootstart();
     }
 
-   private void shoot()
+    private void shoot()
     {
         controller.Shootarrow();
     }

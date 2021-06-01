@@ -1,13 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
-
 
 namespace TMPro.Examples
 {
-    
     public class ObjectSpin : MonoBehaviour
     {
-
 #pragma warning disable 0414
 
         public float SpinSpeed = 5;
@@ -19,12 +15,18 @@ namespace TMPro.Examples
         private Vector3 m_initial_Rotation;
         private Vector3 m_initial_Position;
         private Color32 m_lightColor;
-        private int frames = 0;
+        private int frames;
 
-        public enum MotionType { Rotation, BackAndForth, Translation };
+        public enum MotionType
+        {
+            Rotation,
+            BackAndForth,
+            Translation
+        }
+
         public MotionType Motion;
 
-        void Awake()
+        private void Awake()
         {
             m_transform = transform;
             m_initial_Rotation = m_transform.rotation.eulerAngles;
@@ -36,7 +38,7 @@ namespace TMPro.Examples
 
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             if (Motion == MotionType.Rotation)
             {
@@ -45,7 +47,8 @@ namespace TMPro.Examples
             else if (Motion == MotionType.BackAndForth)
             {
                 m_time += SpinSpeed * Time.deltaTime;
-                m_transform.rotation = Quaternion.Euler(m_initial_Rotation.x, Mathf.Sin(m_time) * RotationRange + m_initial_Rotation.y, m_initial_Rotation.z);
+                m_transform.rotation = Quaternion.Euler(m_initial_Rotation.x,
+                    Mathf.Sin(m_time) * RotationRange + m_initial_Rotation.y, m_initial_Rotation.z);
             }
             else
             {

@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GlobalVar : MonoBehaviour
 {
-    public static string Name = null;
     public const int amountOfLevels = 4;
+    public static string Name = null;
 }

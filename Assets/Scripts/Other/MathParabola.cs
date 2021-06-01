@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+
 // ReSharper disable All
 //Formatted
 public class MathParabola

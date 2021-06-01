@@ -1,4 +1,5 @@
 using UnityEngine;
+
 // ReSharper disable All
 public class kickscript : MonoBehaviour
 {
@@ -22,7 +23,6 @@ public class kickscript : MonoBehaviour
                 }
                 else if (!collider.transform.parent.GetComponent<gargoylescript>().kicked)
                 {
-                 
                     collider.transform.parent.GetComponent<gargoylescript>().enemykickedback(20000f);
                 }
             }
@@ -43,6 +43,7 @@ public class kickscript : MonoBehaviour
                 }
             }
         }
+
         return result;
     }
 }

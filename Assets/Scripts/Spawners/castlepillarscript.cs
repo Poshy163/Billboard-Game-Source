@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+
 // ReSharper disable All
 public class castlepillarscript : MonoBehaviour
 {
     public int numberofcastles;
 
-    private int maxnumberofcastles;
-
     public List<GameObject> castles;
+
+    private int maxnumberofcastles;
 
     private void Start()
     {

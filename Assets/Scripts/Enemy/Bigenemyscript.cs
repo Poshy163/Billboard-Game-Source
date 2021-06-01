@@ -1,25 +1,25 @@
 using UnityEngine;
+
 //ReSharper disable All
 //Formatted
 public class Bigenemyscript : MonoBehaviour
 {
-    private GameObject player;
-
-    private Color matcolor;
-
-    private Color damagedcolor = new Color ( Color.red.r,Color.red.g,Color.red.b, 1f);
-
-    private Color almostdeadcolor = new Color(1f,0f,0f,1f);
-
-    private Animator anim;
-
-    private Rigidbody rb;
-
-    private bool lookatplayer = true;
-
     public GameObject enemysprite;
 
     public float speed;
+
+    private Color almostdeadcolor = new Color(1f, 0f, 0f, 1f);
+
+    private Animator anim;
+
+    private Color damagedcolor = new Color(Color.red.r, Color.red.g, Color.red.b, 1f);
+
+    private bool lookatplayer = true;
+
+    private Color matcolor;
+    private GameObject player;
+
+    private Rigidbody rb;
 
     public void Start()
     {

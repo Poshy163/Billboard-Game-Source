@@ -1,50 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
+
 // ReSharper disable All
 //Formatted 
 public class Summonerscript : MonoBehaviour
 {
-    private GameObject player;
-
-    private Color matcolor;
-
-    private Color transparentcolor;
-
-    private Color Unkillablecolor = new Color(1,0.9170542f,0.006289184f,1);
-
-    private Color damagedcolor = new Color(Color.red.r,Color.red.g,Color.red.b,1f);
-
-    private Color almostdeadcolor = new Color(1f,0f,0f,1f);
-
-    private Animator anim;
-
-    private Rigidbody rb;
-
-    private GameObject[] summonerpositions;
-
-    private GameObject currentpos;
-
-    private TrailRenderer trailrenderer;
-
-    private bool lookatplayer = true;
-
-    private bool shooting;
-
-    private bool moving;
-
-    private float enemyspeed;
-
-    private float nextshoot = 1f;
-
-    private float shootrate = 1.63f;
-
-    private float health = 30f;
-
-    private float nextalmostdeadcolor = 0f;
-
-    private float almostdeadcolorrate = 0.14f;
-
     public GameObject enemysprite;
 
     public GameObject finaltext;
@@ -61,7 +22,46 @@ public class Summonerscript : MonoBehaviour
 
     public GameObject basesummonerposition;
 
+    private Color almostdeadcolor = new Color(1f, 0f, 0f, 1f);
+
+    private float almostdeadcolorrate = 0.14f;
+
+    private Animator anim;
+
     private bool corrupted = false;
+
+    private GameObject currentpos;
+
+    private Color damagedcolor = new Color(Color.red.r, Color.red.g, Color.red.b, 1f);
+
+    private float enemyspeed;
+
+    private float health = 30f;
+
+    private bool lookatplayer = true;
+
+    private Color matcolor;
+
+    private bool moving;
+
+    private float nextalmostdeadcolor = 0f;
+
+    private float nextshoot = 1f;
+    private GameObject player;
+
+    private Rigidbody rb;
+
+    private bool shooting;
+
+    private float shootrate = 1.63f;
+
+    private GameObject[] summonerpositions;
+
+    private TrailRenderer trailrenderer;
+
+    private Color transparentcolor;
+
+    private Color Unkillablecolor = new Color(1, 0.9170542f, 0.006289184f, 1);
 
     public void Start()
     {
@@ -75,13 +75,6 @@ public class Summonerscript : MonoBehaviour
         currentpos = basesummonerposition;
         trailrenderer.enabled = false;
         finaltext.SetActive(false);
-    }
-
-    public void shoot ()
-    {
-        soundmanagerscript.playsound("enemyshoot");
-       // Instantiate(projectile,projpos.position,Quaternion.identity).GetComponent<shurikenscript>().spawnedby =
-        //    gameObject.transform.GetChild(0).gameObject;
     }
 
     public void Update()
@@ -99,6 +92,7 @@ public class Summonerscript : MonoBehaviour
                     gameObject.GetComponent<gargoylescript>().enemykickedback(5f);
                 }
             }
+
             PlayerController.SlowTimer.value += 5;
             Destroy(this.gameObject, 0f);
         }
@@ -139,7 +133,6 @@ public class Summonerscript : MonoBehaviour
                 }
                 catch
                 { }
-
             }
         }
         else
@@ -162,6 +155,41 @@ public class Summonerscript : MonoBehaviour
             transform.GetChild(0).GetComponent<SpriteRenderer>().color = matcolor;
             trailrenderer.enabled = false;
         }
+    }
+
+    public void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.layer == LayerMask.NameToLayer("Kicked Enemy"))
+        {
+            takendamage();
+            kicked();
+            if (col.gameObject.tag == "Floating enemy")
+            {
+                Instantiate(kickparticles, col.transform.position, Quaternion.identity).transform.forward =
+                    col.transform.forward;
+                Destroy(col.gameObject, 0f);
+            }
+        }
+
+        if (col.gameObject.tag == "arrow" &&
+            transform.GetChild(0).GetComponent<SpriteRenderer>().color != transparentcolor)
+        {
+            takendamage();
+            GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+            if (col.gameObject.GetComponent<arrowscript>().cancausegrapple &&
+                !transform.GetComponent<greentargetscript>().arrowstate)
+            {
+                gameObject.GetComponent<greentargetscript>().SetArrowstate();
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().enemytodashto = gameObject;
+            }
+        }
+    }
+
+    public void shoot()
+    {
+        soundmanagerscript.playsound("enemyshoot");
+        // Instantiate(projectile,projpos.position,Quaternion.identity).GetComponent<shurikenscript>().spawnedby =
+        //    gameObject.transform.GetChild(0).gameObject;
     }
 
     public void shootstart()
@@ -189,7 +217,7 @@ public class Summonerscript : MonoBehaviour
     {
         transform.GetChild(0).GetComponent<SpriteRenderer>().color = Unkillablecolor;
     }
-    
+
 
     private void resetcolor()
     {
@@ -234,34 +262,6 @@ public class Summonerscript : MonoBehaviour
 
             var random2 = new Random();
             currentpos = list2[random2.Next(0, list2.Count - 1)];
-        }
-    }
-
-    public void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.layer == LayerMask.NameToLayer("Kicked Enemy"))
-        {
-            takendamage();
-            kicked();
-            if (col.gameObject.tag == "Floating enemy")
-            {
-                Instantiate(kickparticles, col.transform.position, Quaternion.identity).transform.forward =
-                    col.transform.forward;
-                Destroy(col.gameObject, 0f);
-            }
-        }
-
-        if (col.gameObject.tag == "arrow" &&
-            transform.GetChild(0).GetComponent<SpriteRenderer>().color != transparentcolor)
-        {
-            takendamage();
-            GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
-            if (col.gameObject.GetComponent<arrowscript>().cancausegrapple &&
-                !transform.GetComponent<greentargetscript>().arrowstate)
-            {
-                gameObject.GetComponent<greentargetscript>().SetArrowstate();
-                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().enemytodashto = gameObject;
-            }
         }
     }
 }
