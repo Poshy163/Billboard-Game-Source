@@ -21,13 +21,11 @@ namespace Saving
 {
     public class Saving : MonoBehaviour
     {
-        private const string MongoLogin =
-            "mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
+        private const string MongoLogin = "mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
 
         public static void CheckLevelTime(string name, double time, short level)
         {
             if (!(double.Parse(GetData(name, time, level)) > time)) return;
-            ;
             DeleteDatabaseEntry(name, level);
             SendToDatabase(name, time, level);
         }
@@ -90,7 +88,7 @@ namespace Saving
 
         public static List<KeyValuePair<string, float>> GetTopTimes(string localName, short level)
         {
-            //TODO also get the local name of the user and display thier ranking 
+            //TODO also get the local name of the user and display their ranking 
             var topTime = new Dictionary<string, float>();
             var client = new MongoClient(MongoLogin);
             var database = client.GetDatabase("Time");

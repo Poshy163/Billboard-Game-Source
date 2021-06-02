@@ -157,6 +157,7 @@ namespace GameLauncher
                 File.Delete(gameZip);
                 Progress.Value++;
                 Status = LauncherStatus.ready;
+                VersionText.Text = File.ReadAllText(Path.Combine(rootPath, GameFolderName, "Version.txt"));
                 Progress.Visibility = Visibility.Hidden;
             }
             catch (Exception ex)

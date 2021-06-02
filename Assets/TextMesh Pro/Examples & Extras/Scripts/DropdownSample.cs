@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+
 // ReSharper disable RedundantDefaultMemberInitializer
 
 namespace TextMesh_Pro.Scripts
