@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 442}
   m_MaxSize: {x: 12004, y: 8042}
   vertical: 0
-  controlID: 134
+  controlID: 98
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 442}
   m_MaxSize: {x: 8003, y: 8042}
   vertical: 1
-  controlID: 84
+  controlID: 99
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 58
+  controlID: 100
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -222,7 +222,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 5efbffff
+      m_ExpandedIDs: 4cfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -310,9 +310,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 97.714355, y: 110.36764, z: -95.91084}
+    m_Target: {x: 74.14452, y: 115.395676, z: -73.19678}
     speed: 2
-    m_Value: {x: 97.714355, y: 110.36764, z: -95.91084}
+    m_Value: {x: 74.14452, y: 115.395676, z: -73.19678}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -359,13 +359,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.08121635, y: -0.7634099, z: -0.09875763, w: -0.6333909}
+    m_Target: {x: 0.19153437, y: 0.0037491443, z: 0.00018463167, w: -0.9816458}
     speed: 2
-    m_Value: {x: 0.08120304, y: -0.7632848, z: -0.09874145, w: -0.6332871}
+    m_Value: {x: 0.19150296, y: 0.0037485294, z: 0.00018460139, w: -0.98148483}
   m_Size:
-    m_Target: 10
+    m_Target: 14.221005
     speed: 2
-    m_Value: 10
+    m_Value: 14.221005
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -623,21 +623,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Databases/Plugins
+    - Assets/Scripts/Saving
     m_Globs: []
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Databases/Plugins
+  - Assets/Scripts/Saving
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\GitHub\Repos\Billboard-Game-Source
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 443b0000
-    m_LastClickedID: 15172
-    m_ExpandedIDs: 00000000f43a0000f63a0000f83a0000023b00001e3b0000243b000000ca9a3b
+    scrollPos: {x: 0, y: 190}
+    m_SelectedIDs: 3c3b0000
+    m_LastClickedID: 15164
+    m_ExpandedIDs: 00000000183b00001a3b00001c3b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -665,7 +665,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000f43a0000f63a0000f83a0000
+    m_ExpandedIDs: 00000000183b00001a3b00001c3b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -690,9 +690,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: b8350000
-    m_LastClickedInstanceID: 13752
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: ce5400001a460000fe46000034500000b8f400003e01010010010100e2210100f4310100dcd80000483b0000e0ed0b00687c0000f248000006380000e0ea0000187e0000d6630000024800000e6c0000129e000050a10000a0390000c63400004e390000a2430000aa4900009a490000c03500006ebaffffda3d0000000000009a480000dc3e0000484c0000663b0000407b0000fe3b0000e43b0000dc3d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -774,7 +774,7 @@ MonoBehaviour:
   m_MinSize: {x: 276, y: 192}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 135
+  controlID: 18
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -836,7 +836,7 @@ MonoBehaviour:
     m_CachedPref: 161
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: 13752
+  m_LastInspectedObjectInstanceID: -1
   m_LastVerticalScrollValue: 0
   m_AssetGUID: 
   m_InstanceID: 0

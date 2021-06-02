@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
+using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TMPro;
@@ -48,6 +51,7 @@ namespace UI
             if (Saving.Saving.Login(localname, password))
             {
                 GlobalVar.Name = localname;
+                SendSlackMessage($"User logged in with the username: {localname}");
                 debugtxt.text = "Login Completed, Welcome!";
                 SceneManager.LoadScene("LevelSelect");
             }
@@ -83,6 +87,7 @@ namespace UI
             if (Saving.Saving.SignUp(localname, password))
             {
                 GlobalVar.Name = localname;
+                SendSlackMessage($"User signed up with the username: {localname}");
                 debugtxt.text = "Done Sign up";
                 SceneManager.LoadScene("LevelSelect");
             }
@@ -115,7 +120,6 @@ namespace UI
             dynamic jsonFile = JsonConvert.DeserializeObject(body);
             return bool.Parse(jsonFile["is-bad"].ToString());
         }
-
         public static void PermDeleteAccount()
         {
             for (short i = 0; i <= 25; i++)
@@ -131,13 +135,11 @@ namespace UI
             Saving.Saving.DeleteUser(GlobalVar.Name);
             SceneManager.LoadScene("Settings");
         }
-
         public void LoadLeaderboardToggle()
         {
             _toggle.isOn = !DisplayHighscores.LoadHighScores;
             DisplayHighscores.LoadHighScores = _toggle.isOn;
         }
-
         private void GetGameVersion()
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), "Version.txt");
@@ -146,5 +148,53 @@ namespace UI
             else
                 version.gameObject.SetActive(false);
         }
+        private static void SendSlackMessage(string message)
+        {
+            var client = new SlackClient("https://hooks.slack.com/services/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");
+            client.PostMessage(username: "User Login", text: message , channel: "#user-login");
+        }
+    }
+
+    public class SlackClient
+    {
+        private readonly Uri _uri;
+        private readonly Encoding _encoding = new UTF8Encoding();
+
+        public SlackClient(string urlWithAccessToken)
+        {
+            _uri = new Uri(urlWithAccessToken);
+        }
+
+        public void PostMessage(string text, string username = null, string channel = null)
+        {
+            var payload = new Payload()
+            {
+                Channel = channel,
+                Username = username,
+                Text = text
+            };
+
+            PostMessage(payload);
+        }
+        private void PostMessage(Payload payload)
+        {
+            var payloadJson = JsonConvert.SerializeObject(payload);
+
+            using (var client = new WebClient())
+            {
+                var data = new NameValueCollection {["payload"] = payloadJson};
+                var response = client.UploadValues(_uri, "POST", data);
+                // ReSharper disable once UnusedVariable
+                var responseText = _encoding.GetString(response);
+            }
+        }
+    }
+    public class Payload
+    {
+        [JsonProperty("channel")] public string Channel { get; set; }
+
+        [JsonProperty("username")] public string Username { get; set; }
+
+        [JsonProperty("text")] public string Text { get; set; }
     }
 }
