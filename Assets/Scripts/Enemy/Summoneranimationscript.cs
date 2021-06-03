@@ -1,32 +1,32 @@
 using UnityEngine;
 
 // ReSharper disable All
-public class Summoneranimationscript:MonoBehaviour
+public class Summoneranimationscript : MonoBehaviour
 {
     private Summonerscript summoner;
 
-    private void Start ()
+    private void Start()
     {
         summoner = transform.parent.gameObject.GetComponent<Summonerscript>();
     }
 
-    private void shootstart ()
+    private void shootstart()
     {
         summoner.shootstart();
     }
 
-    private void spawnhead ()
+    private void spawnhead()
     {
         summoner.spawnhead();
     }
 
-    private void shoot ()
+    private void shoot()
     {
         summoner.shoot();
     }
 
 
-    private void shootend ()
+    private void shootend()
     {
         summoner.shootend();
     }

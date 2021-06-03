@@ -3,7 +3,7 @@ using UnityEngine;
 
 // ReSharper disable All
 #pragma warning disable 414
-public class castlescript:MonoBehaviour
+public class castlescript : MonoBehaviour
 {
     public GameObject gargoyle;
 
@@ -25,19 +25,19 @@ public class castlescript:MonoBehaviour
 
     private bool nextspawned;
 
-    private void Start ()
+    private void Start()
     {
         spawnedgargoyle = new List<GameObject>();
         nextspawned = false;
-        if(tospawn)
+        if (tospawn)
         {
-            Invoke("Spawngargoyles",0.003f);
+            Invoke("Spawngargoyles", 0.003f);
         }
     }
 
-    private void Update ()
+    private void Update()
     {
-        if(spawnedgargoyle.Count > 0)
+        if (spawnedgargoyle.Count > 0)
         {
             gameObject.GetComponent<MeshRenderer>().material = corruptedwallmaterial;
             return;
@@ -46,27 +46,27 @@ public class castlescript:MonoBehaviour
         gameObject.GetComponent<MeshRenderer>().material = wallmaterial;
     }
 
-    public void Spawngargoyles ()
+    public void Spawngargoyles()
     {
-        if(gameObject.activeSelf && spawnedgargoyle.Count < 1)
+        if (gameObject.activeSelf && spawnedgargoyle.Count < 1)
         {
             spawn();
         }
     }
 
-    public void spawn ()
+    public void spawn()
     {
-        GameObject gameObject = Instantiate(gargoyle,gargoylepos1.position,Quaternion.identity);
+        GameObject gameObject = Instantiate(gargoyle, gargoylepos1.position, Quaternion.identity);
         gameObject.GetComponent<gargoylescript>().postorotatearound = this.gameObject;
         spawnedgargoyle.Add(gameObject);
-        GameObject gameObject2 = Instantiate(gargoyle,gargoylepos2.position,Quaternion.identity);
+        GameObject gameObject2 = Instantiate(gargoyle, gargoylepos2.position, Quaternion.identity);
         gameObject2.GetComponent<gargoylescript>().postorotatearound = this.gameObject;
         spawnedgargoyle.Add(gameObject2);
     }
 
-    public void gargoyledead ()
+    public void gargoyledead()
     {
-        if(nextcastle != null)
+        if (nextcastle != null)
         {
             nextspawned = true;
             nextcastle.GetComponent<castlescript>().spawn();

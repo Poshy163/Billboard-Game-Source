@@ -1,6 +1,14 @@
 ﻿using UnityEngine;
-public class GlobalVar:MonoBehaviour
+
+public class GlobalVar : MonoBehaviour
 {
+    public enum GameDifficultyEnum
+    {
+        Easy,
+        Normal,
+        Hard
+    }
+
     public const int amountOfLevels = 4;
     public static string Name = null;
     public static GameDifficultyEnum GameDifficulty;
@@ -10,15 +18,10 @@ public class GlobalVar:MonoBehaviour
     public static float BulletSpeed = 5f;
     public static float SlowModeRegenRate = 25f;
     public static float SlowModeDrainRate = 400f;
-    public enum GameDifficultyEnum
+
+    public static void UpdateSettings()
     {
-        Easy,
-        Normal,
-        Hard
-    }
-    public static void UpdateSettings ()
-    {
-        switch(GameDifficulty)
+        switch (GameDifficulty)
         {
             case GameDifficultyEnum.Easy:
                 Enemydontattack = true;
@@ -32,8 +35,5 @@ public class GlobalVar:MonoBehaviour
                 BulletSpeed = 6f;
                 break;
         }
-
     }
-
-
 }

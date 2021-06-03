@@ -1,12 +1,12 @@
 using UnityEngine;
 
 // ReSharper disable All
-public class particlescript:MonoBehaviour
+public class particlescript : MonoBehaviour
 {
     public float lifetimevalue;
 
-    private void Start ()
+    private void Start()
     {
-        Destroy(gameObject,lifetimevalue);
+        Destroy(gameObject, lifetimevalue);
     }
 }

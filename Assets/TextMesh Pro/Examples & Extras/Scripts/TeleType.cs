@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TMPro.Examples
 {
-    public class TeleType:MonoBehaviour
+    public class TeleType : MonoBehaviour
     {
         //[Range(0, 100)]
         //public int RevealSpeed = 50;
@@ -18,7 +18,7 @@ namespace TMPro.Examples
         private TMP_Text m_textMeshPro;
 
 
-        private void Awake ()
+        private void Awake()
         {
             // Get Reference to TextMeshPro Component
             m_textMeshPro = GetComponent<TMP_Text>();
@@ -40,25 +40,25 @@ namespace TMPro.Examples
         }
 
 
-        private IEnumerator Start ()
+        private IEnumerator Start()
         {
             // Force and update of the mesh to get valid information.
             m_textMeshPro.ForceMeshUpdate();
 
 
-            int totalVisibleCharacters =
+            var totalVisibleCharacters =
                 m_textMeshPro.textInfo.characterCount; // Get # of Visible Character in text object
-            int counter = 0;
-            int visibleCount = 0;
+            var counter = 0;
+            var visibleCount = 0;
 
-            while(true)
+            while (true)
             {
                 visibleCount = counter % (totalVisibleCharacters + 1);
 
                 m_textMeshPro.maxVisibleCharacters = visibleCount; // How many characters should TextMeshPro display?
 
                 // Once the last character has been revealed, wait 1.0 second and start over.
-                if(visibleCount >= totalVisibleCharacters)
+                if (visibleCount >= totalVisibleCharacters)
                 {
                     yield return new WaitForSeconds(1.0f);
                     m_textMeshPro.text = label02;

@@ -2,13 +2,13 @@ using UnityEngine;
 
 // ReSharper disable All
 //Formatted
-public class Bottomscript:MonoBehaviour
+public class Bottomscript : MonoBehaviour
 {
-    public void OnTriggerEnter ( Collider col )
+    public void OnTriggerEnter(Collider col)
     {
-        if(col.tag != "Player")
+        if (col.tag != "Player")
         {
-            Destroy(col.gameObject,0f);
+            Destroy(col.gameObject, 0f);
         }
     }
 }

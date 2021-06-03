@@ -12,7 +12,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{4bedfeeb-9ee8-f67d-84f0-4afbb2df87a3}</ProjectGuid>
+    <ProjectGuid>{116c7723-b85a-c834-2098-acbdc1d02864}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -137,31 +137,31 @@
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
      <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>C:/Users/LeaperJ/Downloads/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>C:/Users/LeaperJ/Downloads/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>C:/Users/LeaperJ/Downloads/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Users/LeaperJ/Downloads/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>C:/Users/LeaperJ/Downloads/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>C:/Users/LeaperJ/Downloads/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VisualStudio.Editor">
- <HintPath>C:/Users/LeaperJ/Downloads/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+ <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>C:/Users/LeaperJ/Downloads/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>C:/Users/LeaperJ/Downloads/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.10f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -353,25 +353,25 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.10f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
  </Reference>
  <Reference Include="DnsClient">
- <HintPath>C:/Users/LeaperJ/Downloads/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Assets/Databases/Plugins/DnsClient.dll</HintPath>
+ <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Assets/Databases/Plugins/DnsClient.dll</HintPath>
  </Reference>
  <Reference Include="MongoDB.Bson">
- <HintPath>C:/Users/LeaperJ/Downloads/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Assets/Databases/Plugins/MongoDB.Bson.dll</HintPath>
+ <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Assets/Databases/Plugins/MongoDB.Bson.dll</HintPath>
  </Reference>
  <Reference Include="MongoDB.Driver.Core">
- <HintPath>C:/Users/LeaperJ/Downloads/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Assets/Databases/Plugins/MongoDB.Driver.Core.dll</HintPath>
+ <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Assets/Databases/Plugins/MongoDB.Driver.Core.dll</HintPath>
  </Reference>
  <Reference Include="MongoDB.Driver">
- <HintPath>C:/Users/LeaperJ/Downloads/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Assets/Databases/Plugins/MongoDB.Driver.dll</HintPath>
+ <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Assets/Databases/Plugins/MongoDB.Driver.dll</HintPath>
  </Reference>
  <Reference Include="Newtonsoft.Json">
- <HintPath>C:/Users/LeaperJ/Downloads/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Assets/Databases/Plugins/Newtonsoft.Json.dll</HintPath>
+ <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Assets/Databases/Plugins/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="System.Buffers">
- <HintPath>C:/Users/LeaperJ/Downloads/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Assets/Databases/Plugins/System.Buffers.dll</HintPath>
+ <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Assets/Databases/Plugins/System.Buffers.dll</HintPath>
  </Reference>
  <Reference Include="System.IO.Compression.ZipFile 1">
- <HintPath>C:/Users/LeaperJ/Downloads/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Billboard-Game-Source-48b54393ae377e358662870014deb9ef9aa20043/Assets/Databases/Plugins/System.IO.Compression.ZipFile 1.dll</HintPath>
+ <HintPath>C:/GitHub/Repos/Billboard-Game-Source/Assets/Databases/Plugins/System.IO.Compression.ZipFile 1.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.10f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
