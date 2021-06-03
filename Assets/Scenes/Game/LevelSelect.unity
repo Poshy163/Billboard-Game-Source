@@ -2311,7 +2311,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 143}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5406761, y: -3.59, z: 2.315184}
+  m_LocalPosition: {x: 0, y: -2.31, z: 4.456}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 280}
@@ -2340,7 +2340,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.39, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children:
   - {fileID: 279}
@@ -9427,14 +9427,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1711793678033795207, guid: b2a3952796ed0ce4d8f792a51d864e62,
         type: 3}
-      propertyPath: greencrosshair
-      value: 
-      objectReference: {fileID: 108}
-    - target: {fileID: 1711793678033795207, guid: b2a3952796ed0ce4d8f792a51d864e62,
-        type: 3}
       propertyPath: damagedpanel
       value: 
       objectReference: {fileID: 102}
+    - target: {fileID: 1711793678033795207, guid: b2a3952796ed0ce4d8f792a51d864e62,
+        type: 3}
+      propertyPath: greencrosshair
+      value: 
+      objectReference: {fileID: 108}
     - target: {fileID: 1711793678033795691, guid: b2a3952796ed0ce4d8f792a51d864e62,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9494,11 +9494,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1711793678033795939, guid: b2a3952796ed0ce4d8f792a51d864e62,
-        type: 3}
-      propertyPath: m_Center.z
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2a3952796ed0ce4d8f792a51d864e62, type: 3}

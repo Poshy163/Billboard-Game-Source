@@ -1,16 +1,16 @@
-using System.Collections;
 using Other;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // ReSharper disable All
-public class portalscript : MonoBehaviour
+public class portalscript:MonoBehaviour
 {
     public string nextlevel;
 
-    public void OnCollisionEnter(Collision col)
+    public void OnCollisionEnter ( Collision col )
     {
-        if (col.gameObject.CompareTag("Player"))
+        if(col.gameObject.CompareTag("Player"))
         {
             try
             {
@@ -23,12 +23,12 @@ public class portalscript : MonoBehaviour
     }
 
 
-    public IEnumerator LoadScene()
+    public IEnumerator LoadScene ()
     {
         yield return new WaitForSeconds(0.01f);
         PlayerController.Endlv.SetActive(true);
         yield return new WaitForSeconds(0.05f);
-        if (nextlevel == "Final")
+        if(nextlevel == "Final")
         {
             try
             {
@@ -39,7 +39,7 @@ public class portalscript : MonoBehaviour
             }
             catch
             {
-                SceneManager.LoadScene("LevelSelect", LoadSceneMode.Single);
+                SceneManager.LoadScene("LevelSelect",LoadSceneMode.Single);
             }
         }
         else
@@ -47,11 +47,11 @@ public class portalscript : MonoBehaviour
             try
             {
                 GameObject.Find("EventSystem").GetComponent<Timer>()
-                    .AddScore(short.Parse(transform.GetChild(0).name.ToString()), nextlevel);
+                    .AddScore(short.Parse(transform.GetChild(0).name.ToString()),nextlevel);
             }
             catch
             {
-                SceneManager.LoadScene(nextlevel, LoadSceneMode.Single);
+                SceneManager.LoadScene(nextlevel,LoadSceneMode.Single);
             }
         }
     }

@@ -2,7 +2,7 @@
 
 namespace TMPro.Examples
 {
-    public class TMP_ExampleScript_01 : MonoBehaviour
+    public class TMP_ExampleScript_01:MonoBehaviour
     {
         public enum objectType
         {
@@ -21,14 +21,18 @@ namespace TMPro.Examples
 
         private TMP_Text m_text;
 
-        private void Awake()
+        private void Awake ()
         {
             // Get a reference to the TMP text component if one already exists otherwise add one.
             // This example show the convenience of having both TMP components derive from TMP_Text. 
-            if (ObjectType == 0)
+            if(ObjectType == 0)
+            {
                 m_text = GetComponent<TextMeshPro>() ?? gameObject.AddComponent<TextMeshPro>();
+            }
             else
+            {
                 m_text = GetComponent<TextMeshProUGUI>() ?? gameObject.AddComponent<TextMeshProUGUI>();
+            }
 
             // Load a new font asset and assign it to the text object.
             m_text.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/Anton SDF");
@@ -43,18 +47,18 @@ namespace TMPro.Examples
             m_text.text = "A <#0080ff>simple</color> line of text.";
 
             // Get the preferred width and height based on the supplied width and height as opposed to the actual size of the current text container.
-            var size = m_text.GetPreferredValues(Mathf.Infinity, Mathf.Infinity);
+            Vector2 size = m_text.GetPreferredValues(Mathf.Infinity,Mathf.Infinity);
 
             // Set the size of the RectTransform based on the new calculated values.
-            m_text.rectTransform.sizeDelta = new Vector2(size.x, size.y);
+            m_text.rectTransform.sizeDelta = new Vector2(size.x,size.y);
         }
 
 
-        private void Update()
+        private void Update ()
         {
-            if (!isStatic)
+            if(!isStatic)
             {
-                m_text.SetText(k_label, count % 1000);
+                m_text.SetText(k_label,count % 1000);
                 count += 1;
             }
         }
