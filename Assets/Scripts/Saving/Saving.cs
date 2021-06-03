@@ -21,7 +21,8 @@ namespace Saving
 {
     public class Saving : MonoBehaviour
     {
-        private const string MongoLogin = "mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
+        private const string MongoLogin =
+            "mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
 
         public static void CheckLevelTime(string name, double time, short level)
         {
@@ -115,7 +116,7 @@ namespace Saving
             collection.DeleteMany(documents[0]);
         }
 
-        private static string GetData(string name, double time, short level = 0)
+        private static string GetData(string name, double time, short level)
         {
             try
             {
@@ -133,6 +134,7 @@ namespace Saving
                 return short.MaxValue.ToString();
             }
         }
+
 
         private static void SendToDatabase(string name, double time, short level = 0)
         {

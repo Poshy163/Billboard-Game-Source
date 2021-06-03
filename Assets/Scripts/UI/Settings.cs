@@ -41,7 +41,7 @@ namespace UI
         {
             var localname = GameObject.Find("NameLogin").GetComponent<TMP_InputField>().text.Trim();
             var password = GameObject.Find("PasswordLogin").GetComponent<TMP_InputField>().text.Trim();
-
+            debugtxt.text = "Loading...";
             if (string.IsNullOrEmpty(localname) || string.IsNullOrEmpty(password))
             {
                 debugtxt.text = "One or more fields cannot be empty";
@@ -51,7 +51,7 @@ namespace UI
             if (Saving.Saving.Login(localname, password))
             {
                 GlobalVar.Name = localname;
-                SendSlackMessage($"User logged in with the username: {localname}");
+                // SendSlackMessage($"User logged in with the username: {localname}");
                 debugtxt.text = "Login Completed, Welcome!";
                 SceneManager.LoadScene("LevelSelect");
             }
@@ -65,6 +65,7 @@ namespace UI
         {
             var localname = GameObject.Find("NameSignUp").GetComponent<TMP_InputField>().text.Trim();
             var password = GameObject.Find("PasswordSignUp").GetComponent<TMP_InputField>().text.Trim();
+            debugtxt.text = "Loading...";
             if (await CheckForBadWords(localname))
             {
                 debugtxt.text = "Nice try, dont do bad words";
@@ -87,7 +88,7 @@ namespace UI
             if (Saving.Saving.SignUp(localname, password))
             {
                 GlobalVar.Name = localname;
-                SendSlackMessage($"User signed up with the username: {localname}");
+               // SendSlackMessage($"User signed up with the username: {localname}");
                 debugtxt.text = "Done Sign up";
                 SceneManager.LoadScene("LevelSelect");
             }
@@ -120,6 +121,7 @@ namespace UI
             dynamic jsonFile = JsonConvert.DeserializeObject(body);
             return bool.Parse(jsonFile["is-bad"].ToString());
         }
+
         public static void PermDeleteAccount()
         {
             for (short i = 0; i <= 25; i++)
@@ -135,11 +137,13 @@ namespace UI
             Saving.Saving.DeleteUser(GlobalVar.Name);
             SceneManager.LoadScene("Settings");
         }
+
         public void LoadLeaderboardToggle()
         {
             _toggle.isOn = !DisplayHighscores.LoadHighScores;
             DisplayHighscores.LoadHighScores = _toggle.isOn;
         }
+
         private void GetGameVersion()
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), "Version.txt");
@@ -148,17 +152,19 @@ namespace UI
             else
                 version.gameObject.SetActive(false);
         }
+
         private static void SendSlackMessage(string message)
         {
-            var client = new SlackClient("https://hooks.slack.com/services/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");
-            client.PostMessage(username: "User Login", text: message , channel: "#user-login");
+            var client =
+                new SlackClient("https://hooks.slack.com/services/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");
+            client.PostMessage(username: "User Login", text: message, channel: "#user-login");
         }
     }
 
     public class SlackClient
     {
-        private readonly Uri _uri;
         private readonly Encoding _encoding = new UTF8Encoding();
+        private readonly Uri _uri;
 
         public SlackClient(string urlWithAccessToken)
         {
@@ -167,7 +173,7 @@ namespace UI
 
         public void PostMessage(string text, string username = null, string channel = null)
         {
-            var payload = new Payload()
+            var payload = new Payload
             {
                 Channel = channel,
                 Username = username,
@@ -176,6 +182,7 @@ namespace UI
 
             PostMessage(payload);
         }
+
         private void PostMessage(Payload payload)
         {
             var payloadJson = JsonConvert.SerializeObject(payload);
@@ -189,6 +196,7 @@ namespace UI
             }
         }
     }
+
     public class Payload
     {
         [JsonProperty("channel")] public string Channel { get; set; }

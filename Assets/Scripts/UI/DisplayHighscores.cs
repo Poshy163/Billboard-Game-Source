@@ -29,7 +29,7 @@ namespace UI
                 gme.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text =
                     gme.name == "Level 0" ? "Overall Time" : gme.name;
 
-                for (var i = 0; i <= 4; i++) //This is 5, can be changed
+                for (var i = 0; i <= 3; i++) //This is 5, can be changed
                 {
                     var nametxt = panel.transform.GetChild(i).gameObject.GetComponent<TMP_Text>();
                     var timetxt = panel.transform.GetChild(i + 5).gameObject.GetComponent<TMP_Text>();
@@ -43,6 +43,20 @@ namespace UI
                         nametxt.text = $"{i + 1}. Null";
                         timetxt.text = "NULL";
                     }
+                }
+
+                var nametxtlast = panel.transform.GetChild(4).gameObject.GetComponent<TMP_Text>();
+                var timetxtlast = panel.transform.GetChild(9).gameObject.GetComponent<TMP_Text>();
+                nametxtlast.text = $"?.  {GlobalVar.Name}";
+                timetxtlast.text = "No Time";
+                short localIndex = 0;
+                foreach (var var in times)
+                {
+                    localIndex++;
+                    if (var.Key != GlobalVar.Name) continue;
+                    nametxtlast.text = $"{localIndex}. {GlobalVar.Name}";
+                    timetxtlast.text = $"{Math.Round(var.Value, 2)}s";
+                    break;
                 }
             }
         }
