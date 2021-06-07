@@ -10,7 +10,6 @@ namespace UI
     public class DisplayHighscores : MonoBehaviour
     {
         public static bool LoadHighScores = true;
-
         private void Start()
         {
             if (LoadHighScores)
@@ -18,12 +17,11 @@ namespace UI
             else
                 UnloadHighScore();
         }
-
         private static void LoadHighScore()
         {
             for (var z = 0; z <= GlobalVar.amountOfLevels; z++)
             {
-                var times = GetTopTimes("Joshua", (short) z);
+                var times = GetTopTimes((short) z);
                 var gme = GameObject.Find($"Level {z}");
                 var panel = gme.transform.GetChild(0).gameObject;
                 gme.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text =
@@ -61,7 +59,6 @@ namespace UI
                 }
             }
         }
-
         private static void UnloadHighScore()
         {
             for (var i = 0; i <= GlobalVar.amountOfLevels; i++)
