@@ -1,3 +1,4 @@
+using System;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -59,8 +60,16 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        GameObject.Find("Timer").SetActive(true);
-        AssignVar();
+        try
+        {
+            GameObject.Find("Timer").SetActive(true);
+            AssignVar();
+        }
+        catch (Exception e)
+        {
+            DText.GetComponent<Text>().text = e.Message;
+            DText.SetActive(true);
+        }
     }
 
     public void Update()
@@ -83,24 +92,29 @@ public class PlayerController : MonoBehaviour
 
         #region Health
 
-        for (int i = 0; i < health; i++)
+        try
         {
-            hearts[i].SetActive(true);
-        }
+            for (int i = 0; i < health; i++)
+            {
+                hearts[i].SetActive(true);
+            }
 
-        for (int j = health; j < 5; j++)
-        {
-            hearts[j].SetActive(false);
-        }
+            for (int j = health; j < 5; j++)
+            {
+                hearts[j].SetActive(false);
+            }
 
-        if (health == 0)
-        {
-            doslowmotion();
-            DText.SetActive(true);
-            Gun.SetActive(false);
-            damagedpanel.SetActive(true);
-            return;
+            if (health == 0)
+            {
+                doslowmotion();
+                DText.SetActive(true);
+                Gun.SetActive(false);
+                damagedpanel.SetActive(true);
+                return;
+            }
         }
+        catch
+        { }
 
         #endregion
 
@@ -525,39 +539,42 @@ public class PlayerController : MonoBehaviour
 
     private void AssignVar()
     {
-        Endlv = GameObject.Find("Endlv");
-        Endlv.SetActive(false);
-        SlowTimer = GameObject.Find("TimeSlider").GetComponent<Slider>();
-        health = 5;
-        rb = GetComponent<Rigidbody>();
-        gunanim = Gun.GetComponent<Animator>();
-        kickanim = Kick.GetComponent<Animator>();
-        greencrosshair = GameObject.Find("green crosshair");
         try
         {
+            Endlv = GameObject.Find("Endlv");
+            Endlv.SetActive(false);
+            SlowTimer = GameObject.Find("TimeSlider").GetComponent<Slider>();
+            health = 5;
+            rb = GetComponent<Rigidbody>();
+            gunanim = Gun.GetComponent<Animator>();
+            kickanim = Kick.GetComponent<Animator>();
+            greencrosshair = GameObject.Find("green crosshair");
             damagedpanel = GameObject.FindGameObjectWithTag("Damaged panel");
             damagedpanel.SetActive(false);
+            slowmoscreen.SetActive(false);
+            gunanim.SetBool("moving", false);
+            gunanim.SetBool("kicking", false);
+            gunanim.SetBool("charge", false);
+            DText = GameObject.Find("DText");
+            DText.SetActive(false);
+            kickstate(false, false);
+            dashscreen.SetActive(false);
+            slowmoscreen.SetActive(false);
+            origscale = gameObject.transform.localScale;
+            Cursor.lockState = CursorLockMode.Locked;
+            rb.useGravity = true;
+            greencrosshair.SetActive(false);
+            hearts[0] = GameObject.Find($"Image");
+            for (int i = 1; i <= 4; i++)
+            {
+                hearts[i] = GameObject.Find($"Image ({i})");
+            }
         }
-        catch
-        { }
-
-        slowmoscreen.SetActive(false);
-        gunanim.SetBool("moving", false);
-        gunanim.SetBool("kicking", false);
-        gunanim.SetBool("charge", false);
-        DText = GameObject.Find("DText");
-        DText.SetActive(false);
-        kickstate(false, false);
-        dashscreen.SetActive(false);
-        slowmoscreen.SetActive(false);
-        origscale = gameObject.transform.localScale;
-        Cursor.lockState = CursorLockMode.Locked;
-        rb.useGravity = true;
-        greencrosshair.SetActive(false);
-        hearts[0] = GameObject.Find($"Image");
-        for (int i = 1; i <= 4; i++)
+        catch (Exception ex)
         {
-            hearts[i] = GameObject.Find($"Image ({i})");
+            DText.GetComponent<Text>().text = ex.Message;
+            DText.SetActive(true);
+            throw;
         }
     }
 
@@ -584,6 +601,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
+        if (col.gameObject.tag == "ToLv")
+        {
+            Endlv.SetActive(true);
+            SceneManager.LoadScene("Level3");
+        }
+
         if (col.gameObject.tag == "Delete")
         {
             if (string.IsNullOrEmpty(GlobalVar.Name))

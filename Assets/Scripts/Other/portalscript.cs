@@ -27,6 +27,7 @@ public class portalscript : MonoBehaviour
     {
         yield return new WaitForSeconds(0.01f);
         PlayerController.Endlv.SetActive(true);
+        GameObject.Find("Player").GetComponent<PlayerController>().health = 5;
         yield return new WaitForSeconds(0.05f);
         if (nextlevel == "Final")
         {

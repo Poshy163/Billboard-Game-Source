@@ -7011,7 +7011,7 @@ MonoBehaviour:
   gargoylepos2: {fileID: 221}
   spawninbeginning: 0
   spawnedgargoyle: []
-  tospawn: 1
+  tospawn: 0
   wallmaterial: {fileID: 2100000, guid: f3dd553493f21ae4bb283a9b7d46646b, type: 2}
   corruptedwallmaterial: {fileID: 2100000, guid: c44065c8b75fca042aa39b36eb8a6489,
     type: 2}
@@ -7033,7 +7033,7 @@ MonoBehaviour:
   gargoylepos2: {fileID: 175}
   spawninbeginning: 1
   spawnedgargoyle: []
-  tospawn: 1
+  tospawn: 0
   wallmaterial: {fileID: 2100000, guid: f3dd553493f21ae4bb283a9b7d46646b, type: 2}
   corruptedwallmaterial: {fileID: 2100000, guid: c44065c8b75fca042aa39b36eb8a6489,
     type: 2}
@@ -7097,7 +7097,7 @@ MonoBehaviour:
   gargoylepos2: {fileID: 279}
   spawninbeginning: 0
   spawnedgargoyle: []
-  tospawn: 1
+  tospawn: 0
   wallmaterial: {fileID: 2100000, guid: f3dd553493f21ae4bb283a9b7d46646b, type: 2}
   corruptedwallmaterial: {fileID: 2100000, guid: c44065c8b75fca042aa39b36eb8a6489,
     type: 2}
@@ -7173,7 +7173,7 @@ MonoBehaviour:
   gargoylepos2: {fileID: 226}
   spawninbeginning: 0
   spawnedgargoyle: []
-  tospawn: 1
+  tospawn: 0
   wallmaterial: {fileID: 2100000, guid: f3dd553493f21ae4bb283a9b7d46646b, type: 2}
   corruptedwallmaterial: {fileID: 2100000, guid: c44065c8b75fca042aa39b36eb8a6489,
     type: 2}
@@ -7214,7 +7214,7 @@ MonoBehaviour:
   gargoylepos2: {fileID: 276}
   spawninbeginning: 0
   spawnedgargoyle: []
-  tospawn: 1
+  tospawn: 0
   wallmaterial: {fileID: 2100000, guid: f3dd553493f21ae4bb283a9b7d46646b, type: 2}
   corruptedwallmaterial: {fileID: 2100000, guid: c44065c8b75fca042aa39b36eb8a6489,
     type: 2}
@@ -7236,7 +7236,7 @@ MonoBehaviour:
   gargoylepos2: {fileID: 179}
   spawninbeginning: 1
   spawnedgargoyle: []
-  tospawn: 1
+  tospawn: 0
   wallmaterial: {fileID: 2100000, guid: f3dd553493f21ae4bb283a9b7d46646b, type: 2}
   corruptedwallmaterial: {fileID: 2100000, guid: c44065c8b75fca042aa39b36eb8a6489,
     type: 2}
@@ -7270,7 +7270,7 @@ MonoBehaviour:
   gargoylepos2: {fileID: 162}
   spawninbeginning: 0
   spawnedgargoyle: []
-  tospawn: 1
+  tospawn: 0
   wallmaterial: {fileID: 2100000, guid: f3dd553493f21ae4bb283a9b7d46646b, type: 2}
   corruptedwallmaterial: {fileID: 2100000, guid: c44065c8b75fca042aa39b36eb8a6489,
     type: 2}
@@ -7292,7 +7292,7 @@ MonoBehaviour:
   gargoylepos2: {fileID: 277}
   spawninbeginning: 0
   spawnedgargoyle: []
-  tospawn: 1
+  tospawn: 0
   wallmaterial: {fileID: 2100000, guid: f3dd553493f21ae4bb283a9b7d46646b, type: 2}
   corruptedwallmaterial: {fileID: 2100000, guid: c44065c8b75fca042aa39b36eb8a6489,
     type: 2}

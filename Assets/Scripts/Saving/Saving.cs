@@ -95,8 +95,10 @@ namespace Saving
             var database = client.GetDatabase("Time");
             var collection = database.GetCollection<BsonDocument>($"Level {level}");
             var documents = collection.Find(new BsonDocument()).ToList();
-            var topTime = documents.Select(doc => JsonConvert.DeserializeObject(ToJson(doc))).ToDictionary<object, string, float>
-                (jsonFile => ((dynamic) jsonFile)["Name"].ToString(), jsonFile => float.Parse(((dynamic) jsonFile)["Time"].ToString()));
+            var topTime = documents.Select(doc => JsonConvert.DeserializeObject(ToJson(doc)))
+                .ToDictionary<object, string, float>
+                (jsonFile => ((dynamic) jsonFile)["Name"].ToString(),
+                    jsonFile => float.Parse(((dynamic) jsonFile)["Time"].ToString()));
             var myList = topTime.ToList();
             myList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
             return myList;
@@ -144,6 +146,7 @@ namespace Saving
             };
             collection.InsertOne(document);
         }
+
         private static string ToJson(BsonDocument bson)
         {
             var stream = new MemoryStream();
@@ -151,6 +154,7 @@ namespace Saving
             {
                 BsonSerializer.Serialize(writer, typeof(BsonDocument), bson);
             }
+
             stream.Seek(0, SeekOrigin.Begin);
             var reader = new BsonReader(stream);
             var sb = new StringBuilder();
@@ -163,6 +167,7 @@ namespace Saving
 
             return sb.ToString();
         }
+
         private static string Sha256Hash(string rawData)
         {
             var sha256Hash = SHA256.Create();

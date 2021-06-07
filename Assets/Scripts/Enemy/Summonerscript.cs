@@ -8,8 +8,6 @@ public class Summonerscript : MonoBehaviour
 {
     public GameObject enemysprite;
 
-    public GameObject finaltext;
-
     public float speed;
 
     public GameObject projectile;
@@ -74,14 +72,12 @@ public class Summonerscript : MonoBehaviour
         transform.position = basesummonerposition.transform.position;
         currentpos = basesummonerposition;
         trailrenderer.enabled = false;
-        finaltext.SetActive(false);
     }
 
     public void Update()
     {
         if (health <= 0f)
         {
-            finaltext.SetActive(true);
             Instantiate(kickparticles, transform.position, Quaternion.identity).transform.forward = transform.forward;
             GameObject[] array = GameObject.FindGameObjectsWithTag("Gargoyle");
             for (int i = 0; i < array.Length; i++)

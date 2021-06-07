@@ -10,6 +10,7 @@ namespace UI
     public class DisplayHighscores : MonoBehaviour
     {
         public static bool LoadHighScores = true;
+
         private void Start()
         {
             if (LoadHighScores)
@@ -17,6 +18,7 @@ namespace UI
             else
                 UnloadHighScore();
         }
+
         private static void LoadHighScore()
         {
             for (var z = 0; z <= GlobalVar.amountOfLevels; z++)
@@ -59,6 +61,7 @@ namespace UI
                 }
             }
         }
+
         private static void UnloadHighScore()
         {
             for (var i = 0; i <= GlobalVar.amountOfLevels; i++)
