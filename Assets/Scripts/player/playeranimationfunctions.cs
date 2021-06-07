@@ -1,55 +1,58 @@
 using UnityEngine;
 
 // ReSharper disable All
-public class playeranimationfunctions : MonoBehaviour
+namespace player
 {
-    private PlayerController controller;
-
-    private void Start()
+    public class playeranimationfunctions : MonoBehaviour
     {
-        controller = transform.parent.transform.parent.GetComponent<PlayerController>();
-    }
+        private PlayerController controller;
 
-    private void Update()
-    { }
+        private void Start()
+        {
+            controller = transform.parent.transform.parent.GetComponent<PlayerController>();
+        }
 
-    private void startdodge()
-    {
-        controller.dodge();
-    }
+        private void Update()
+        { }
 
-    private void enddodge()
-    {
-        controller.enddodge();
-    }
+        private void startdodge()
+        {
+            controller.dodge();
+        }
 
-    private void kick()
-    {
-        controller.kick();
-    }
+        private void enddodge()
+        {
+            controller.enddodge();
+        }
 
-    private void endkick()
-    {
-        controller.kickstate(false, false);
-    }
+        private void kick()
+        {
+            controller.kick();
+        }
 
-    private void shootstart()
-    {
-        controller.shootstart();
-    }
+        private void endkick()
+        {
+            controller.kickstate(false, false);
+        }
 
-    private void shoot()
-    {
-        controller.Shootarrow();
-    }
+        private void shootstart()
+        {
+            controller.shootstart();
+        }
 
-    private void shootgrapplearrow()
-    {
-        controller.Shootgrapplearrow();
-    }
+        private void shoot()
+        {
+            controller.Shootarrow();
+        }
 
-    private void shootend()
-    {
-        controller.shootend();
+        private void shootgrapplearrow()
+        {
+            controller.Shootgrapplearrow();
+        }
+
+        private void shootend()
+        {
+            controller.shootend();
+        }
     }
 }

@@ -1,33 +1,36 @@
 using UnityEngine;
 
 // ReSharper disable All
-public class Summoneranimationscript : MonoBehaviour
+namespace Enemy
 {
-    private Summonerscript summoner;
-
-    private void Start()
+    public class Summoneranimationscript : MonoBehaviour
     {
-        summoner = transform.parent.gameObject.GetComponent<Summonerscript>();
-    }
+        private Summonerscript summoner;
 
-    private void shootstart()
-    {
-        summoner.shootstart();
-    }
+        private void Start()
+        {
+            summoner = transform.parent.gameObject.GetComponent<Summonerscript>();
+        }
 
-    private void spawnhead()
-    {
-        summoner.spawnhead();
-    }
+        private void shootstart()
+        {
+            summoner.shootstart();
+        }
 
-    private void shoot()
-    {
-        summoner.shoot();
-    }
+        private void spawnhead()
+        {
+            summoner.spawnhead();
+        }
+
+        private void shoot()
+        {
+            summoner.shoot();
+        }
 
 
-    private void shootend()
-    {
-        summoner.shootend();
+        private void shootend()
+        {
+            summoner.shootend();
+        }
     }
 }

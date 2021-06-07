@@ -1,58 +1,61 @@
 using System.Collections;
-using Other;
+using player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // ReSharper disable All
-public class portalscript : MonoBehaviour
+namespace Other
 {
-    public string nextlevel;
-
-    public void OnCollisionEnter(Collision col)
+    public class portalscript : MonoBehaviour
     {
-        if (col.gameObject.CompareTag("Player"))
-        {
-            try
-            {
-                GameObject.Find("Player").GetComponent<PlayerController>().health = 5;
-                StartCoroutine(LoadScene());
-            }
-            catch
-            { }
-        }
-    }
+        public string nextlevel;
 
-
-    public IEnumerator LoadScene()
-    {
-        yield return new WaitForSeconds(0.01f);
-        PlayerController.Endlv.SetActive(true);
-        GameObject.Find("Player").GetComponent<PlayerController>().health = 5;
-        yield return new WaitForSeconds(0.05f);
-        if (nextlevel == "Final")
+        public void OnCollisionEnter(Collision col)
         {
-            try
+            if (col.gameObject.CompareTag("Player"))
             {
-                GameObject.Find("EventSystem").GetComponent<Timer>()
-                    .AddScore(short.Parse(transform.GetChild(0).name.ToString()));
-                GameObject.Find("EventSystem").GetComponent<Timer>()
-                    .FinalTime(short.Parse(transform.GetChild(0).name.ToString()));
-            }
-            catch
-            {
-                SceneManager.LoadScene("LevelSelect", LoadSceneMode.Single);
+                try
+                {
+                    GameObject.Find("Player").GetComponent<PlayerController>().health = 5;
+                    StartCoroutine(LoadScene());
+                }
+                catch
+                { }
             }
         }
-        else
+
+
+        public IEnumerator LoadScene()
         {
-            try
+            yield return new WaitForSeconds(0.01f);
+            PlayerController.Endlv.SetActive(true);
+            GameObject.Find("Player").GetComponent<PlayerController>().health = 5;
+            yield return new WaitForSeconds(0.05f);
+            if (nextlevel == "Final")
             {
-                GameObject.Find("EventSystem").GetComponent<Timer>()
-                    .AddScore(short.Parse(transform.GetChild(0).name.ToString()), nextlevel);
+                try
+                {
+                    GameObject.Find("EventSystem").GetComponent<Timer>()
+                        .AddScore(short.Parse(transform.GetChild(0).name.ToString()));
+                    GameObject.Find("EventSystem").GetComponent<Timer>()
+                        .FinalTime(short.Parse(transform.GetChild(0).name.ToString()));
+                }
+                catch
+                {
+                    SceneManager.LoadScene("LevelSelect", LoadSceneMode.Single);
+                }
             }
-            catch
+            else
             {
-                SceneManager.LoadScene(nextlevel, LoadSceneMode.Single);
+                try
+                {
+                    GameObject.Find("EventSystem").GetComponent<Timer>()
+                        .AddScore(short.Parse(transform.GetChild(0).name.ToString()), nextlevel);
+                }
+                catch
+                {
+                    SceneManager.LoadScene(nextlevel, LoadSceneMode.Single);
+                }
             }
         }
     }

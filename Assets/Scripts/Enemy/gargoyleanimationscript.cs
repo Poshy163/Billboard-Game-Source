@@ -1,17 +1,20 @@
 using UnityEngine;
 
 // ReSharper disable All
-public class gargoyleanimationscript : MonoBehaviour
+namespace Enemy
 {
-    private gargoylescript gargoyle;
-
-    private void Start()
+    public class gargoyleanimationscript : MonoBehaviour
     {
-        gargoyle = transform.parent.gameObject.GetComponent<gargoylescript>();
-    }
+        private gargoylescript gargoyle;
 
-    private void shoot()
-    {
-        gargoyle.shoot();
+        private void Start()
+        {
+            gargoyle = transform.parent.gameObject.GetComponent<gargoylescript>();
+        }
+
+        private void shoot()
+        {
+            gargoyle.shoot();
+        }
     }
 }

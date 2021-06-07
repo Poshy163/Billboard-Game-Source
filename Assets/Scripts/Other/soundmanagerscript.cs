@@ -1,70 +1,73 @@
 using UnityEngine;
 
 // ReSharper disable All
-public class soundmanagerscript : MonoBehaviour
+namespace Other
 {
-    private static AudioSource source;
-
-    private static AudioClip arrowshoot;
-
-    private static AudioClip enemyshoot;
-
-    private static AudioClip kick;
-
-    private static AudioClip playerhurt;
-
-    private static AudioClip won;
-
-    private static AudioClip dodge;
-
-    private void Start()
+    public class soundmanagerscript : MonoBehaviour
     {
-        source = GetComponent<AudioSource>();
-        arrowshoot = Resources.Load<AudioClip>("arrowshoot");
-        enemyshoot = Resources.Load<AudioClip>("newenemyshoot");
-        kick = Resources.Load<AudioClip>("kick");
-        playerhurt = Resources.Load<AudioClip>("playerhurt");
-        won = Resources.Load<AudioClip>("won");
-        dodge = Resources.Load<AudioClip>("dodge");
-    }
+        private static AudioSource source;
 
-    public static void playsound(string name)
-    {
-        if (name == "arrowshoot")
+        private static AudioClip arrowshoot;
+
+        private static AudioClip enemyshoot;
+
+        private static AudioClip kick;
+
+        private static AudioClip playerhurt;
+
+        private static AudioClip won;
+
+        private static AudioClip dodge;
+
+        private void Start()
         {
-            source.PlayOneShot(arrowshoot);
-            return;
+            source = GetComponent<AudioSource>();
+            arrowshoot = Resources.Load<AudioClip>("arrowshoot");
+            enemyshoot = Resources.Load<AudioClip>("newenemyshoot");
+            kick = Resources.Load<AudioClip>("kick");
+            playerhurt = Resources.Load<AudioClip>("playerhurt");
+            won = Resources.Load<AudioClip>("won");
+            dodge = Resources.Load<AudioClip>("dodge");
         }
 
-        if (name == "enemyshoot")
+        public static void playsound(string name)
         {
-            source.PlayOneShot(enemyshoot, 0.1f);
-            return;
-        }
+            if (name == "arrowshoot")
+            {
+                source.PlayOneShot(arrowshoot);
+                return;
+            }
 
-        if (name == "kick")
-        {
-            source.PlayOneShot(kick);
-            return;
-        }
+            if (name == "enemyshoot")
+            {
+                source.PlayOneShot(enemyshoot, 0.1f);
+                return;
+            }
 
-        if (name == "playerhurt")
-        {
-            source.PlayOneShot(playerhurt);
-            return;
-        }
+            if (name == "kick")
+            {
+                source.PlayOneShot(kick);
+                return;
+            }
 
-        if (name == "won")
-        {
-            source.PlayOneShot(won);
-            return;
-        }
+            if (name == "playerhurt")
+            {
+                source.PlayOneShot(playerhurt);
+                return;
+            }
 
-        if (!(name == "dodge"))
-        {
-            return;
-        }
+            if (name == "won")
+            {
+                source.PlayOneShot(won);
+                return;
+            }
 
-        source.PlayOneShot(dodge);
+            if (!(name == "dodge"))
+            {
+                return;
+            }
+
+            source.PlayOneShot(dodge);
+        }
     }
 }

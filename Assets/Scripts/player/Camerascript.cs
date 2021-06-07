@@ -1,65 +1,69 @@
+using Other;
 using UnityEngine;
 
 // ReSharper disable All
 #pragma warning disable 414
-public class Camerascript : MonoBehaviour
+namespace player
 {
-    public GameObject portal;
-    private Camera cam;
-
-    private bool canchecknow;
-
-    private float curtime;
-
-    private bool playedwonsound;
-
-    private void Start()
+    public class Camerascript : MonoBehaviour
     {
-        portal = GameObject.Find("portal");
-        cam = GetComponent<Camera>();
-        Cursor.visible = false;
-        curtime = 1f;
-        playedwonsound = false;
-        canchecknow = false;
-        Invoke("startchecking", 1f);
-    }
+        public GameObject portal;
+        private Camera cam;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        private bool canchecknow;
+
+        private float curtime;
+
+        private bool playedwonsound;
+
+        private void Start()
         {
-            Time.timeScale = (Time.timeScale != 0f) ? 0 : 1;
+            portal = GameObject.Find("portal");
+            cam = GetComponent<Camera>();
+            Cursor.visible = false;
+            curtime = 1f;
+            playedwonsound = false;
+            canchecknow = false;
+            Invoke("startchecking", 1f);
         }
 
-        if (canchecknow && GameObject.FindGameObjectsWithTag("Gargoyle").Length == 0 &&
-            GameObject.FindGameObjectsWithTag("Summoner").Length == 0)
+        private void Update()
         {
-            portal.SetActive(true);
-            if (!playedwonsound)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                playedwonsound = true;
-                soundmanagerscript.playsound("won");
+                Time.timeScale = (Time.timeScale != 0f) ? 0 : 1;
+            }
+
+            if (canchecknow && GameObject.FindGameObjectsWithTag("Gargoyle").Length == 0 &&
+                GameObject.FindGameObjectsWithTag("Summoner").Length == 0)
+            {
+                portal.SetActive(true);
+                if (!playedwonsound)
+                {
+                    playedwonsound = true;
+                    soundmanagerscript.playsound("won");
+                }
+            }
+            else
+            {
+                portal.SetActive(false);
             }
         }
-        else
+
+        private void startchecking()
         {
-            portal.SetActive(false);
+            canchecknow = true;
         }
-    }
 
-    private void startchecking()
-    {
-        canchecknow = true;
-    }
+        public void camershake(float amount)
+        {
+            cam.fieldOfView = amount;
+            Invoke("resetcamera", 0.04f);
+        }
 
-    public void camershake(float amount)
-    {
-        cam.fieldOfView = amount;
-        Invoke("resetcamera", 0.04f);
-    }
-
-    private void resetcamera()
-    {
-        cam.fieldOfView = 60f;
+        private void resetcamera()
+        {
+            cam.fieldOfView = 60f;
+        }
     }
 }

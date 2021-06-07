@@ -90,7 +90,6 @@ namespace Saving
 
         public static List<KeyValuePair<string, float>> GetTopTimes(short level)
         {
-            //TODO also get the local name of the user and display their ranking 
             var client = new MongoClient(MongoLogin);
             var database = client.GetDatabase("Time");
             var collection = database.GetCollection<BsonDocument>($"Level {level}");

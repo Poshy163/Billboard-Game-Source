@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Other;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -98,7 +99,7 @@ namespace UI
             }
         }
 
-        public void SetOtherStuff()
+        private static void SetOtherStuff()
         {
             switch (GameObject.Find("Difficulty").GetComponent<TMP_Dropdown>().value)
             {

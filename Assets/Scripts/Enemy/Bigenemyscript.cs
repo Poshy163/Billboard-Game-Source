@@ -2,60 +2,64 @@ using UnityEngine;
 
 //ReSharper disable All
 //Formatted
-public class Bigenemyscript : MonoBehaviour
+namespace Enemy
 {
-    public GameObject enemysprite;
-
-    public float speed;
-
-    private readonly bool lookatplayer = true;
-
-    private Color almostdeadcolor = new Color(1f, 0f, 0f, 1f);
-
-    private Animator anim;
-
-    private Color damagedcolor = new Color(Color.red.r, Color.red.g, Color.red.b, 1f);
-
-    private Color matcolor;
-    private GameObject player;
-
-    private Rigidbody rb;
-
-    public void Start()
+    public class Bigenemyscript : MonoBehaviour
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        anim = enemysprite.GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
-        matcolor = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
-    }
+        public GameObject enemysprite;
 
-    public void Update()
-    {
-        Vector3 worldPosition =
-            new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
-        if (lookatplayer)
+        public float speed;
+
+        private readonly bool lookatplayer = true;
+
+        private Color almostdeadcolor = new Color(1f, 0f, 0f, 1f);
+
+        private Animator anim;
+
+        private Color damagedcolor = new Color(Color.red.r, Color.red.g, Color.red.b, 1f);
+
+        private Color matcolor;
+        private GameObject player;
+
+        private Rigidbody rb;
+
+        public void Start()
         {
-            transform.LookAt(worldPosition);
+            player = GameObject.FindGameObjectWithTag("Player");
+            anim = enemysprite.GetComponent<Animator>();
+            rb = GetComponent<Rigidbody>();
+            matcolor = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
         }
 
-        float num = Vector3.Distance(transform.position, player.transform.position);
-        if (num <= 1.1f)
+        public void Update()
         {
-            anim.SetBool("moving", false);
-            return;
-        }
+            Vector3 worldPosition =
+                new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+            if (lookatplayer)
+            {
+                transform.LookAt(worldPosition);
+            }
 
-        if (num > 1.1f && num < 5.6f)
-        {
-            float maxDistanceDelta = Time.deltaTime * speed;
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, maxDistanceDelta);
-            anim.SetBool("moving", true);
-            return;
-        }
+            float num = Vector3.Distance(transform.position, player.transform.position);
+            if (num <= 1.1f)
+            {
+                anim.SetBool("moving", false);
+                return;
+            }
 
-        if (num >= 5.6f)
-        {
-            anim.SetBool("moving", false);
+            if (num > 1.1f && num < 5.6f)
+            {
+                float maxDistanceDelta = Time.deltaTime * speed;
+                transform.position =
+                    Vector3.MoveTowards(transform.position, player.transform.position, maxDistanceDelta);
+                anim.SetBool("moving", true);
+                return;
+            }
+
+            if (num >= 5.6f)
+            {
+                anim.SetBool("moving", false);
+            }
         }
     }
 }

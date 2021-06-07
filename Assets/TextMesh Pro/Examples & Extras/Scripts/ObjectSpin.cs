@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TMPro.Examples
+namespace TextMesh_Pro.Scripts
 {
     public class ObjectSpin : MonoBehaviour
     {

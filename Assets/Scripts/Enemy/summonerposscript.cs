@@ -1,32 +1,36 @@
+using Spawners;
 using UnityEngine;
 
 // ReSharper disable All
-public class summonerposscript : MonoBehaviour
+namespace Enemy
 {
-    public GameObject castlepiller;
-
-    public void corruptpillar()
+    public class summonerposscript : MonoBehaviour
     {
-        foreach (Transform transform in castlepiller.transform)
-        {
-            if (!(transform.name == "castle base") && transform.gameObject.activeSelf)
-            {
-                transform.GetComponent<castlescript>().Spawngargoyles();
-            }
-        }
-    }
+        public GameObject castlepiller;
 
-    public bool checkpillarstate()
-    {
-        foreach (Transform transform in castlepiller.transform)
+        public void corruptpillar()
         {
-            if (!(transform.name == "castle base") && transform.gameObject.activeSelf &&
-                transform.GetComponent<castlescript>().spawnedgargoyle.Count < 1)
+            foreach (Transform transform in castlepiller.transform)
             {
-                return true;
+                if (!(transform.name == "castle base") && transform.gameObject.activeSelf)
+                {
+                    transform.GetComponent<castlescript>().Spawngargoyles();
+                }
             }
         }
 
-        return false;
+        public bool checkpillarstate()
+        {
+            foreach (Transform transform in castlepiller.transform)
+            {
+                if (!(transform.name == "castle base") && transform.gameObject.activeSelf &&
+                    transform.GetComponent<castlescript>().spawnedgargoyle.Count < 1)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

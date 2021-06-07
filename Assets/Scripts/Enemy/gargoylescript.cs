@@ -1,223 +1,230 @@
 using System.Collections.Generic;
+using Other;
+using player;
+using Spawners;
 using UnityEngine;
 
 //Formatted
 // ReSharper disable All
 #pragma warning disable 414
-public class gargoylescript : MonoBehaviour
+namespace Enemy
 {
-    public GameObject enemysprite;
-
-    public GameObject bullet;
-
-    public GameObject kickparticles;
-
-    public GameObject postorotatearound;
-
-    public bool dontattack;
-
-    [HideInInspector] public bool kicked = false;
-
-    private readonly float almostdeadcolorrate = 0.14f;
-
-    private readonly bool lookatplayer = true;
-    private readonly GameObject PlayerTarget;
-
-    private readonly float rotationspeed = 1.6f;
-
-    private readonly float rotationspeedslowmo = 0.15f;
-
-    private readonly float shootrate = 1.76f;
-
-    private readonly float speed = 7f;
-
-    private Color almostdeadcolor = new Color(1f, 0f, 0f, 1f);
-
-    private Animator anim;
-
-    private Color damagedcolor = new Color(Color.red.r, Color.red.g, Color.red.b, 1f);
-
-    private int dir;
-
-    private float health = 5f;
-
-    private Color matcolor;
-
-    private float nextalmostdeadcolor = 0f;
-
-    private float nextshoot = 1f;
-    private GameObject player;
-
-    private Rigidbody rb;
-
-    private bool startattacking = true;
-
-    public void Start()
+    public class gargoylescript : MonoBehaviour
     {
-        if (!dontattack)
-        {
-            dontattack = GlobalVar.Enemydontattack;
-        }
+        public GameObject enemysprite;
 
-        dir = ((Random.Range(0f, 1f) > 0.5f) ? 1 : -1);
-        anim = enemysprite.GetComponent<Animator>();
-        anim.SetBool("kickend", true);
-        rb = GetComponent<Rigidbody>();
-        Invoke("startat", 1f);
-        matcolor = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
+        public GameObject bullet;
 
-    public void FixedUpdate()
-    {
-        if (health <= 0f)
+        public GameObject kickparticles;
+
+        public GameObject postorotatearound;
+
+        public bool dontattack;
+
+        [HideInInspector] public bool kicked = false;
+
+        private readonly float almostdeadcolorrate = 0.14f;
+
+        private readonly bool lookatplayer = true;
+        private readonly GameObject PlayerTarget;
+
+        private readonly float rotationspeed = 1.6f;
+
+        private readonly float rotationspeedslowmo = 0.15f;
+
+        private readonly float shootrate = 1.76f;
+
+        private readonly float speed = 7f;
+
+        private Color almostdeadcolor = new Color(1f, 0f, 0f, 1f);
+
+        private Animator anim;
+
+        private Color damagedcolor = new Color(Color.red.r, Color.red.g, Color.red.b, 1f);
+
+        private int dir;
+
+        private float health = 5f;
+
+        private Color matcolor;
+
+        private float nextalmostdeadcolor = 0f;
+
+        private float nextshoot = 1f;
+        private GameObject player;
+
+        private Rigidbody rb;
+
+        private bool startattacking = true;
+
+        public void Start()
         {
-            if (postorotatearound != null)
+            if (!dontattack)
             {
-                postorotatearound.GetComponent<castlescript>().spawnedgargoyle.RemoveAt(0);
+                dontattack = GlobalVar.Enemydontattack;
             }
 
-            Instantiate(kickparticles, transform.position, Quaternion.identity).transform.forward = transform.forward;
-            PlayerController.SlowTimer.value += 5;
-            Destroy(gameObject, 0f);
+            dir = ((Random.Range(0f, 1f) > 0.5f) ? 1 : -1);
+            anim = enemysprite.GetComponent<Animator>();
+            anim.SetBool("kickend", true);
+            rb = GetComponent<Rigidbody>();
+            Invoke("startat", 1f);
+            matcolor = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
+            player = GameObject.FindGameObjectWithTag("Player");
         }
 
-        Vector3 worldPosition =
-            new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
-        Vector3 worldPosition2 = new Vector3(player.transform.position.x, player.transform.position.y,
-            player.transform.position.z);
-        if (lookatplayer)
+        public void FixedUpdate()
         {
-            transform.LookAt(worldPosition);
-            transform.GetChild(0).LookAt(worldPosition2);
-        }
-
-        if (health <= 1f && Time.time > nextalmostdeadcolor)
-        {
-            transform.GetChild(0).GetComponent<SpriteRenderer>().color =
-                ((transform.GetChild(0).GetComponent<SpriteRenderer>().color == almostdeadcolor)
-                    ? matcolor
-                    : almostdeadcolor);
-            nextalmostdeadcolor = Time.time + almostdeadcolorrate;
-        }
-
-        if (!player.activeSelf)
-        {
-            return;
-        }
-
-        if (!kicked && Time.time > nextshoot && !dontattack)
-        {
-            anim.SetTrigger("shoot");
-            nextshoot = Time.time + shootrate;
-        }
-
-        if (Time.timeScale >= 1f && postorotatearound != null)
-        {
-            transform.RotateAround(postorotatearound.transform.position, Vector3.up, rotationspeed * dir);
-            return;
-        }
-
-        if (postorotatearound != null)
-        {
-            transform.RotateAround(postorotatearound.transform.position, Vector3.up, rotationspeedslowmo * dir);
-        }
-    }
-
-    public void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.layer == LayerMask.NameToLayer("Kicked Enemy"))
-        {
-            takendamage();
-            enemykickedback(16900f);
-            if (col.gameObject.tag == "Floating enemy")
+            if (health <= 0f)
             {
-                Instantiate(kickparticles, col.transform.position, Quaternion.identity).transform.forward =
-                    col.transform.forward;
-                Debug.Log("Kicked Enemy");
-                Destroy(col.gameObject, 0f);
-            }
-        }
-
-        if (col.gameObject.tag == "arrow" && !col.gameObject.GetComponent<arrowscript>().hit)
-        {
-            takendamage();
-            col.gameObject.GetComponent<arrowscript>().hit = true;
-            if (col.gameObject.GetComponent<arrowscript>().cancausegrapple &&
-                !transform.GetChild(0).GetComponent<greentargetscript>().arrowstate)
-            {
-                List<GameObject> list = new List<GameObject>(GameObject.FindGameObjectsWithTag("Gargoyle"));
-                list.Remove(gameObject);
-                if (list.Count > 0)
+                if (postorotatearound != null)
                 {
-                    foreach (GameObject current in list)
-                    {
-                        if (!(current.name == "gargoyle sprite") && current.transform.GetChild(0)
-                            .GetComponent<greentargetscript>().arrowstate)
-                        {
-                            current.transform.GetChild(0).GetComponent<greentargetscript>().SetArrowstate();
-                        }
-                    }
+                    postorotatearound.GetComponent<castlescript>().spawnedgargoyle.RemoveAt(0);
                 }
 
-                gameObject.transform.GetChild(0).GetComponent<greentargetscript>().SetArrowstate();
-                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().enemytodashto =
-                    gameObject.transform.GetChild(0).gameObject;
+                Instantiate(kickparticles, transform.position, Quaternion.identity).transform.forward =
+                    transform.forward;
+                PlayerController.SlowTimer.value += 5;
+                Destroy(gameObject, 0f);
+            }
+
+            Vector3 worldPosition =
+                new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+            Vector3 worldPosition2 = new Vector3(player.transform.position.x, player.transform.position.y,
+                player.transform.position.z);
+            if (lookatplayer)
+            {
+                transform.LookAt(worldPosition);
+                transform.GetChild(0).LookAt(worldPosition2);
+            }
+
+            if (health <= 1f && Time.time > nextalmostdeadcolor)
+            {
+                transform.GetChild(0).GetComponent<SpriteRenderer>().color =
+                    ((transform.GetChild(0).GetComponent<SpriteRenderer>().color == almostdeadcolor)
+                        ? matcolor
+                        : almostdeadcolor);
+                nextalmostdeadcolor = Time.time + almostdeadcolorrate;
+            }
+
+            if (!player.activeSelf)
+            {
+                return;
+            }
+
+            if (!kicked && Time.time > nextshoot && !dontattack)
+            {
+                anim.SetTrigger("shoot");
+                nextshoot = Time.time + shootrate;
+            }
+
+            if (Time.timeScale >= 1f && postorotatearound != null)
+            {
+                transform.RotateAround(postorotatearound.transform.position, Vector3.up, rotationspeed * dir);
+                return;
+            }
+
+            if (postorotatearound != null)
+            {
+                transform.RotateAround(postorotatearound.transform.position, Vector3.up, rotationspeedslowmo * dir);
             }
         }
 
-        if (col.gameObject.tag == "Gargoyle")
+        public void OnCollisionEnter(Collision col)
         {
-            dir *= -1;
-        }
-    }
+            if (col.gameObject.layer == LayerMask.NameToLayer("Kicked Enemy"))
+            {
+                takendamage();
+                enemykickedback(16900f);
+                if (col.gameObject.tag == "Floating enemy")
+                {
+                    Instantiate(kickparticles, col.transform.position, Quaternion.identity).transform.forward =
+                        col.transform.forward;
+                    Debug.Log("Kicked Enemy");
+                    Destroy(col.gameObject, 0f);
+                }
+            }
 
-    public void takendamage()
-    {
-        if (health > 1f)
+            if (col.gameObject.tag == "arrow" && !col.gameObject.GetComponent<arrowscript>().hit)
+            {
+                takendamage();
+                col.gameObject.GetComponent<arrowscript>().hit = true;
+                if (col.gameObject.GetComponent<arrowscript>().cancausegrapple &&
+                    !transform.GetChild(0).GetComponent<greentargetscript>().arrowstate)
+                {
+                    List<GameObject> list = new List<GameObject>(GameObject.FindGameObjectsWithTag("Gargoyle"));
+                    list.Remove(gameObject);
+                    if (list.Count > 0)
+                    {
+                        foreach (GameObject current in list)
+                        {
+                            if (!(current.name == "gargoyle sprite") && current.transform.GetChild(0)
+                                .GetComponent<greentargetscript>().arrowstate)
+                            {
+                                current.transform.GetChild(0).GetComponent<greentargetscript>().SetArrowstate();
+                            }
+                        }
+                    }
+
+                    gameObject.transform.GetChild(0).GetComponent<greentargetscript>().SetArrowstate();
+                    GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().enemytodashto =
+                        gameObject.transform.GetChild(0).gameObject;
+                }
+            }
+
+            if (col.gameObject.tag == "Gargoyle")
+            {
+                dir *= -1;
+            }
+        }
+
+        public void takendamage()
         {
-            transform.GetChild(0).GetComponent<SpriteRenderer>().color = damagedcolor;
-            Invoke("resetcolor", 0.25f);
+            if (health > 1f)
+            {
+                transform.GetChild(0).GetComponent<SpriteRenderer>().color = damagedcolor;
+                Invoke("resetcolor", 0.25f);
+            }
         }
-    }
 
-    public void resetcolor()
-    {
-        transform.GetChild(0).GetComponent<SpriteRenderer>().color = matcolor;
-    }
+        public void resetcolor()
+        {
+            transform.GetChild(0).GetComponent<SpriteRenderer>().color = matcolor;
+        }
 
-    public void startat()
-    {
-        startattacking = true;
-    }
+        public void startat()
+        {
+            startattacking = true;
+        }
 
-    public void shoot()
-    {
-        soundmanagerscript.playsound("enemyshoot");
-        Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody>()
-            .AddForce((transform.GetChild(0).transform.forward * GlobalVar.BulletSpeed * 100));
-    }
+        public void shoot()
+        {
+            soundmanagerscript.playsound("enemyshoot");
+            Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody>()
+                .AddForce((transform.GetChild(0).transform.forward * GlobalVar.BulletSpeed * 100));
+        }
 
-    public void enemykickedback(float force)
-    {
-        Instantiate(kickparticles, transform.position, Quaternion.identity).transform.forward =
-            enemysprite.transform.forward;
-        health -= 5f;
-        nextshoot += 1f;
-        kicked = true;
-        takendamage();
-        Invoke("endkick", 0.67f);
-        anim.SetBool("kickend", false);
-        anim.SetTrigger("kicked");
-        rb.AddForce(transform.forward * -1f * force);
-        gameObject.layer = LayerMask.NameToLayer("Kicked Enemy");
-    }
+        public void enemykickedback(float force)
+        {
+            Instantiate(kickparticles, transform.position, Quaternion.identity).transform.forward =
+                enemysprite.transform.forward;
+            health -= 5f;
+            nextshoot += 1f;
+            kicked = true;
+            takendamage();
+            Invoke("endkick", 0.67f);
+            anim.SetBool("kickend", false);
+            anim.SetTrigger("kicked");
+            rb.AddForce(transform.forward * -1f * force);
+            gameObject.layer = LayerMask.NameToLayer("Kicked Enemy");
+        }
 
-    public void endkick()
-    {
-        rb.velocity = new Vector3(0f, 0f, 0f);
-        kicked = false;
-        anim.SetBool("kickend", true);
-        gameObject.layer = LayerMask.NameToLayer("Enemy jumping");
+        public void endkick()
+        {
+            rb.velocity = new Vector3(0f, 0f, 0f);
+            kicked = false;
+            anim.SetBool("kickend", true);
+            gameObject.layer = LayerMask.NameToLayer("Enemy jumping");
+        }
     }
 }

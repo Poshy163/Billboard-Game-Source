@@ -2,24 +2,27 @@ using UnityEngine;
 
 // ReSharper disable All
 //Formatted
-public class greentargetscript : MonoBehaviour
+namespace Enemy
 {
-    public GameObject greenarrow;
-
-    [HideInInspector] public bool arrowstate;
-
-    public void Start()
+    public class greentargetscript : MonoBehaviour
     {
-        arrowstate = false;
-    }
+        public GameObject greenarrow;
 
-    public void Update()
-    {
-        greenarrow.SetActive(arrowstate);
-    }
+        [HideInInspector] public bool arrowstate;
 
-    public void SetArrowstate()
-    {
-        arrowstate = !arrowstate;
+        public void Start()
+        {
+            arrowstate = false;
+        }
+
+        public void Update()
+        {
+            greenarrow.SetActive(arrowstate);
+        }
+
+        public void SetArrowstate()
+        {
+            arrowstate = !arrowstate;
+        }
     }
 }
