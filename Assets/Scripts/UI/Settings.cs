@@ -24,6 +24,7 @@ namespace UI
         public TMP_Text debugtxt;
         public TMP_Text version;
         private Toggle _toggle;
+        public static bool loginPage = true;
 
         private void Start()
         {
@@ -32,9 +33,21 @@ namespace UI
             GetGameVersion();
         }
 
+
+        public void InvertLogin()
+        {
+            loginPage = !loginPage;
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
+            if(Input.GetKeyDown(KeyCode.Return) && loginPage)
+                Login();
+            else if(Input.GetKeyDown(KeyCode.Return) && !loginPage)
+                SignUp();
+                    
+                
         }
 
         public void Login()
@@ -45,6 +58,7 @@ namespace UI
             if (string.IsNullOrEmpty(localname) || string.IsNullOrEmpty(password))
             {
                 debugtxt.text = "One or more fields cannot be empty";
+                Invoke("StartCoolDown",2.5f);
                 return;
             }
 
@@ -59,8 +73,16 @@ namespace UI
             else
             {
                 debugtxt.text = "Either this name doesnt exist or you have the wrong password";
+                Invoke("StartCoolDown",2.5f);
             }
         }
+
+        public void StartCoolDown()
+        {
+            debugtxt.text = "";
+        }
+
+        
 
         public async void SignUp()
         {
@@ -70,18 +92,21 @@ namespace UI
             if (await CheckForBadWords(localname))
             {
                 debugtxt.text = "Nice try, dont do bad words";
+                Invoke("StartCoolDown",2.5f);
                 return;
             }
 
             if (string.IsNullOrEmpty(localname) || string.IsNullOrEmpty(password))
             {
                 debugtxt.text = "One or more fields cannot be empty";
+                Invoke("StartCoolDown",2.5f);
                 return;
             }
 
             if (localname.Length >= 15)
             {
                 debugtxt.text = "Username is too long, max is 15 characters";
+                Invoke("StartCoolDown",2.5f);
                 return;
             }
 
@@ -96,6 +121,8 @@ namespace UI
             else
             {
                 debugtxt.text = "This username is already in use";
+                Invoke("StartCoolDown",2.5f);
+                return;
             }
         }
 
