@@ -199,9 +199,12 @@ namespace Enemy
 
         public void shoot()
         {
-            soundmanagerscript.playsound("enemyshoot");
-            Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody>()
-                .AddForce((transform.GetChild(0).transform.forward * GlobalVar.BulletSpeed * 100));
+            if(Random.Range(1,6) >= GlobalVar.ShootChance)
+            {
+                soundmanagerscript.playsound("enemyshoot");
+                Instantiate(bullet,transform.position,Quaternion.identity).GetComponent<Rigidbody>()
+                    .AddForce((transform.GetChild(0).transform.forward * GlobalVar.BulletSpeed * 100));
+            }
         }
 
         public void enemykickedback(float force)
