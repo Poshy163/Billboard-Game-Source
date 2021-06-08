@@ -2321,7 +2321,7 @@ Transform:
   m_GameObject: {fileID: 71}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -15.631483, y: -12.837584, z: -5.7846045}
-  m_LocalScale: {x: 26, y: 2.8, z: 26}
+  m_LocalScale: {x: 25.9, y: 2.8, z: 25.9}
   m_Children: []
   m_Father: {fileID: 689777021}
   m_RootOrder: 50
@@ -7009,9 +7009,9 @@ MonoBehaviour:
   nextcastle: {fileID: 0}
   gargoylepos1: {fileID: 244}
   gargoylepos2: {fileID: 221}
-  spawninbeginning: 0
+  spawninbeginning: 1
   spawnedgargoyle: []
-  tospawn: 0
+  tospawn: 1
   wallmaterial: {fileID: 2100000, guid: f3dd553493f21ae4bb283a9b7d46646b, type: 2}
   corruptedwallmaterial: {fileID: 2100000, guid: c44065c8b75fca042aa39b36eb8a6489,
     type: 2}
@@ -7031,7 +7031,7 @@ MonoBehaviour:
   nextcastle: {fileID: 67}
   gargoylepos1: {fileID: 251}
   gargoylepos2: {fileID: 175}
-  spawninbeginning: 1
+  spawninbeginning: 0
   spawnedgargoyle: []
   tospawn: 0
   wallmaterial: {fileID: 2100000, guid: f3dd553493f21ae4bb283a9b7d46646b, type: 2}
@@ -7171,9 +7171,9 @@ MonoBehaviour:
   nextcastle: {fileID: 113}
   gargoylepos1: {fileID: 168}
   gargoylepos2: {fileID: 226}
-  spawninbeginning: 0
+  spawninbeginning: 1
   spawnedgargoyle: []
-  tospawn: 0
+  tospawn: 1
   wallmaterial: {fileID: 2100000, guid: f3dd553493f21ae4bb283a9b7d46646b, type: 2}
   corruptedwallmaterial: {fileID: 2100000, guid: c44065c8b75fca042aa39b36eb8a6489,
     type: 2}
@@ -7212,9 +7212,9 @@ MonoBehaviour:
   nextcastle: {fileID: 27}
   gargoylepos1: {fileID: 227}
   gargoylepos2: {fileID: 276}
-  spawninbeginning: 0
+  spawninbeginning: 1
   spawnedgargoyle: []
-  tospawn: 0
+  tospawn: 1
   wallmaterial: {fileID: 2100000, guid: f3dd553493f21ae4bb283a9b7d46646b, type: 2}
   corruptedwallmaterial: {fileID: 2100000, guid: c44065c8b75fca042aa39b36eb8a6489,
     type: 2}
@@ -7236,7 +7236,7 @@ MonoBehaviour:
   gargoylepos2: {fileID: 179}
   spawninbeginning: 1
   spawnedgargoyle: []
-  tospawn: 0
+  tospawn: 1
   wallmaterial: {fileID: 2100000, guid: f3dd553493f21ae4bb283a9b7d46646b, type: 2}
   corruptedwallmaterial: {fileID: 2100000, guid: c44065c8b75fca042aa39b36eb8a6489,
     type: 2}
@@ -7520,7 +7520,7 @@ PrefabInstance:
     - target: {fileID: 1711793678033795691, guid: b2a3952796ed0ce4d8f792a51d864e62,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.07
+      value: 2.94
       objectReference: {fileID: 0}
     - target: {fileID: 1711793678033795691, guid: b2a3952796ed0ce4d8f792a51d864e62,
         type: 3}
