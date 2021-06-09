@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace player
 {
-    public class arrowscript:MonoBehaviour
+    public class arrowscript : MonoBehaviour
     {
         public float speed;
 
@@ -15,16 +15,16 @@ namespace player
         [HideInInspector] public bool hit;
         private Rigidbody rb;
 
-        private void Start ()
+        private void Start()
         {
             hit = false;
             rb = GetComponent<Rigidbody>();
-            Destroy(gameObject,2f);
+            Destroy(gameObject, 2f);
         }
 
-        private void Update ()
+        private void Update()
         {
-            if(Time.timeScale < 0.5f)
+            if (Time.timeScale < 0.5f)
             {
                 rb.velocity = transform.forward * (speed + speedincreaseduringslowmo);
             }
@@ -33,12 +33,12 @@ namespace player
                 rb.velocity = transform.forward * (speed - 10f);
             }
 
-            transform.Rotate(new Vector3(0f,0f,20f),Space.Self);
+            transform.Rotate(new Vector3(0f, 0f, 20f), Space.Self);
         }
 
-        private void OnCollisionEnter ( Collision col )
+        private void OnCollisionEnter(Collision col)
         {
-            Destroy(gameObject,0f);
+            Destroy(gameObject, 0f);
         }
     }
 }

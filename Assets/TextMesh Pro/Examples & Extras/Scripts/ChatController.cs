@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace TextMesh_Pro.Scripts
 {
-    public class ChatController:MonoBehaviour
+    public class ChatController : MonoBehaviour
     {
         public TMP_InputField TMP_ChatInput;
 
@@ -13,23 +13,23 @@ namespace TextMesh_Pro.Scripts
 
         public Scrollbar ChatScrollbar;
 
-        private void OnEnable ()
+        private void OnEnable()
         {
             TMP_ChatInput.onSubmit.AddListener(AddToChatOutput);
         }
 
-        private void OnDisable ()
+        private void OnDisable()
         {
             TMP_ChatInput.onSubmit.RemoveListener(AddToChatOutput);
         }
 
 
-        private void AddToChatOutput ( string newText )
+        private void AddToChatOutput(string newText)
         {
             // Clear Input Field
             TMP_ChatInput.text = string.Empty;
 
-            DateTime timeNow = DateTime.Now;
+            var timeNow = DateTime.Now;
 
             TMP_ChatOutput.text += "[<#FFFF80>" + timeNow.Hour.ToString("d2") + ":" + timeNow.Minute.ToString("d2") +
                                    ":" +

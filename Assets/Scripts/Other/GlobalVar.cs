@@ -2,7 +2,7 @@
 
 namespace Other
 {
-    public class GlobalVar:MonoBehaviour
+    public class GlobalVar : MonoBehaviour
     {
         public enum GameDifficultyEnum
         {
@@ -11,8 +11,9 @@ namespace Other
             Hard
         }
 
-        public static int ShootChance = 3; //1-5 smaller the lower chance
         public const int amountOfLevels = 4;
+
+        public static int ShootChance = 3; //1-5 smaller the lower chance
         public static string Name = null;
         public static GameDifficultyEnum GameDifficulty;
 
@@ -22,9 +23,9 @@ namespace Other
         public static float SlowModeRegenRate = 25f;
         public static float SlowModeDrainRate = 400f;
 
-        public static void UpdateSettings ()
+        public static void UpdateSettings()
         {
-            switch(GameDifficulty)
+            switch (GameDifficulty)
             {
                 case GameDifficultyEnum.Easy:
                     Enemydontattack = true;
