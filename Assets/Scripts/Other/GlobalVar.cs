@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Other
 {
-    public class GlobalVar:MonoBehaviour
+    public class GlobalVar : MonoBehaviour
     {
         public enum GameDifficultyEnum
         {
@@ -11,36 +12,37 @@ namespace Other
             Normal,
             Hard
         }
+
         public const int amountOfLevels = 4;
-        public static int Maxcombo = 0;
+        public static int Maxcombo;
         public static int ShootChance = 3; //1-5 smaller the lower chance
         public static string Name = null;
+
         public static GameDifficultyEnum GameDifficulty;
+
         //True means it wont attack the player
         public static bool Enemydontattack = true;
         public static float BulletSpeed = 5f;
         public static float SlowModeRegenRate = 25f;
         public static float SlowModeDrainRate = 400f;
-        public static Dictionary<string,float> PlayerStats;
+        private static Dictionary<string, float> PlayerStats;
+
         public static void UpdateUserStats()
         {
-           PlayerStats = Saving.Saving.GetUserStats(Name);
-           Maxcombo = (int)PlayerStats["MaxCombo"];
+            PlayerStats = Saving.Saving.GetUserStats(Name);
+            Maxcombo = (int) PlayerStats["MaxCombo"];
         }
 
         public static void CheckStats()
         {
-            if(Maxcombo > (int)PlayerStats["MaxCombo"])
-            { 
-                Saving.Saving.AddTopStats(Name);
-            }
-                
+            if (Maxcombo > (int) PlayerStats["MaxCombo"] ) 
+                Saving.Saving.UpdateTopStats(Name);
         }
 
-        
-        public static void UpdateSettings ()
+
+        public static void UpdateSettings()
         {
-            switch(GameDifficulty)
+            switch (GameDifficulty)
             {
                 case GameDifficultyEnum.Easy:
                     Enemydontattack = true;
@@ -56,14 +58,14 @@ namespace Other
                     BulletSpeed = 6f;
                     ShootChance = 4;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
-        public static void CheckMaxCombo ( int _combo )
+
+        public static void CheckMaxCombo(int combo)
         {
-            if(_combo > Maxcombo)
-            {
-                Maxcombo = _combo;
-            }
+            if (combo > Maxcombo) Maxcombo = combo;
         }
     }
 }

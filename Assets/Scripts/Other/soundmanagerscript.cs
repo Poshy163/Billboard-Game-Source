@@ -3,7 +3,7 @@ using UnityEngine;
 // ReSharper disable All
 namespace Other
 {
-    public class soundmanagerscript:MonoBehaviour
+    public class soundmanagerscript : MonoBehaviour
     {
         private static AudioSource source;
 
@@ -19,7 +19,7 @@ namespace Other
 
         private static AudioClip dodge;
 
-        private void Start ()
+        private void Start()
         {
             source = GetComponent<AudioSource>();
             arrowshoot = Resources.Load<AudioClip>("arrowshoot");
@@ -30,39 +30,39 @@ namespace Other
             dodge = Resources.Load<AudioClip>("dodge");
         }
 
-        public static void playsound ( string name )
+        public static void playsound(string name)
         {
-            if(name == "arrowshoot")
+            if (name == "arrowshoot")
             {
                 source.PlayOneShot(arrowshoot);
                 return;
             }
 
-            if(name == "enemyshoot")
+            if (name == "enemyshoot")
             {
-                source.PlayOneShot(enemyshoot,0.1f);
+                source.PlayOneShot(enemyshoot, 0.1f);
                 return;
             }
 
-            if(name == "kick")
+            if (name == "kick")
             {
                 source.PlayOneShot(kick);
                 return;
             }
 
-            if(name == "playerhurt")
+            if (name == "playerhurt")
             {
                 source.PlayOneShot(playerhurt);
                 return;
             }
 
-            if(name == "won")
+            if (name == "won")
             {
                 source.PlayOneShot(won);
                 return;
             }
 
-            if(!(name == "dodge"))
+            if (!(name == "dodge"))
             {
                 return;
             }
