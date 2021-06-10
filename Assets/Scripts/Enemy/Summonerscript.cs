@@ -1,13 +1,13 @@
-using System.Collections.Generic;
 using Other;
 using player;
+using System.Collections.Generic;
 using UnityEngine;
 
 // ReSharper disable All
 //Formatted 
 namespace Enemy
 {
-    public class Summonerscript : MonoBehaviour
+    public class Summonerscript:MonoBehaviour
     {
         public GameObject enemysprite;
 
@@ -31,7 +31,7 @@ namespace Enemy
 
         private readonly float shootrate = 1.63f;
 
-        private Color almostdeadcolor = new Color(1f, 0f, 0f, 1f);
+        private Color almostdeadcolor = new Color(1f,0f,0f,1f);
 
         private Animator anim;
 
@@ -39,7 +39,7 @@ namespace Enemy
 
         private GameObject currentpos;
 
-        private Color damagedcolor = new Color(Color.red.r, Color.red.g, Color.red.b, 1f);
+        private Color damagedcolor = new Color(Color.red.r,Color.red.g,Color.red.b,1f);
 
         private float health = 30f;
 
@@ -62,53 +62,53 @@ namespace Enemy
 
         private Color transparentcolor;
 
-        private Color Unkillablecolor = new Color(1, 0.9170542f, 0.006289184f, 1);
+        private Color Unkillablecolor = new Color(1,0.9170542f,0.006289184f,1);
 
-        public void Start()
+        public void Start ()
         {
             anim = enemysprite.GetComponent<Animator>();
             rb = GetComponent<Rigidbody>();
             trailrenderer = GetComponent<TrailRenderer>();
             matcolor = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
-            transparentcolor = new Color(matcolor.r, matcolor.g, matcolor.b, 0.27f);
+            transparentcolor = new Color(matcolor.r,matcolor.g,matcolor.b,0.27f);
             summonerpositions = GameObject.FindGameObjectsWithTag("Summonerpos");
             transform.position = basesummonerposition.transform.position;
             currentpos = basesummonerposition;
             trailrenderer.enabled = false;
         }
 
-        public void Update()
+        public void Update ()
         {
-            if (health <= 0f)
+            if(health <= 0f)
             {
-                Instantiate(kickparticles, transform.position, Quaternion.identity).transform.forward =
+                Instantiate(kickparticles,transform.position,Quaternion.identity).transform.forward =
                     transform.forward;
                 GameObject[] array = GameObject.FindGameObjectsWithTag("Gargoyle");
-                for (int i = 0; i < array.Length; i++)
+                for(int i = 0;i < array.Length;i++)
                 {
                     GameObject gameObject = array[i];
-                    if (!(gameObject.name == "gargoyle sprite"))
+                    if(!(gameObject.name == "gargoyle sprite"))
                     {
                         gameObject.GetComponent<gargoylescript>().enemykickedback(5f);
                     }
                 }
 
                 PlayerController.SlowTimer.value += 5;
-                Destroy(this.gameObject, 0f);
+                Destroy(this.gameObject,0f);
             }
 
             player = GameObject.FindGameObjectWithTag("Player");
             Vector3 worldPosition =
-                new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
-            Vector3 worldPosition2 = new Vector3(player.transform.position.x, player.transform.position.y,
+                new Vector3(player.transform.position.x,transform.position.y,player.transform.position.z);
+            Vector3 worldPosition2 = new Vector3(player.transform.position.x,player.transform.position.y,
                 player.transform.position.z);
-            if (lookatplayer)
+            if(lookatplayer)
             {
                 transform.LookAt(worldPosition);
                 enemysprite.transform.LookAt(worldPosition2);
             }
 
-            if (health <= 1f &&
+            if(health <= 1f &&
                 transform.GetChild(0).GetComponent<SpriteRenderer>().material.color != transparentcolor &&
                 Time.time > nextalmostdeadcolor)
             {
@@ -119,13 +119,13 @@ namespace Enemy
                 nextalmostdeadcolor = Time.time + almostdeadcolorrate;
             }
 
-            Vector3.Distance(transform.position, player.transform.position);
-            float num = Vector3.Distance(transform.position, currentpos.transform.position);
-            if (Time.time > nextshoot && !shooting && num < 0.5f && !moving)
+            Vector3.Distance(transform.position,player.transform.position);
+            float num = Vector3.Distance(transform.position,currentpos.transform.position);
+            if(Time.time > nextshoot && !shooting && num < 0.5f && !moving)
             {
                 nextshoot = Time.time + shootrate;
                 anim.SetTrigger("shoot");
-                if (!corrupted)
+                if(!corrupted)
                 {
                     corrupted = true;
                     try
@@ -138,7 +138,7 @@ namespace Enemy
             }
             else
             {
-                if (num >= 0.5f)
+                if(num >= 0.5f)
                 {
                     corrupted = false;
                     trailrenderer.enabled = true;
@@ -147,7 +147,7 @@ namespace Enemy
                     moving = true;
                     float maxDistanceDelta = Time.deltaTime * speed;
                     transform.position =
-                        Vector3.MoveTowards(transform.position, currentpos.transform.position, maxDistanceDelta);
+                        Vector3.MoveTowards(transform.position,currentpos.transform.position,maxDistanceDelta);
                     return;
                 }
 
@@ -158,26 +158,26 @@ namespace Enemy
             }
         }
 
-        public void OnCollisionEnter(Collision col)
+        public void OnCollisionEnter ( Collision col )
         {
-            if (col.gameObject.layer == LayerMask.NameToLayer("Kicked Enemy"))
+            if(col.gameObject.layer == LayerMask.NameToLayer("Kicked Enemy"))
             {
                 takendamage();
                 kicked();
-                if (col.gameObject.CompareTag("Floating enemy"))
+                if(col.gameObject.CompareTag("Floating enemy"))
                 {
-                    Instantiate(kickparticles, col.transform.position, Quaternion.identity).transform.forward =
+                    Instantiate(kickparticles,col.transform.position,Quaternion.identity).transform.forward =
                         col.transform.forward;
-                    Destroy(col.gameObject, 0f);
+                    Destroy(col.gameObject,0f);
                 }
             }
 
-            if (col.gameObject.CompareTag("arrow") &&
+            if(col.gameObject.CompareTag("arrow") &&
                 transform.GetChild(0).GetComponent<SpriteRenderer>().color != transparentcolor)
             {
                 takendamage();
-                GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
-                if (col.gameObject.GetComponent<arrowscript>().cancausegrapple &&
+                GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
+                if(col.gameObject.GetComponent<arrowscript>().cancausegrapple &&
                     !transform.GetComponent<greentargetscript>().arrowstate)
                 {
                     gameObject.GetComponent<greentargetscript>().SetArrowstate();
@@ -187,88 +187,88 @@ namespace Enemy
             }
         }
 
-        public void shoot()
+        public void shoot ()
         {
-            if (Random.Range(0, 2) <= 1)
+            if(Random.Range(0,2) <= 1)
             {
                 soundmanagerscript.playsound("enemyshoot");
-                GameObject ball = Instantiate(projectile, transform.position, Quaternion.identity);
+                GameObject ball = Instantiate(projectile,transform.position,Quaternion.identity);
                 ball.GetComponent<Rigidbody>()
                     .AddForce((transform.GetChild(0).transform.forward * GlobalVar.BulletSpeed * 100));
                 ball.transform.localScale *= 3;
             }
         }
 
-        public void shootstart()
+        public void shootstart ()
         {
             shooting = true;
         }
 
-        public void spawnhead()
+        public void spawnhead ()
         {
-            Instantiate(floatinghead, projpos.position, Quaternion.identity);
+            Instantiate(floatinghead,projpos.position,Quaternion.identity);
         }
 
-        public void shootend()
+        public void shootend ()
         {
             shooting = false;
         }
 
-        public void takendamage()
+        public void takendamage ()
         {
             transform.GetChild(0).GetComponent<SpriteRenderer>().color = damagedcolor;
-            Invoke("resetcolor", 0.098f);
+            Invoke("resetcolor",0.098f);
         }
 
-        public void Unkillable()
+        public void Unkillable ()
         {
             transform.GetChild(0).GetComponent<SpriteRenderer>().color = Unkillablecolor;
         }
 
 
-        private void resetcolor()
+        private void resetcolor ()
         {
             transform.GetChild(0).GetComponent<SpriteRenderer>().color = matcolor;
         }
 
-        public void kicked()
+        public void kicked ()
         {
-            Instantiate(kickparticles, transform.position, Quaternion.identity).transform.forward =
+            Instantiate(kickparticles,transform.position,Quaternion.identity).transform.forward =
                 enemysprite.transform.forward;
             health -= 5f;
             takendamage();
             shootend();
             anim.SetTrigger("moving");
             transform.GetChild(0).GetComponent<SpriteRenderer>().color = transparentcolor;
-            gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+            gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
             List<GameObject> list = new List<GameObject>(summonerpositions);
             list.Remove(currentpos);
             int num = 0;
-            for (int i = 0; i < list.Count; i++)
+            for(int i = 0;i < list.Count;i++)
             {
-                if (list[i].GetComponent<summonerposscript>().checkpillarstate())
+                if(list[i].GetComponent<summonerposscript>().checkpillarstate())
                 {
                     num++;
                 }
             }
 
-            if (num == list.Count)
+            if(num == list.Count)
             {
                 System.Random random = new System.Random();
-                currentpos = list[random.Next(0, list.Count - 1)];
+                currentpos = list[random.Next(0,list.Count - 1)];
                 return;
             }
 
             List<GameObject> list2 = new List<GameObject>(list);
-            for (int j = 0; j < list2.Count; j++)
+            for(int j = 0;j < list2.Count;j++)
             {
-                if (!list2[j].GetComponent<summonerposscript>().checkpillarstate())
+                if(!list2[j].GetComponent<summonerposscript>().checkpillarstate())
                 {
                     list2.Remove(list2[j]);
                 }
 
                 System.Random random2 = new System.Random();
-                currentpos = list2[random2.Next(0, list2.Count - 1)];
+                currentpos = list2[random2.Next(0,list2.Count - 1)];
             }
         }
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 // ReSharper disable All
 namespace Spawners
 {
-    public class castlepillarscript : MonoBehaviour
+    public class castlepillarscript:MonoBehaviour
     {
         public int numberofcastles;
 
@@ -12,21 +12,21 @@ namespace Spawners
 
         private int maxnumberofcastles;
 
-        private void Start()
+        private void Start ()
         {
             maxnumberofcastles = 4;
-            for (int i = 0; i < numberofcastles; i++)
+            for(int i = 0;i < numberofcastles;i++)
             {
                 castles[i].SetActive(true);
             }
 
-            for (int j = numberofcastles; j < maxnumberofcastles; j++)
+            for(int j = numberofcastles;j < maxnumberofcastles;j++)
             {
                 castles[j].SetActive(false);
             }
         }
 
-        private void Update()
+        private void Update ()
         { }
     }
 }
