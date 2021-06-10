@@ -17,7 +17,6 @@ TagManager:
   - Summoner
   - invisiblewall
   - Delete
-  - ToLv
   layers:
   - Default
   - TransparentFX
