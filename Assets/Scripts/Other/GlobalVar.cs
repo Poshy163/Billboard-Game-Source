@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 namespace Other
 {
@@ -20,7 +21,23 @@ namespace Other
         public static float BulletSpeed = 5f;
         public static float SlowModeRegenRate = 25f;
         public static float SlowModeDrainRate = 400f;
+        public static Dictionary<string,float> PlayerStats;
+        public static void UpdateUserStats()
+        {
+           PlayerStats = Saving.Saving.GetUserStats(Name);
+           Maxcombo = (int)PlayerStats["MaxCombo"];
+        }
 
+        public static void CheckStats()
+        {
+            if(Maxcombo > (int)PlayerStats["MaxCombo"])
+            { 
+                Saving.Saving.AddTopStats(Name);
+            }
+                
+        }
+
+        
         public static void UpdateSettings ()
         {
             switch(GameDifficulty)

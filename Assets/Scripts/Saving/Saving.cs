@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
+using static Other.GlobalVar;
 using BsonReader = Newtonsoft.Json.Bson.BsonReader;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
 
@@ -94,17 +95,61 @@ namespace Saving
         public static List<KeyValuePair<string,float>> GetTopTimes ( short level )
         {
             MongoClient client = new MongoClient(MongoLogin);
-            IMongoDatabase database = client.GetDatabase("Time");
-            IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>($"Level {level}");
-            List<BsonDocument> documents = collection.Find(new BsonDocument()).ToList();
-            Dictionary<string,float> topTime = documents.Select(doc => JsonConvert.DeserializeObject(ToJson(doc)))
-                .ToDictionary<object,string,float>
-                (jsonFile => ((dynamic)jsonFile)["Name"].ToString(),
-                    jsonFile => float.Parse(((dynamic)jsonFile)["Time"].ToString()));
-            List<KeyValuePair<string,float>> myList = topTime.ToList();
-            myList.Sort(( pair1,pair2 ) => pair1.Value.CompareTo(pair2.Value));
-            return myList;
+                IMongoDatabase database = client.GetDatabase("Time");
+                IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>($"Level {level}");
+                List<BsonDocument> documents = collection.Find(new BsonDocument()).ToList();
+                Dictionary<string,float> topTime = documents.Select(doc => JsonConvert.DeserializeObject(ToJson(doc)))
+                    .ToDictionary<object,string,float>
+                    (jsonFile => ((dynamic)jsonFile)["Name"].ToString(),
+                        jsonFile => float.Parse(((dynamic)jsonFile)["Time"].ToString()));
+                List<KeyValuePair<string,float>> myList = topTime.ToList();
+                myList.Sort(( pair1,pair2 ) => pair1.Value.CompareTo(pair2.Value));
+                return myList;
         }
+
+        public static void AddTopStats (string name )
+        {
+            BsonDocument filter = new BsonDocument { { "Name",name } };
+            MongoClient client = new MongoClient(MongoLogin);
+            IMongoDatabase database2 = client.GetDatabase("UserDetails");
+            IMongoCollection<BsonDocument> collection2 = database2.GetCollection<BsonDocument>($"User Statistics");
+            List<BsonDocument> documents2 = collection2.Find(filter).ToList();
+            collection2.DeleteMany(documents2[0]);
+
+            IMongoDatabase database = client.GetDatabase("UserDetails");
+            IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>($"User Statistics");
+            BsonDocument document = new BsonDocument
+            {
+                {"Name", name},
+                {"MaxCombo", Maxcombo}
+            };
+            collection.InsertOne(document);
+        }
+
+        public static Dictionary<string, float> GetUserStats (string name)
+        {
+            try
+            {
+                BsonDocument filter = new BsonDocument { { "Name",name } };
+                MongoClient client = new MongoClient(MongoLogin);
+                IMongoDatabase database = client.GetDatabase("UserDetails");
+                IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>($"User Statistics");
+                List<BsonDocument> documents = collection.Find(filter).ToList();
+                dynamic jsonFile = JsonConvert.DeserializeObject(ToJson(documents[0]));
+                Dictionary<string,float> dic = new Dictionary<string,float>()
+            {
+                { "MaxCombo", (float)jsonFile["MaxCombo"]}
+            };
+                return dic;
+            }
+            catch
+            {
+                AddTopStats(name);
+                return null;
+            }
+        }  
+
+
 
         public static void DeleteDatabaseEntry ( string name,short level )
         {

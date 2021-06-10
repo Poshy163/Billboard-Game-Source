@@ -12,11 +12,20 @@ namespace UI
     {
         public static bool LoadHighScores = true;
 
+
+        private void Awake()
+        {
+            GlobalVar.UpdateUserStats();
+        }
+
         private void Start ()
         {
             if(LoadHighScores)
             {
                 LoadHighScore();
+                GlobalVar.CheckStats();
+                GlobalVar.UpdateUserStats();
+                LoadPlayerStats();
             }
             else
             {
@@ -77,6 +86,19 @@ namespace UI
                 GameObject gme = GameObject.Find($"Level {i}");
                 gme.SetActive(false);
             }
+            GameObject.Find("PlayerStats").SetActive(false);
+        }
+
+
+        public static void LoadPlayerStats()
+        {
+            GameObject Parent = GameObject.Find("PlayerStats").transform.GetChild(0).gameObject;
+            TMP_Text[] txtarr = new TMP_Text[5];
+            for(int i = 0; i <= 4; i++)
+            {
+              txtarr[i] = Parent.transform.GetChild(i + 5).gameObject.GetComponent<TMP_Text>();
+            }
+            txtarr[0].text = GlobalVar.Maxcombo.ToString();
         }
     }
 }
