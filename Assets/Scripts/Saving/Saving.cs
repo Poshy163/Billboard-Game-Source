@@ -108,11 +108,6 @@ namespace Saving
         {
             var filter = new BsonDocument {{"Name", name}};
             var client = new MongoClient(MongoLogin);
-            var database2 = client.GetDatabase("UserDetails");
-            var collection2 = database2.GetCollection<BsonDocument>("User Statistics");
-            var documents2 = collection2.Find(filter).ToList();
-            collection2.DeleteMany(documents2[0]);
-
             var database = client.GetDatabase("UserDetails");
             var collection = database.GetCollection<BsonDocument>("User Statistics");
             var document = new BsonDocument
@@ -120,7 +115,7 @@ namespace Saving
                 {"Name", name},
                 {"MaxCombo", Maxcombo}
             };
-            collection.InsertOne(document);
+            collection.UpdateOne(filter, document);
         }
 
         public static Dictionary<string, float> GetUserStats(string name)

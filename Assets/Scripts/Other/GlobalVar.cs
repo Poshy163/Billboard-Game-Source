@@ -13,7 +13,9 @@ namespace Other
             Hard
         }
 
-        public const int amountOfLevels = 4;
+        public const int AmountOfLevels = 4;
+        public const float SlowModeRegenRate = 25f;
+        public const float SlowModeDrainRate = 400f;
         public static int Maxcombo;
         public static int ShootChance = 3; //1-5 smaller the lower chance
         public static string Name = null;
@@ -23,19 +25,17 @@ namespace Other
         //True means it wont attack the player
         public static bool Enemydontattack = true;
         public static float BulletSpeed = 5f;
-        public static float SlowModeRegenRate = 25f;
-        public static float SlowModeDrainRate = 400f;
-        private static Dictionary<string, float> PlayerStats;
+        private static Dictionary<string, float> _playerStats;
 
         public static void UpdateUserStats()
         {
-            PlayerStats = Saving.Saving.GetUserStats(Name);
-            Maxcombo = (int) PlayerStats["MaxCombo"];
+            _playerStats = Saving.Saving.GetUserStats(Name);
+            Maxcombo = (int) _playerStats["MaxCombo"];
         }
 
         public static void CheckStats()
         {
-            if (Maxcombo > (int) PlayerStats["MaxCombo"] ) 
+            if (Maxcombo > (int) _playerStats["MaxCombo"])
                 Saving.Saving.UpdateTopStats(Name);
         }
 

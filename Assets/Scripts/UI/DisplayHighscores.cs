@@ -34,7 +34,7 @@ namespace UI
 
         private static void LoadHighScore()
         {
-            for (var z = 0; z <= GlobalVar.amountOfLevels; z++)
+            for (var z = 0; z <= GlobalVar.AmountOfLevels; z++)
             {
                 var times = GetTopTimes((short) z);
                 var gme = GameObject.Find($"Level {z}");
@@ -77,7 +77,7 @@ namespace UI
 
         private static void UnloadHighScore()
         {
-            for (var i = 0; i <= GlobalVar.amountOfLevels; i++)
+            for (var i = 0; i <= GlobalVar.AmountOfLevels; i++)
             {
                 var gme = GameObject.Find($"Level {i}");
                 gme.SetActive(false);
