@@ -63,6 +63,20 @@ namespace player
         private bool shortclick = false;
         private float vertical;
 
+
+        private void Awake()
+        {
+            if (GlobalVar.Name.Contains("markey") || GlobalVar.Name.Contains("Markey"))
+            {
+                if (!(Camera.main is null)) Camera.main.clearFlags = CameraClearFlags.Skybox;
+            }
+            else
+            {
+                if (!(Camera.main is null)) Camera.main.clearFlags = CameraClearFlags.SolidColor;
+                
+            }
+        }
+
         private void Start()
         {
             GlobalVar.CheckStats();

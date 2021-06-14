@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 namespace Other
@@ -27,17 +28,34 @@ namespace Other
         public static float BulletSpeed = 5f;
         private static Dictionary<string, float> _playerStats;
 
-        public static void UpdateUserStats()
-        {
-            _playerStats = Saving.Saving.GetUserStats(Name);
-            Maxcombo = (int) _playerStats["MaxCombo"];
-        }
+            public static void UpdateUserStats()
+            {
+                try
+                {
+                    _playerStats = Saving.Saving.GetUserStats(Name);
+                    Maxcombo = (int) _playerStats["MaxCombo"];
+                }
+                catch
+                {
+                    Maxcombo = -1;
+                    // ignored
+                }
+            }
 
-        public static void CheckStats()
-        {
-            if (Maxcombo > (int) _playerStats["MaxCombo"])
-                Saving.Saving.UpdateTopStats(Name);
-        }
+            public static void CheckStats()
+            {
+                try
+                { 
+                if (Maxcombo > (int) _playerStats["MaxCombo"])
+                    Saving.Saving.UpdateTopStats(Name);
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+        
+        
 
 
         public static void UpdateSettings()
