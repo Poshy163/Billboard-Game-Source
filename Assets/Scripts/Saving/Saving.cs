@@ -132,6 +132,7 @@ namespace Saving
                 {
                     {"MaxCombo", (float) jsonFile["MaxCombo"]}
                 };
+                Debug.Log("Hit");
                 UpdateTopStats(name);
                 return dic;
             }

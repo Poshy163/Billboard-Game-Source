@@ -33,7 +33,8 @@ namespace Other
                 try
                 {
                     _playerStats = Saving.Saving.GetUserStats(Name);
-                    Maxcombo = (int) _playerStats["MaxCombo"];
+                     Maxcombo = (int) _playerStats["MaxCombo"];
+                     Debug.Log(_playerStats + "");
                 }
                 catch
                 {
