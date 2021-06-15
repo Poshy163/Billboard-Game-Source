@@ -3,54 +3,54 @@ using UnityEngine;
 // ReSharper disable All
 namespace player
 {
-    public class playeranimationfunctions : MonoBehaviour
+    public class playeranimationfunctions:MonoBehaviour
     {
         private PlayerController controller;
 
-        private void Start()
+        private void Start ()
         {
             controller = transform.parent.transform.parent.GetComponent<PlayerController>();
         }
 
-        private void Update()
+        private void Update ()
         { }
 
-        private void startdodge()
+        private void startdodge ()
         {
             controller.dodge();
         }
 
-        private void enddodge()
+        private void enddodge ()
         {
             controller.enddodge();
         }
 
-        private void kick()
+        private void kick ()
         {
             controller.kick();
         }
 
-        private void endkick()
+        private void endkick ()
         {
-            controller.kickstate(false, false);
+            controller.kickstate(false,false);
         }
 
-        private void shootstart()
+        private void shootstart ()
         {
             controller.shootstart();
         }
 
-        private void shoot()
+        private void shoot ()
         {
             controller.Shootarrow();
         }
 
-        private void shootgrapplearrow()
+        private void shootgrapplearrow ()
         {
             controller.Shootgrapplearrow();
         }
 
-        private void shootend()
+        private void shootend ()
         {
             controller.shootend();
         }
