@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq.Expressions;
 using Other;
 using TMPro;
 using UnityEngine;
@@ -24,7 +23,6 @@ namespace UI
             if (LoadHighScores)
             {
                 LoadHighScore();
-                GlobalVar.UpdateUserStats();
                 LoadPlayerStats();
             }
             else

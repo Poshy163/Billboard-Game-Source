@@ -115,31 +115,22 @@ namespace Saving
                 {"Name", name},
                 {"MaxCombo", Maxcombo}
             };
-            collection.UpdateOne(filter, document);
+            collection.FindOneAndUpdate(filter, document);
         }
 
         public static Dictionary<string, float> GetUserStats(string name)
         {
-            try
+            var filter = new BsonDocument {{"Name", name}};
+            var client = new MongoClient(MongoLogin);
+            var database = client.GetDatabase("UserDetails");
+            var collection = database.GetCollection<BsonDocument>("User Statistics");
+            var documents = collection.Find(filter).ToList();
+            dynamic jsonFile = JsonConvert.DeserializeObject(ToJson(documents[0]));
+            var dic = new Dictionary<string, float>
             {
-                var filter = new BsonDocument {{"Name", name}};
-                var client = new MongoClient(MongoLogin);
-                var database = client.GetDatabase("UserDetails");
-                var collection = database.GetCollection<BsonDocument>("User Statistics");
-                var documents = collection.Find(filter).ToList();
-                dynamic jsonFile = JsonConvert.DeserializeObject(ToJson(documents[0]));
-                var dic = new Dictionary<string, float>
-                {
-                    {"MaxCombo", (float) jsonFile["MaxCombo"]}
-                };
-                Debug.Log("Hit");
-                UpdateTopStats(name);
-                return dic;
-            }
-            catch
-            {
-                return null;
-            }
+                {"MaxCombo", (float) jsonFile["MaxCombo"]}
+            };
+            return dic;
         }
 
 

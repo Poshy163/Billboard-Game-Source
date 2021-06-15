@@ -73,7 +73,6 @@ namespace player
             else
             {
                 if (!(Camera.main is null)) Camera.main.clearFlags = CameraClearFlags.SolidColor;
-                
             }
         }
 
