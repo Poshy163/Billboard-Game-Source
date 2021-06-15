@@ -4,18 +4,18 @@ using UnityEngine;
 // ReSharper disable All
 namespace Enemy
 {
-    public class looktowardsplayer : MonoBehaviour
+    public class looktowardsplayer:MonoBehaviour
     {
         private GameObject player;
 
-        public void Start()
+        public void Start ()
         {
             player = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).gameObject;
         }
 
-        public void Update()
+        public void Update ()
         {
-            Vector3 worldPosition = new Vector3(player.transform.position.x, player.transform.position.y,
+            Vector3 worldPosition = new Vector3(player.transform.position.x,player.transform.position.y,
                 player.transform.position.z);
             transform.LookAt(worldPosition);
         }
