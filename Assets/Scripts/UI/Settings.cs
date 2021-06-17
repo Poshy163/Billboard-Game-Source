@@ -24,6 +24,8 @@ namespace UI
         public TMP_Text debugtxt;
         public TMP_Text version;
         private Toggle _toggle;
+        private bool tutorial;
+        public GameObject TutorialBox;
 
         private void Start ()
         {
@@ -45,9 +47,16 @@ namespace UI
             }
             else if(Input.GetKeyDown(KeyCode.Return) && !loginPage)
             {
-                SignUp();
+                ShowTutorialBox();
             }
         }
+
+
+        public void ShowTutorialBox ()
+        {
+            TutorialBox.SetActive(true);
+        }
+
 
         public void InvertLogin ()
         {
@@ -87,13 +96,27 @@ namespace UI
         }
 
 
-        public async void SignUp ()
+        public void Yes ()
+        {
+            tutorial = true;
+            SignUp();
+        }
+
+        public void No ()
+        {
+            tutorial = false;
+            SignUp();
+        }
+
+
+        private async void SignUp ()
         {
             debugtxt.text = "Loading...";
             string localname = GameObject.Find("NameSignUp").GetComponent<TMP_InputField>().text.Trim();
             string password = GameObject.Find("PasswordSignUp").GetComponent<TMP_InputField>().text.Trim();
             if(await CheckForBadWords(localname))
             {
+                TutorialBox.SetActive(false);
                 debugtxt.text = "Nice try, dont do bad words";
                 Invoke("StartCoolDown",2.5f);
                 return;
@@ -101,6 +124,7 @@ namespace UI
 
             if(string.IsNullOrEmpty(localname) || string.IsNullOrEmpty(password))
             {
+                TutorialBox.SetActive(false);
                 debugtxt.text = "One or more fields cannot be empty";
                 Invoke("StartCoolDown",2.5f);
                 return;
@@ -108,6 +132,7 @@ namespace UI
 
             if(localname.Length >= 15)
             {
+                TutorialBox.SetActive(false);
                 debugtxt.text = "Username is too long, max is 15 characters";
                 Invoke("StartCoolDown",2.5f);
                 return;
@@ -120,10 +145,18 @@ namespace UI
                 SetOtherStuff();
                 GlobalVar.IsSignUp = true;
                 debugtxt.text = "Done Sign up";
-                SceneManager.LoadScene("LevelSelect");
+                if(tutorial)
+                {
+                    SceneManager.LoadScene("Tutorial");
+                }
+                else
+                {
+                    SceneManager.LoadScene("LevelSelect");
+                }
             }
             else
             {
+                TutorialBox.SetActive(false);
                 debugtxt.text = "This username is already in use";
                 Invoke("StartCoolDown",2.5f);
             }
@@ -197,7 +230,7 @@ namespace UI
 
         private void GetGameVersion ()
         {
-            string path = Path.Combine(Directory.GetCurrentDirectory(),"Version.txt");
+            string path = Path.Combine(Directory.GetCurrentDirectory(),"MonoBleedingEdge","Version.txt");
             if(File.Exists(path))
             {
                 version.text = File.ReadAllText(path);
@@ -253,9 +286,7 @@ namespace UI
             using(WebClient client = new WebClient())
             {
                 NameValueCollection data = new NameValueCollection { ["payload"] = payloadJson };
-                byte[] response = client.UploadValues(_uri,"POST",data);
-                // ReSharper disable once UnusedVariable
-                string responseText = _encoding.GetString(response);
+                client.UploadValues(_uri,"POST",data);
             }
         }
     }

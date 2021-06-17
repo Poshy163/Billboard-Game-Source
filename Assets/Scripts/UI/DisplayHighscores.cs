@@ -11,8 +11,6 @@ namespace UI
     public class DisplayHighscores:MonoBehaviour
     {
         public static bool LoadHighScores = true;
-
-
         private void Awake ()
         {
             GlobalVar.UpdateUserStats();

@@ -1,0 +1,277 @@
+fileFormatVersion: 2
+guid: ef815b523033451419a66db54cd774ee
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: gargoyle idle_0
+  - first:
+      213: 21300002
+    second: gargoyle idle_1
+  - first:
+      213: 21300004
+    second: gargoyle idle_2
+  - first:
+      213: 21300006
+    second: gargoyle idle_3
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 4
+  maxTextureSize: 128
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: gargoyle idle_0
+      rect:
+        serializedVersion: 2
+        x: 2.07612
+        y: 3.026751
+        width: 28.84776
+        height: 25.89713
+      alignment: 9
+      pivot: {x: 0.4826676, y: 0.5009532}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -10.5, y: -4.975315}
+        - {x: -14.5, y: 1.024685}
+        - {x: -14.5, y: 7.024685}
+        - {x: -7.5, y: 13.02468}
+        - {x: -3.5, y: 13.02468}
+        - {x: 0.5, y: 9.024685}
+        - {x: 0.5, y: 10.02468}
+        - {x: 3.5, y: 13.02468}
+        - {x: 7.5, y: 13.02468}
+        - {x: 14.5, y: 7.024685}
+        - {x: 14.5, y: 1.024685}
+        - {x: 5.5, y: -12.97532}
+        - {x: -5.5, y: -12.97532}
+      physicsShape:
+      - - {x: 7.5, y: 13.02468}
+        - {x: 3.5, y: 13.02468}
+        - {x: 0.5, y: 10.02468}
+        - {x: 0.5, y: 9.024685}
+        - {x: -3.5, y: 13.02468}
+        - {x: -7.5, y: 13.02468}
+        - {x: -14.5, y: 7.024685}
+        - {x: -14.5, y: 1.024685}
+        - {x: -10.5, y: -4.975315}
+        - {x: -5.5, y: -12.97532}
+        - {x: 5.5, y: -12.97532}
+        - {x: 14.5, y: 1.024685}
+        - {x: 14.5, y: 7.024685}
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddbe525755214a6e9e2f670c18e8c43b
+      internalID: 21300000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gargoyle idle_1
+      rect:
+        serializedVersion: 2
+        x: 34.07612
+        y: 4.026751
+        width: 28.84776
+        height: 26.89713
+      alignment: 9
+      pivot: {x: 0.4826677, y: 0.4451497}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -6.499998, y: -13.47532}
+        - {x: -14.5, y: -10.47532}
+        - {x: -14.5, y: 9.524685}
+        - {x: -7.499998, y: 13.52469}
+        - {x: -3.499998, y: 13.52469}
+        - {x: 0.5000019, y: 11.52468}
+        - {x: 0.5000019, y: 10.52468}
+        - {x: 3.500002, y: 13.52469}
+        - {x: 7.500002, y: 13.52469}
+        - {x: 14.5, y: 7.524685}
+        - {x: 14.5, y: -2.475315}
+        - {x: 10.5, y: -13.47532}
+      physicsShape:
+      - - {x: 3.500002, y: 13.52468}
+        - {x: 0.5000019, y: 10.52468}
+        - {x: 0.5000019, y: 9.524685}
+        - {x: 0.5000019, y: 11.52468}
+        - {x: -3.499998, y: 13.52468}
+        - {x: -7.499998, y: 13.52468}
+        - {x: -14.5, y: 9.524685}
+        - {x: -14.5, y: -10.47532}
+        - {x: -6.499998, y: -13.47532}
+        - {x: 10.5, y: -13.47532}
+        - {x: 14.5, y: -2.475315}
+        - {x: 14.5, y: 7.524685}
+        - {x: 7.500002, y: 13.52468}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1468e9c643c74e4e9a109cf6ebfc3e37
+      internalID: 21300002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gargoyle idle_2
+      rect:
+        serializedVersion: 2
+        x: 68.07612
+        y: 4.026751
+        width: 24.84776
+        height: 20.89713
+      alignment: 9
+      pivot: {x: 0.4798775, y: 0.5729614}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -7.499998, y: -10.47532}
+        - {x: -12.5, y: -2.475315}
+        - {x: -12.5, y: 8.524685}
+        - {x: -8.499998, y: 10.52468}
+        - {x: 6.500002, y: 10.52468}
+        - {x: 12.5, y: 4.524685}
+        - {x: 12.5, y: 0.5246849}
+        - {x: 5.500002, y: -10.47532}
+      physicsShape:
+      - - {x: 6.500002, y: 10.52468}
+        - {x: -8.499998, y: 10.52468}
+        - {x: -12.5, y: 8.524685}
+        - {x: -12.5, y: -2.475315}
+        - {x: -7.499998, y: -10.47532}
+        - {x: 5.500002, y: -10.47532}
+        - {x: 12.5, y: 0.5246849}
+        - {x: 12.5, y: 4.524685}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c3d7cc1a1384093bf0c05dd1096c437
+      internalID: 21300004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gargoyle idle_3
+      rect:
+        serializedVersion: 2
+        x: 100.0761
+        y: 3.026751
+        width: 24.84776
+        height: 20.89713
+      alignment: 9
+      pivot: {x: 0.4798775, y: 0.6208149}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -11.5, y: -3.475315}
+        - {x: -12.5, y: 0.5246849}
+        - {x: -12.5, y: 6.524685}
+        - {x: -7.499998, y: 10.52468}
+        - {x: 7.500002, y: 10.52468}
+        - {x: 12.5, y: 4.524685}
+        - {x: 12.5, y: 2.524685}
+        - {x: 10.5, y: -2.475315}
+        - {x: 5.500002, y: -10.47532}
+        - {x: -5.499998, y: -10.47532}
+      physicsShape:
+      - - {x: 7.500002, y: 10.52468}
+        - {x: -7.499998, y: 10.52468}
+        - {x: -12.5, y: 6.524685}
+        - {x: -12.5, y: 0.5246849}
+        - {x: -11.5, y: -3.475315}
+        - {x: -5.499998, y: -10.47532}
+        - {x: 5.500002, y: -10.47532}
+        - {x: 10.5, y: -2.475315}
+        - {x: 12.5, y: 2.524685}
+        - {x: 12.5, y: 4.524685}
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb189f9153a4457e9f1b02ba86fe8a9e
+      internalID: 21300006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

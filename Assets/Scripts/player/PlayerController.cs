@@ -66,6 +66,12 @@ namespace player
 
         private void Awake ()
         {
+            if(GlobalVar.Name == null)
+            {
+                Camera.main.clearFlags = CameraClearFlags.SolidColor;
+                return;
+            }
+
             if(GlobalVar.Name.Contains("markey") || GlobalVar.Name.Contains("Markey"))
             {
                 if(!(Camera.main is null))
@@ -84,7 +90,11 @@ namespace player
 
         private void Start ()
         {
-            GlobalVar.CheckStats();
+            if(GlobalVar.Name != null)
+            {
+                GlobalVar.CheckStats();
+            }
+
             try
             {
                 GameObject.Find("Timer").SetActive(true);

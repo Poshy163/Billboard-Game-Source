@@ -27,6 +27,11 @@ namespace Other
 
         public IEnumerator LoadScene ()
         {
+            if(nextlevel == "LevelSelect" || nextlevel == "Tutorial")
+            {
+                SceneManager.LoadScene(nextlevel);
+            }
+
             yield return new WaitForSeconds(0.01f);
             PlayerController.Endlv.SetActive(true);
             GameObject.Find("Player").GetComponent<PlayerController>().health = 5;

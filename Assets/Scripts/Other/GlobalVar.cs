@@ -31,6 +31,11 @@ namespace Other
 
         public static void UpdateUserStats ()
         {
+            if(Name == null)
+            {
+                return;
+            }
+
             if(IsSignUp)
             {
                 Saving.Saving.SendDummyInfo(Name);
