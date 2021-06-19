@@ -12,6 +12,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+// ReSharper disable Unity.PerformanceCriticalCodeInvocation
 
 // ReSharper disable StringLiteralTypo
 // ReSharper disable ParameterHidesMember
@@ -86,7 +87,7 @@ namespace UI
             else
             {
                 debugtxt.text = "Either this name doesnt exist or you have the wrong password";
-                Invoke("StartCoolDown",2.5f);
+                Invoke(nameof(StartCoolDown),2.5f);
             }
         }
 
