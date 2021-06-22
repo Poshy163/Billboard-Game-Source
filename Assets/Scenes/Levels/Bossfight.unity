@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 722}
   m_Layer: 16
   m_Name: Destroy stuff which fall (2)
-  m_TagString: Bottom
+  m_TagString: invisiblewall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 728}
   m_Layer: 16
   m_Name: Destroy stuff which fall (1)
-  m_TagString: Bottom
+  m_TagString: invisiblewall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 739}
   m_Layer: 16
   m_Name: Destroy stuff which fall (5)
-  m_TagString: Bottom
+  m_TagString: invisiblewall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -522,7 +522,7 @@ GameObject:
   - component: {fileID: 741}
   m_Layer: 16
   m_Name: Destroy stuff which fall (4)
-  m_TagString: Bottom
+  m_TagString: invisiblewall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -701,7 +701,7 @@ GameObject:
   - component: {fileID: 746}
   m_Layer: 16
   m_Name: Destroy stuff which fall (3)
-  m_TagString: Bottom
+  m_TagString: invisiblewall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1121,7 +1121,7 @@ GameObject:
   - component: {fileID: 764}
   m_Layer: 16
   m_Name: Destroy stuff which fall
-  m_TagString: Bottom
+  m_TagString: invisiblewall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5238,7 +5238,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 382.9121, y: 10.77773, z: 443.2263}
@@ -5264,7 +5264,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 30}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 382.9121, y: 10.77773, z: 443.2263}
@@ -5394,7 +5394,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 63}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 382.9121, y: 10.77773, z: 340.8292}
@@ -5433,7 +5433,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 382.9121, y: 10.77773, z: 443.2263}
@@ -5511,7 +5511,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 88}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 382.9121, y: 10.77773, z: 443.2263}
@@ -5706,7 +5706,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 144}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 382.9121, y: 10.77773, z: 340.8292}

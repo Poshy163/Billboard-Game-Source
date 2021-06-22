@@ -50,7 +50,6 @@ namespace Other
 
             if(GlobalVar.SingleLevel)
             {
-
                 SceneManager.LoadScene("LevelSelect");
             }
             else

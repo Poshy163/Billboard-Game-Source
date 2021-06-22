@@ -40,18 +40,24 @@ namespace Other
             {
                 GlobalVar.SingleLevel = false;
             }
-            else if (tag == "Fodder")
+            else if(tag == "Fodder")
+            {
                 GlobalVar.SingleLevel = true;
+            }
 
             if(name.Contains("Level"))
             {
-                var lv = transform.GetChild(0).name.ToString();
+                string lv = transform.GetChild(0).name.ToString();
                 if(int.Parse(lv) == 4)
+                {
                     SceneManager.LoadScene("Bossfight");
+                }
                 else
+                {
                     SceneManager.LoadScene($"Level{transform.GetChild(0).name.ToString()}");
+                }
             }
-            
+
 
 
 

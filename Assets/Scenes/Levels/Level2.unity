@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 545}
   m_Layer: 16
   m_Name: Destroy stuff which fall (2)
-  m_TagString: Bottom
+  m_TagString: invisiblewall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 548}
   m_Layer: 16
   m_Name: Destroy stuff which fall (1)
-  m_TagString: Bottom
+  m_TagString: invisiblewall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -473,7 +473,7 @@ GameObject:
   - component: {fileID: 555}
   m_Layer: 16
   m_Name: Destroy stuff which fall (5)
-  m_TagString: Bottom
+  m_TagString: invisiblewall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -529,7 +529,7 @@ GameObject:
   - component: {fileID: 556}
   m_Layer: 16
   m_Name: Destroy stuff which fall (4)
-  m_TagString: Bottom
+  m_TagString: invisiblewall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -642,7 +642,7 @@ GameObject:
   - component: {fileID: 557}
   m_Layer: 16
   m_Name: Destroy stuff which fall (3)
-  m_TagString: Bottom
+  m_TagString: invisiblewall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1057,7 +1057,7 @@ GameObject:
   - component: {fileID: 569}
   m_Layer: 16
   m_Name: Destroy stuff which fall
-  m_TagString: Bottom
+  m_TagString: invisiblewall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
