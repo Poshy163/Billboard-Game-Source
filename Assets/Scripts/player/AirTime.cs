@@ -1,26 +1,29 @@
 ﻿using Other;
 using UnityEngine;
 
-public class AirTime : MonoBehaviour
+namespace player
 {
-    public static float _currentAirtime;
-    private static bool GetTimeAir = true;
-
-    private void Update()
+    public class AirTime : MonoBehaviour
     {
-        if (GetTimeAir) _currentAirtime += Time.deltaTime;
-    }
+        private static float _currentAirtime;
+        private static bool _getTimeAir = true;
 
-    public static void GetTime()
-    {
-        GetTimeAir = false;
-        var time = _currentAirtime;
-        _currentAirtime = 0;
-        GlobalVar.CheckMaxAirtime(time);
-    }
+        private void Update()
+        {
+            if (_getTimeAir) _currentAirtime += Time.deltaTime;
+        }
 
-    public static void StartTime()
-    {
-        GetTimeAir = true;
+        public static void GetTime()
+        {
+            _getTimeAir = false;
+            var time = _currentAirtime;
+            _currentAirtime = 0;
+            GlobalVar.CheckMaxAirtime(time);
+        }
+
+        public static void StartTime()
+        {
+            _getTimeAir = true;
+        }
     }
 }

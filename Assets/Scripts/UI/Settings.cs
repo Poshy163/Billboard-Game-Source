@@ -219,7 +219,7 @@ namespace UI
 
         private void GetGameVersion()
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "MonoBleedingEdge", "Version.txt");
+            var path = Path.Combine(@"C:\Users\"+Environment.UserName+@"\Videos\Game", "MonoBleedingEdge", "Version.txt");
             if (File.Exists(path))
                 version.text = File.ReadAllText(path);
             else

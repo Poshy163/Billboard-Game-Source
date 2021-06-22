@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 
-public class Bullet : MonoBehaviour
+namespace Other
 {
-    public float DeathTimer = 2f;
-
-    private void Start()
+    public class Bullet : MonoBehaviour
     {
-        Destroy(gameObject, DeathTimer);
+        public float DeathTimer = 2f;
+
+        private void Start()
+        {
+            Destroy(gameObject, DeathTimer);
+        }
     }
 }
