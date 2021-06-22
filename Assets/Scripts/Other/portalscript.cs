@@ -37,12 +37,21 @@ namespace Other
             }
 
             if(name == "portal" && tag == "Fodder")
+            {
                 GlobalVar.SingleLevel = false;
-            else
+            }
+            else if (tag == "Fodder")
                 GlobalVar.SingleLevel = true;
 
             if(name.Contains("Level"))
-                SceneManager.LoadScene($"Level{transform.GetChild(0).name.ToString()}");
+            {
+                var lv = transform.GetChild(0).name.ToString();
+                if(int.Parse(lv) == 4)
+                    SceneManager.LoadScene("Bossfight");
+                else
+                    SceneManager.LoadScene($"Level{transform.GetChild(0).name.ToString()}");
+            }
+            
 
 
 
@@ -56,6 +65,7 @@ namespace Other
                 {
                     GameObject.Find("EventSystem").GetComponent<Timer>()
                         .AddScore(short.Parse(transform.GetChild(0).name.ToString()));
+
                     GameObject.Find("EventSystem").GetComponent<Timer>()
                         .FinalTime(short.Parse(transform.GetChild(0).name.ToString()));
                 }
