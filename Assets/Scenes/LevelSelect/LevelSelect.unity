@@ -4996,7 +4996,7 @@ GameObject:
   - component: {fileID: 66262146}
   m_Layer: 21
   m_Name: Level3
-  m_TagString: Untagged
+  m_TagString: Fodder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6319,8 +6319,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00022280216, y: 0}
-  m_SizeDelta: {x: -0.0004453659, y: -0.00000047683716}
+  m_AnchoredPosition: {x: 0.00022280216, y: 1.455}
+  m_SizeDelta: {x: -0.0004453659, y: -2.9100072}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &331276330
 MonoBehaviour:
@@ -10310,7 +10310,7 @@ GameObject:
   - component: {fileID: 1534500029}
   m_Layer: 21
   m_Name: Level1
-  m_TagString: Untagged
+  m_TagString: Fodder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10702,7 +10702,7 @@ GameObject:
   - component: {fileID: 1649215889}
   m_Layer: 21
   m_Name: Level2
-  m_TagString: Untagged
+  m_TagString: Fodder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12496,7 +12496,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -2.23}
+  m_AnchoredPosition: {x: 0, y: -4.31}
   m_SizeDelta: {x: 4, y: 6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1890909917
@@ -12669,7 +12669,7 @@ GameObject:
   - component: {fileID: 1907220840}
   m_Layer: 21
   m_Name: Level4
-  m_TagString: Untagged
+  m_TagString: Fodder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
