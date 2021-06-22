@@ -154,6 +154,16 @@ namespace player
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
 
+            if(Input.GetKeyDown(KeyCode.T) && SceneManager.GetActiveScene().name != "LevelSelect")
+            {
+                Endlv.SetActive(true);
+                SceneManager.LoadScene("LevelSelect");
+            }
+            else if(Input.GetKeyDown(KeyCode.T) && SceneManager.GetActiveScene().name == "LevelSelect")
+            {
+                SceneManager.LoadScene("Settings");
+            }
+
             #region Health
 
             try

@@ -48,9 +48,8 @@ namespace Other
             _timeList[lvname] = _timer;
             Saving.Saving.CheckLevelTime(GlobalVar.Name,_timer,lvname);
 
-
             if(GlobalVar.SingleLevel)
-            { 
+            {
                 SceneManager.LoadScene("LevelSelect");
             }
             else
@@ -76,14 +75,16 @@ namespace Other
                 SceneManager.LoadScene("LevelSelect",LoadSceneMode.Single);
             }
 
-            _timeList[lvname] = _timer;
-            double finaltime = 0;
-            foreach(double time in _timeList)
+            if(!GlobalVar.SingleLevel)
             {
-                finaltime += time;
+                _timeList[lvname] = _timer;
+                double finaltime = 0;
+                foreach(double time in _timeList)
+                {
+                    finaltime += time;
+                }
+                Saving.Saving.CheckLevelTime(GlobalVar.Name,finaltime,0);
             }
-
-            Saving.Saving.CheckLevelTime(GlobalVar.Name,finaltime,0);
             SceneManager.LoadScene("LevelSelect",LoadSceneMode.Single);
         }
     }
