@@ -1,8 +1,12 @@
+#region
+
 using System.Collections.Generic;
 using Other;
 using player;
 using Spawners;
 using UnityEngine;
+
+#endregion
 
 //Formatted
 // ReSharper disable All

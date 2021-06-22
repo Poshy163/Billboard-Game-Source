@@ -1,6 +1,10 @@
+#region
+
 using Enemy;
 using Spawners;
 using UnityEngine;
+
+#endregion
 
 // ReSharper disable All
 namespace player

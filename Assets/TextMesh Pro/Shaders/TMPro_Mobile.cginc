@@ -38,19 +38,19 @@ pixel_t VertShader(vertex_t input)
     UNITY_TRANSFER_INSTANCE_ID(input, output);
     UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
-    float bold = step(input.texcoord1.y, 0);
+    const float bold = step(input.texcoord1.y, 0);
 
     float4 vert = input.position;
     vert.x += _VertexOffsetX;
     vert.y += _VertexOffsetY;
 
-    float4 vPosition = UnityObjectToClipPos(vert);
+    const float4 vPosition = UnityObjectToClipPos(vert);
 
     float weight = lerp(_WeightNormal, _WeightBold, bold) / 4.0;
     weight = (weight + _FaceDilate) * _ScaleRatioA * 0.5;
 
     // Generate UV for the Masking Texture
-    float4 clampedRect = clamp(_ClipRect, -2e10, 2e10);
+    const float4 clampedRect = clamp(_ClipRect, -2e10, 2e10);
     float2 maskUV = (vert.xy - clampedRect.xy) / (clampedRect.zw - clampedRect.xy);
 
     float4 color = input.color;
@@ -77,7 +77,7 @@ pixel_t VertShader(vertex_t input)
     output.param = float4(0.5 - weight, 1.3333 * _GradientScale * (_Sharpness + 1) / _TextureWidth,
                           _OutlineWidth * _ScaleRatioA * 0.5, 0);
 
-    float2 mask = float2(0, 0);
+    const float2 mask = float2(0, 0);
     #if UNITY_UI_CLIP_RECT
     mask = vert.xy * 2 - clampedRect.xy - clampedRect.zw;
     #endif
@@ -101,9 +101,9 @@ float4 PixShader(pixel_t input) : SV_Target
 {
     UNITY_SETUP_INSTANCE_ID(input);
 
-    float d = tex2D(_MainTex, input.texcoord0.xy).a;
+    const float d = tex2D(_MainTex, input.texcoord0.xy).a;
 
-    float2 UV = input.texcoord0.xy;
+    const float2 UV = input.texcoord0.xy;
     float scale = rsqrt(abs(ddx(UV.x) * ddy(UV.y) - ddy(UV.x) * ddx(UV.y))) * input.param.y;
 
     #if (UNDERLAY_ON | UNDERLAY_INNER)
@@ -112,7 +112,7 @@ float4 PixShader(pixel_t input) : SV_Target
     float layerBias = input.param.x * layerScale - .5 - ((_UnderlayDilate * _ScaleRatioC) * .5 * layerScale);
     #endif
 
-    scale /= 1 + (_OutlineSoftness * _ScaleRatioA * scale);
+    scale /= 1 + _OutlineSoftness * _ScaleRatioA * scale;
 
     float4 faceColor = input.faceColor * saturate((d - input.param.x) * scale + 0.5);
 

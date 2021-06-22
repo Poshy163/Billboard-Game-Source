@@ -1,8 +1,12 @@
-﻿using System;
+﻿#region
+
+using System;
 using Other;
 using TMPro;
 using UnityEngine;
 using static Saving.Saving;
+
+#endregion
 
 // ReSharper disable IdentifierTypo
 

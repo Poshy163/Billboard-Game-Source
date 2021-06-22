@@ -2812,7 +2812,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eeb5df41b4cb6446a670917fb39eb4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portal: {fileID: 0}
 --- !u!1 &1711793678033795752
 GameObject:
   m_ObjectHideFlags: 0
@@ -2837,7 +2836,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1711793678033795752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.495}
+  m_LocalPosition: {x: 0, y: -0.139, z: 0.474}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1711793678033795614}
@@ -2934,8 +2933,8 @@ MonoBehaviour:
   slowdownfactor: 0.05
   slowdownlength: 2
   health: 0
-  minangleofrotation: -89
-  maxangleofrotation: 89
+  minangleofrotation: -90
+  maxangleofrotation: 75
   greencrosshair: {fileID: 0}
   hearts:
   - {fileID: 0}
@@ -2955,7 +2954,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.2539907
-  m_Center: {x: 0, y: 0.2460093, z: 0.5}
+  m_Center: {x: 0, y: 0.2460093, z: 0.35}
 --- !u!114 &5699799544448198089
 MonoBehaviour:
   m_ObjectHideFlags: 0

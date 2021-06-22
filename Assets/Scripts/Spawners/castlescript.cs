@@ -1,6 +1,10 @@
+#region
+
 using System.Collections.Generic;
 using Enemy;
 using UnityEngine;
+
+#endregion
 
 // ReSharper disable All
 #pragma warning disable 414

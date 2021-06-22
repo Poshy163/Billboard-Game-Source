@@ -1,5 +1,9 @@
-﻿using Other;
+﻿#region
+
+using Other;
 using UnityEngine;
+
+#endregion
 
 namespace player
 {

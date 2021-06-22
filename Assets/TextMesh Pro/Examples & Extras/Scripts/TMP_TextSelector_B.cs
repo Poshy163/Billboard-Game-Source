@@ -1,6 +1,10 @@
-﻿using TMPro;
+﻿#region
+
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+
+#endregion
 
 #pragma warning disable 0618 // Disabled warning due to SetVertices being deprecated until new release with SetMesh() is available.
 

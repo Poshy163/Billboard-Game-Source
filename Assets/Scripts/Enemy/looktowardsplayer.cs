@@ -1,4 +1,8 @@
+#region
+
 using UnityEngine;
+
+#endregion
 
 //Formatted
 // ReSharper disable All

@@ -1,7 +1,11 @@
-﻿using System;
+﻿#region
+
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
+#endregion
 
 // ReSharper disable All
 namespace Other

@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region
+
+using System;
 using TMPro;
 using UnityEngine;
+
+#endregion
 
 namespace TextMesh_Pro.Scripts
 {

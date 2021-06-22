@@ -1,5 +1,9 @@
-﻿using System;
+﻿#region
+
+using System;
 using TMPro;
+
+#endregion
 
 namespace TextMesh_Pro.Scripts
 {

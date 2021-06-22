@@ -1,5 +1,9 @@
+#region
+
 using Other;
 using UnityEngine;
+
+#endregion
 
 // ReSharper disable All
 #pragma warning disable 414
@@ -7,7 +11,6 @@ namespace player
 {
     public class Camerascript : MonoBehaviour
     {
-        public GameObject portal;
         private Camera cam;
 
         private bool canchecknow;
@@ -15,6 +18,7 @@ namespace player
         private float curtime;
 
         private bool playedwonsound;
+        private GameObject portal;
 
         private void Start()
         {

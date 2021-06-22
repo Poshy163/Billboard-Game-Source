@@ -1,5 +1,9 @@
-﻿using TMPro;
+﻿#region
+
+using TMPro;
 using UnityEngine;
+
+#endregion
 
 // ReSharper disable RedundantDefaultMemberInitializer
 

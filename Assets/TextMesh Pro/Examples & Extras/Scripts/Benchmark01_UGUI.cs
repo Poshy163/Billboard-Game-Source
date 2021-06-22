@@ -1,7 +1,11 @@
+#region
+
 using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
+#endregion
 
 namespace TextMesh_Pro.Scripts
 {

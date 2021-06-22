@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+#endregion
 
 namespace Other
 {

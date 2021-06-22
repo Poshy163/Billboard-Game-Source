@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
@@ -12,6 +14,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
+#endregion
 
 // ReSharper disable Unity.PerformanceCriticalCodeInvocation
 
@@ -219,7 +223,8 @@ namespace UI
 
         private void GetGameVersion()
         {
-            var path = Path.Combine(@"C:\Users\"+Environment.UserName+@"\Videos\Game", "MonoBleedingEdge", "Version.txt");
+            var path = Path.Combine(@"C:\Users\" + Environment.UserName + @"\Videos\Game", "MonoBleedingEdge",
+                "Version.txt");
             if (File.Exists(path))
                 version.text = File.ReadAllText(path);
             else

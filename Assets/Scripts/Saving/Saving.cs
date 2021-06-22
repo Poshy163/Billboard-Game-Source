@@ -1,4 +1,7 @@
 ﻿#pragma warning disable 618
+
+#region
+
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +16,8 @@ using UnityEngine;
 using static Other.GlobalVar;
 using BsonReader = Newtonsoft.Json.Bson.BsonReader;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
+
+#endregion
 
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable ParameterHidesMember

@@ -1,6 +1,10 @@
-﻿using Other;
+﻿#region
+
+using Other;
 using UnityEngine;
 using UnityEngine.UI;
+
+#endregion
 
 // ReSharper disable All
 

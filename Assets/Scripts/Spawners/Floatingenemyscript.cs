@@ -1,6 +1,10 @@
+#region
+
 using Enemy;
 using player;
 using UnityEngine;
+
+#endregion
 
 // ReSharper disable All
 #pragma warning disable 649
