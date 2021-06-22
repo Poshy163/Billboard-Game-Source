@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 namespace TextMesh_Pro.Scripts
 {
-    public class TMP_TextSelector_A : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class TMP_TextSelector_A:MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         private Camera m_Camera;
 
@@ -18,7 +18,7 @@ namespace TextMesh_Pro.Scripts
         private int m_selectedLink = -1;
         private TextMeshPro m_TextMeshPro;
 
-        private void Awake()
+        private void Awake ()
         {
             m_TextMeshPro = gameObject.GetComponent<TextMeshPro>();
             m_Camera = Camera.main;
@@ -28,35 +28,37 @@ namespace TextMesh_Pro.Scripts
         }
 
 
-        private void LateUpdate()
+        private void LateUpdate ()
         {
             m_isHoveringObject = false;
 
-            if (TMP_TextUtilities.IsIntersectingRectTransform(m_TextMeshPro.rectTransform, Input.mousePosition,
+            if(TMP_TextUtilities.IsIntersectingRectTransform(m_TextMeshPro.rectTransform,Input.mousePosition,
                 Camera.main))
+            {
                 m_isHoveringObject = true;
+            }
 
-            if (m_isHoveringObject)
+            if(m_isHoveringObject)
             {
                 #region Example of Character Selection
 
-                var charIndex =
-                    TMP_TextUtilities.FindIntersectingCharacter(m_TextMeshPro, Input.mousePosition, Camera.main, true);
-                if (charIndex != -1 && charIndex != m_lastCharIndex &&
+                int charIndex =
+                    TMP_TextUtilities.FindIntersectingCharacter(m_TextMeshPro,Input.mousePosition,Camera.main,true);
+                if(charIndex != -1 && charIndex != m_lastCharIndex &&
                     (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
                 {
                     //Debug.Log("[" + m_TextMeshPro.textInfo.characterInfo[charIndex].character + "] has been selected.");
 
                     m_lastCharIndex = charIndex;
 
-                    var meshIndex = m_TextMeshPro.textInfo.characterInfo[charIndex].materialReferenceIndex;
+                    int meshIndex = m_TextMeshPro.textInfo.characterInfo[charIndex].materialReferenceIndex;
 
-                    var vertexIndex = m_TextMeshPro.textInfo.characterInfo[charIndex].vertexIndex;
+                    int vertexIndex = m_TextMeshPro.textInfo.characterInfo[charIndex].vertexIndex;
 
-                    var c = new Color32((byte) Random.Range(0, 255), (byte) Random.Range(0, 255),
-                        (byte) Random.Range(0, 255), 255);
+                    Color32 c = new Color32((byte)Random.Range(0,255),(byte)Random.Range(0,255),
+                        (byte)Random.Range(0,255),255);
 
-                    var vertexColors = m_TextMeshPro.textInfo.meshInfo[meshIndex].colors32;
+                    Color32[] vertexColors = m_TextMeshPro.textInfo.meshInfo[meshIndex].colors32;
 
                     vertexColors[vertexIndex + 0] = c;
                     vertexColors[vertexIndex + 1] = c;
@@ -72,28 +74,30 @@ namespace TextMesh_Pro.Scripts
                 #region Example of Link Handling
 
                 // Check if mouse intersects with any links.
-                var linkIndex = TMP_TextUtilities.FindIntersectingLink(m_TextMeshPro, Input.mousePosition, m_Camera);
+                int linkIndex = TMP_TextUtilities.FindIntersectingLink(m_TextMeshPro,Input.mousePosition,m_Camera);
 
                 // Clear previous link selection if one existed.
-                if (linkIndex == -1 && m_selectedLink != -1 || linkIndex != m_selectedLink)
+                if(linkIndex == -1 && m_selectedLink != -1 || linkIndex != m_selectedLink)
+                {
                     //m_TextPopup_RectTransform.gameObject.SetActive(false);
                     m_selectedLink = -1;
+                }
 
                 // Handle new Link selection.
-                if (linkIndex != -1 && linkIndex != m_selectedLink)
+                if(linkIndex != -1 && linkIndex != m_selectedLink)
                 {
                     m_selectedLink = linkIndex;
 
-                    var linkInfo = m_TextMeshPro.textInfo.linkInfo[linkIndex];
+                    TMP_LinkInfo linkInfo = m_TextMeshPro.textInfo.linkInfo[linkIndex];
 
                     // The following provides an example of how to access the link properties.
                     //Debug.Log("Link ID: \"" + linkInfo.GetLinkID() + "\"   Link Text: \"" + linkInfo.GetLinkText() + "\""); // Example of how to retrieve the Link ID and Link Text.
 
 
                     RectTransformUtility.ScreenPointToWorldPointInRectangle(m_TextMeshPro.rectTransform,
-                        Input.mousePosition, m_Camera, out var worldPointInRectangle);
+                        Input.mousePosition,m_Camera,out Vector3 worldPointInRectangle);
 
-                    switch (linkInfo.GetLinkID())
+                    switch(linkInfo.GetLinkID())
                     {
                         case "id_01": // 100041637: // id_01
                             //m_TextPopup_RectTransform.position = worldPointInRectangle;
@@ -114,26 +118,26 @@ namespace TextMesh_Pro.Scripts
                 #region Example of Word Selection
 
                 // Check if Mouse intersects any words and if so assign a random color to that word.
-                var wordIndex = TMP_TextUtilities.FindIntersectingWord(m_TextMeshPro, Input.mousePosition, Camera.main);
-                if (wordIndex != -1 && wordIndex != m_lastWordIndex)
+                int wordIndex = TMP_TextUtilities.FindIntersectingWord(m_TextMeshPro,Input.mousePosition,Camera.main);
+                if(wordIndex != -1 && wordIndex != m_lastWordIndex)
                 {
                     m_lastWordIndex = wordIndex;
 
-                    var wInfo = m_TextMeshPro.textInfo.wordInfo[wordIndex];
+                    TMP_WordInfo wInfo = m_TextMeshPro.textInfo.wordInfo[wordIndex];
 
-                    var wordPOS = m_TextMeshPro.transform.TransformPoint(m_TextMeshPro.textInfo
+                    Vector3 wordPOS = m_TextMeshPro.transform.TransformPoint(m_TextMeshPro.textInfo
                         .characterInfo[wInfo.firstCharacterIndex].bottomLeft);
                     wordPOS = Camera.main.WorldToScreenPoint(wordPOS);
 
                     //Debug.Log("Mouse Position: " + Input.mousePosition.ToString("f3") + "  Word Position: " + wordPOS.ToString("f3"));
 
-                    var vertexColors = m_TextMeshPro.textInfo.meshInfo[0].colors32;
+                    Color32[] vertexColors = m_TextMeshPro.textInfo.meshInfo[0].colors32;
 
-                    var c = new Color32((byte) Random.Range(0, 255), (byte) Random.Range(0, 255),
-                        (byte) Random.Range(0, 255), 255);
-                    for (var i = 0; i < wInfo.characterCount; i++)
+                    Color32 c = new Color32((byte)Random.Range(0,255),(byte)Random.Range(0,255),
+                        (byte)Random.Range(0,255),255);
+                    for(int i = 0;i < wInfo.characterCount;i++)
                     {
-                        var vertexIndex = m_TextMeshPro.textInfo.characterInfo[wInfo.firstCharacterIndex + i]
+                        int vertexIndex = m_TextMeshPro.textInfo.characterInfo[wInfo.firstCharacterIndex + i]
                             .vertexIndex;
 
                         vertexColors[vertexIndex + 0] = c;
@@ -150,14 +154,14 @@ namespace TextMesh_Pro.Scripts
         }
 
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public void OnPointerEnter ( PointerEventData eventData )
         {
             Debug.Log("OnPointerEnter()");
             m_isHoveringObject = true;
         }
 
 
-        public void OnPointerExit(PointerEventData eventData)
+        public void OnPointerExit ( PointerEventData eventData )
         {
             Debug.Log("OnPointerExit()");
             m_isHoveringObject = false;
