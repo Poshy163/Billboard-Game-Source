@@ -5,7 +5,7 @@ using UnityEngine;
 #pragma warning disable 414
 namespace player
 {
-    public class Camerascript:MonoBehaviour
+    public class Camerascript : MonoBehaviour
     {
         public GameObject portal;
         private Camera cam;
@@ -16,7 +16,7 @@ namespace player
 
         private bool playedwonsound;
 
-        private void Start ()
+        private void Start()
         {
             portal = GameObject.Find("portal");
             cam = GetComponent<Camera>();
@@ -24,21 +24,21 @@ namespace player
             curtime = 1f;
             playedwonsound = false;
             canchecknow = false;
-            Invoke("startchecking",1f);
+            Invoke("startchecking", 1f);
         }
 
-        private void Update ()
+        private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Time.timeScale = (Time.timeScale != 0f) ? 0 : 1;
             }
 
-            if(canchecknow && GameObject.FindGameObjectsWithTag("Gargoyle").Length == 0 &&
+            if (canchecknow && GameObject.FindGameObjectsWithTag("Gargoyle").Length == 0 &&
                 GameObject.FindGameObjectsWithTag("Summoner").Length == 0)
             {
                 portal.SetActive(true);
-                if(!playedwonsound)
+                if (!playedwonsound)
                 {
                     playedwonsound = true;
                     soundmanagerscript.playsound("won");
@@ -50,18 +50,18 @@ namespace player
             }
         }
 
-        private void startchecking ()
+        private void startchecking()
         {
             canchecknow = true;
         }
 
-        public void camershake ( float amount )
+        public void camershake(float amount)
         {
             cam.fieldOfView = amount;
-            Invoke("resetcamera",0.04f);
+            Invoke("resetcamera", 0.04f);
         }
 
-        private void resetcamera ()
+        private void resetcamera()
         {
             cam.fieldOfView = 60f;
         }

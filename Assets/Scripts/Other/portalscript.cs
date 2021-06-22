@@ -1,18 +1,18 @@
-using player;
 using System.Collections;
+using player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // ReSharper disable All
 namespace Other
 {
-    public class portalscript:MonoBehaviour
+    public class portalscript : MonoBehaviour
     {
         public string nextlevel;
 
-        public void OnCollisionEnter ( Collision col )
+        public void OnCollisionEnter(Collision col)
         {
-            if(col.gameObject.CompareTag("Player"))
+            if (col.gameObject.CompareTag("Player"))
             {
                 try
                 {
@@ -25,9 +25,9 @@ namespace Other
         }
 
 
-        public IEnumerator LoadScene ()
+        public IEnumerator LoadScene()
         {
-            if(nextlevel == "LevelSelect" || nextlevel == "Tutorial")
+            if (nextlevel == "LevelSelect" || nextlevel == "Tutorial")
             {
                 SceneManager.LoadScene(nextlevel);
             }
@@ -36,7 +36,7 @@ namespace Other
             PlayerController.Endlv.SetActive(true);
             GameObject.Find("Player").GetComponent<PlayerController>().health = 5;
             yield return new WaitForSeconds(0.05f);
-            if(nextlevel == "Final")
+            if (nextlevel == "Final")
             {
                 try
                 {
@@ -47,7 +47,7 @@ namespace Other
                 }
                 catch
                 {
-                    SceneManager.LoadScene("LevelSelect",LoadSceneMode.Single);
+                    SceneManager.LoadScene("LevelSelect", LoadSceneMode.Single);
                 }
             }
             else
@@ -55,11 +55,11 @@ namespace Other
                 try
                 {
                     GameObject.Find("EventSystem").GetComponent<Timer>()
-                        .AddScore(short.Parse(transform.GetChild(0).name.ToString()),nextlevel);
+                        .AddScore(short.Parse(transform.GetChild(0).name.ToString()), nextlevel);
                 }
                 catch
                 {
-                    SceneManager.LoadScene(nextlevel,LoadSceneMode.Single);
+                    SceneManager.LoadScene(nextlevel, LoadSceneMode.Single);
                 }
             }
         }
