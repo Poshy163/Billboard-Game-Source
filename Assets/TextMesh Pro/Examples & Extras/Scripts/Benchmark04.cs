@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace TextMesh_Pro.Scripts
 {
-    public class Benchmark04:MonoBehaviour
+    public class Benchmark04 : MonoBehaviour
     {
         public int SpawnType;
 
@@ -20,36 +20,32 @@ namespace TextMesh_Pro.Scripts
         //public Material material;
 
 
-        private void Start ()
+        private void Start()
         {
             m_Transform = transform;
 
             float lineHeight = 0;
-            float orthoSize = Camera.main.orthographicSize = Screen.height / 2;
-            float ratio = (float)Screen.width / Screen.height;
+            var orthoSize = Camera.main.orthographicSize = Screen.height / 2;
+            var ratio = (float) Screen.width / Screen.height;
 
-            for(int i = MinPointSize;i <= MaxPointSize;i += Steps)
-            {
-                if(SpawnType == 0)
+            for (var i = MinPointSize; i <= MaxPointSize; i += Steps)
+                if (SpawnType == 0)
                 {
                     // TextMesh Pro Implementation
-                    GameObject go = new GameObject("Text - " + i + " Pts");
+                    var go = new GameObject("Text - " + i + " Pts");
 
-                    if(lineHeight > orthoSize * 2)
-                    {
-                        return;
-                    }
+                    if (lineHeight > orthoSize * 2) return;
 
                     go.transform.position = m_Transform.position +
-                                            new Vector3(ratio * -orthoSize * 0.975f,orthoSize * 0.975f - lineHeight,
+                                            new Vector3(ratio * -orthoSize * 0.975f, orthoSize * 0.975f - lineHeight,
                                                 0);
 
-                    TextMeshPro textMeshPro = go.AddComponent<TextMeshPro>();
+                    var textMeshPro = go.AddComponent<TextMeshPro>();
 
                     //textMeshPro.fontSharedMaterial = material;
                     //textMeshPro.font = Resources.Load("Fonts & Materials/LiberationSans SDF", typeof(TextMeshProFont)) as TextMeshProFont;
                     //textMeshPro.anchor = AnchorPositions.Left;
-                    textMeshPro.rectTransform.pivot = new Vector2(0,0.5f);
+                    textMeshPro.rectTransform.pivot = new Vector2(0, 0.5f);
 
                     textMeshPro.enableWordWrapping = false;
                     textMeshPro.extraPadding = true;
@@ -57,11 +53,10 @@ namespace TextMesh_Pro.Scripts
                     textMeshPro.fontSize = i;
 
                     textMeshPro.text = i + " pts - Lorem ipsum dolor sit...";
-                    textMeshPro.color = new Color32(255,255,255,255);
+                    textMeshPro.color = new Color32(255, 255, 255, 255);
 
                     lineHeight += i;
                 }
-            }
         }
     }
 }

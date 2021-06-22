@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Other
 {
-    public class GlobalVar:MonoBehaviour
+    public class GlobalVar : MonoBehaviour
     {
         public enum GameDifficultyEnum
         {
@@ -17,10 +17,11 @@ namespace Other
             Hard
         }
 
-        public static bool SingleLevel = false;
         public const int AmountOfLevels = 4;
         public const float SlowModeRegenRate = 25f;
         public const float SlowModeDrainRate = 400f;
+
+        public static bool SingleLevel = false;
         public static int Maxcombo;
         public static float MaxAirTime;
         public static int ShootChance = 3; //1-5 smaller the lower chance
@@ -32,16 +33,13 @@ namespace Other
         //True means it wont attack the player
         public static bool Enemydontattack = true;
         public static float BulletSpeed = 5f;
-        private static Dictionary<string,float> _playerStats;
+        private static Dictionary<string, float> _playerStats;
 
-        public static void UpdateUserStats ()
+        public static void UpdateUserStats()
         {
-            if(Name == null)
-            {
-                return;
-            }
+            if (Name == null) return;
 
-            if(IsSignUp)
+            if (IsSignUp)
             {
                 Saving.Saving.SendDummyInfo(Name);
                 IsSignUp = false;
@@ -50,29 +48,24 @@ namespace Other
             else
             {
                 _playerStats = Saving.Saving.GetUserStats(Name);
-                Maxcombo = (int)_playerStats["MaxCombo"];
+                Maxcombo = (int) _playerStats["MaxCombo"];
                 MaxAirTime = _playerStats["Max AirTime"];
             }
         }
 
-        public static void CheckStats ()
+        public static void CheckStats()
         {
-            if(IsSignUp)
-            {
-                return;
-            }
+            if (IsSignUp) return;
 
-            if(Maxcombo > (int)_playerStats["MaxCombo"] ||
+            if (Maxcombo > (int) _playerStats["MaxCombo"] ||
                 MaxAirTime > _playerStats["MaxCombo"]) // This is where the checks are made
-            {
                 Saving.Saving.UpdateTopStats(Name);
-            }
         }
 
 
-        public static void UpdateSettings ()
+        public static void UpdateSettings()
         {
-            switch(GameDifficulty)
+            switch (GameDifficulty)
             {
                 case GameDifficultyEnum.Easy:
                     Enemydontattack = true;
@@ -93,20 +86,14 @@ namespace Other
             }
         }
 
-        public static void CheckMaxCombo ( int combo )
+        public static void CheckMaxCombo(int combo)
         {
-            if(combo > Maxcombo)
-            {
-                Maxcombo = combo;
-            }
+            if (combo > Maxcombo) Maxcombo = combo;
         }
 
-        public static void CheckMaxAirtime ( float AirTime )
+        public static void CheckMaxAirtime(float AirTime)
         {
-            if(AirTime > MaxAirTime)
-            {
-                MaxAirTime = AirTime;
-            }
+            if (AirTime > MaxAirTime) MaxAirTime = AirTime;
         }
     }
 }
