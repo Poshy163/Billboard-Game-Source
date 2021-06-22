@@ -8,6 +8,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+#pragma warning disable 649
 
 #endregion
 
@@ -66,9 +67,16 @@ namespace player
         private Rigidbody rb;
         private bool shortclick = false;
         private float vertical;
+        public Material[] Skyboxes;
+        
 
 
         private void Awake()
+        {
+            SetSkyBox();
+        }
+
+        private void SetSkyBox()
         {
             if (GlobalVar.Name == null)
             {
@@ -80,6 +88,23 @@ namespace player
             {
                 if (!(Camera.main is null))
                 {
+                    RenderSettings.skybox = Skyboxes[0];
+                    Camera.main.clearFlags = CameraClearFlags.Skybox;
+                }
+            }
+            else if (GlobalVar.Name.Contains("lewy") || GlobalVar.Name.Contains("Lewy"))
+            {
+                if (!(Camera.main is null))
+                {
+                    RenderSettings.skybox = Skyboxes[1];
+                    Camera.main.clearFlags = CameraClearFlags.Skybox;
+                }
+            }
+            else if (GlobalVar.Name.Contains("hayden") || GlobalVar.Name.Contains("Hayden"))
+            {
+                if (!(Camera.main is null))
+                {
+                    RenderSettings.skybox = Skyboxes[2];
                     Camera.main.clearFlags = CameraClearFlags.Skybox;
                 }
             }
