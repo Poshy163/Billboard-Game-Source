@@ -28,7 +28,7 @@ namespace player
             curtime = 1f;
             playedwonsound = false;
             canchecknow = false;
-            Invoke("startchecking", 1f);
+            Invoke(nameof(startchecking), 1f);
         }
 
         private void Update()
@@ -62,7 +62,7 @@ namespace player
         public void camershake(float amount)
         {
             cam.fieldOfView = amount;
-            Invoke("resetcamera", 0.04f);
+            Invoke(nameof(resetcamera), 0.04f);
         }
 
         private void resetcamera()

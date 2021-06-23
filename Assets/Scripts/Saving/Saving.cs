@@ -221,6 +221,17 @@ namespace Saving
 
             return sb.ToString();
         }
+        public static bool GetServerStatus()
+        {
+            var filter = new BsonDocument {{"Server","Main Server"}};
+            var client = new MongoClient(MongoLogin);
+            var database = client.GetDatabase("Server");
+            var collection = database.GetCollection<BsonDocument>($"Server Status");
+            var documents = collection.Find(filter).ToList();
+            dynamic jsonFile = JsonConvert.DeserializeObject(ToJson(documents[0]));
+            return jsonFile["Status"];
+        }
+        
 
         private static string Sha256Hash(string rawData)
         {

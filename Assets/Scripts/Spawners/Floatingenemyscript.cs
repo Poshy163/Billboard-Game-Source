@@ -117,13 +117,13 @@ namespace Spawners
             anim.SetTrigger("kicked");
             kicked = true;
             dir = direction;
-            Invoke("Destroythehead", 4.89f);
+            Invoke(nameof(Destroythehead), 4.89f);
         }
 
         public void takendamage()
         {
             transform.GetChild(0).GetComponent<SpriteRenderer>().color = damagedcolor;
-            Invoke("resetcolor", 0.098f);
+            Invoke(nameof(resetcolor), 0.098f);
         }
 
         private void resetcolor()

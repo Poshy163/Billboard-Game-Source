@@ -14,11 +14,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+// ReSharper disable InconsistentNaming
 
 #endregion
 
 // ReSharper disable Unity.PerformanceCriticalCodeInvocation
-
 // ReSharper disable StringLiteralTypo
 // ReSharper disable ParameterHidesMember
 // ReSharper disable PossibleNullReferenceException
@@ -26,12 +26,12 @@ namespace UI
 {
     public class Settings : MonoBehaviour
     {
-        public static bool loginPage = true;
+        private static bool _loginPage = true;
         public TMP_Text debugtxt;
         public TMP_Text version;
         public GameObject TutorialBox;
         private Toggle _toggle;
-        private bool tutorial;
+        private bool _tutorial;
 
         private void Start()
         {
@@ -41,13 +41,22 @@ namespace UI
             GetGameVersion();
         }
 
+        private bool CheckServerStatus()
+        {
+            if (Saving.Saving.GetServerStatus()) return true;
+            debugtxt.text = "Server is down, Please wait a while before trying again. Your details have been saved";
+            Invoke(nameof(StartCoolDown), 5f);
+            return false;
+        }
+        
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
 
-            if (Input.GetKeyDown(KeyCode.Return) && loginPage)
+            if (Input.GetKeyDown(KeyCode.Return) && _loginPage)
                 Login();
-            else if (Input.GetKeyDown(KeyCode.Return) && !loginPage) ShowTutorialBox();
+            else if (Input.GetKeyDown(KeyCode.Return) && !_loginPage) ShowTutorialBox();
         }
 
 
@@ -59,7 +68,7 @@ namespace UI
 
         public void InvertLogin()
         {
-            loginPage = !loginPage;
+            _loginPage = !_loginPage;
         }
 
         public void Login()
@@ -70,12 +79,13 @@ namespace UI
             if (string.IsNullOrEmpty(localname) || string.IsNullOrEmpty(password))
             {
                 debugtxt.text = "One or more fields cannot be empty";
-                Invoke("StartCoolDown", 2.5f);
+                Invoke(nameof(StartCoolDown), 2.5f);
                 return;
             }
 
             if (Saving.Saving.Login(localname, password))
             {
+                if (!CheckServerStatus()) return;
                 GlobalVar.Name = localname;
                 SendSlackMessage($"User logged in with the username: {localname}");
                 debugtxt.text = "Login Completed, Welcome!";
@@ -97,13 +107,13 @@ namespace UI
 
         public void Yes()
         {
-            tutorial = true;
+            _tutorial = true;
             SignUp();
         }
 
         public void No()
         {
-            tutorial = false;
+            _tutorial = false;
             SignUp();
         }
 
@@ -117,7 +127,7 @@ namespace UI
             {
                 TutorialBox.SetActive(false);
                 debugtxt.text = "Nice try, dont do bad words";
-                Invoke("StartCoolDown", 2.5f);
+                Invoke(nameof(StartCoolDown), 2.5f);
                 return;
             }
 
@@ -125,7 +135,7 @@ namespace UI
             {
                 TutorialBox.SetActive(false);
                 debugtxt.text = "One or more fields cannot be empty";
-                Invoke("StartCoolDown", 2.5f);
+                Invoke(nameof(StartCoolDown), 2.5f);
                 return;
             }
 
@@ -133,27 +143,25 @@ namespace UI
             {
                 TutorialBox.SetActive(false);
                 debugtxt.text = "Username is too long, max is 15 characters";
-                Invoke("StartCoolDown", 2.5f);
+                Invoke(nameof(StartCoolDown), 2.5f);
                 return;
             }
 
             if (Saving.Saving.SignUp(localname, password))
             {
+                if (!CheckServerStatus()) return;
                 GlobalVar.Name = localname;
                 SendSlackMessage($"User signed up with the username: {localname}");
                 SetOtherStuff();
                 GlobalVar.IsSignUp = true;
                 debugtxt.text = "Done Sign up";
-                if (tutorial)
-                    SceneManager.LoadScene("Tutorial");
-                else
-                    SceneManager.LoadScene("LevelSelect");
+                SceneManager.LoadScene(_tutorial ? "Tutorial" : "LevelSelect");
             }
             else
             {
                 TutorialBox.SetActive(false);
                 debugtxt.text = "This username is already in use";
-                Invoke("StartCoolDown", 2.5f);
+                Invoke(nameof(StartCoolDown), 2.5f);
             }
         }
 
@@ -202,6 +210,7 @@ namespace UI
         public static void PermDeleteAccount()
         {
             for (short i = 0; i <= 25; i++)
+            {
                 try
                 {
                     Saving.Saving.DeleteDatabaseEntry(GlobalVar.Name, i);
@@ -210,7 +219,7 @@ namespace UI
                 {
                     // ignored
                 }
-
+            }
             Saving.Saving.DeleteUser(GlobalVar.Name);
             SceneManager.LoadScene("Settings");
         }

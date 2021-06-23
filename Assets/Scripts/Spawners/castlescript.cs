@@ -38,7 +38,7 @@ namespace Spawners
             nextspawned = false;
             if (tospawn)
             {
-                Invoke("Spawngargoyles", 0.003f);
+                Invoke(nameof(Spawngargoyles), 0.003f);
             }
         }
 

@@ -72,7 +72,7 @@ namespace Enemy
             anim = enemysprite.GetComponent<Animator>();
             anim.SetBool("kickend", true);
             rb = GetComponent<Rigidbody>();
-            Invoke("startat", 1f);
+            Invoke(nameof(startat), 1f);
             matcolor = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
             player = GameObject.FindGameObjectWithTag("Player");
         }
@@ -187,7 +187,7 @@ namespace Enemy
             if (health > 1f)
             {
                 transform.GetChild(0).GetComponent<SpriteRenderer>().color = damagedcolor;
-                Invoke("resetcolor", 0.25f);
+                Invoke(nameof(resetcolor), 0.25f);
             }
         }
 
@@ -219,7 +219,7 @@ namespace Enemy
             nextshoot += 1f;
             kicked = true;
             takendamage();
-            Invoke("endkick", 0.67f);
+            Invoke(nameof(endkick), 0.67f);
             anim.SetBool("kickend", false);
             anim.SetTrigger("kicked");
             rb.AddForce(transform.forward * -1f * force);

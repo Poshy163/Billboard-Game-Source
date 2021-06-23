@@ -221,7 +221,7 @@ namespace Enemy
         public void takendamage()
         {
             transform.GetChild(0).GetComponent<SpriteRenderer>().color = damagedcolor;
-            Invoke("resetcolor", 0.098f);
+            Invoke(nameof(resetcolor), 0.098f);
         }
 
         public void Unkillable()
