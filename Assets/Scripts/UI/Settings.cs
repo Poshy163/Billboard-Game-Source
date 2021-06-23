@@ -89,7 +89,7 @@ namespace UI
                 GlobalVar.Name = localname;
                 SendSlackMessage($"User logged in with the username: {localname}");
                 debugtxt.text = "Login Completed, Welcome!";
-                SetOtherStuff();
+                SetOtherStuff(localname);
                 SceneManager.LoadScene("LevelSelect");
             }
             else
@@ -152,7 +152,7 @@ namespace UI
                 if (!CheckServerStatus()) return;
                 GlobalVar.Name = localname;
                 SendSlackMessage($"User signed up with the username: {localname}");
-                SetOtherStuff();
+                SetOtherStuff(localname);
                 GlobalVar.IsSignUp = true;
                 debugtxt.text = "Done Sign up";
                 SceneManager.LoadScene(_tutorial ? "Tutorial" : "LevelSelect");
@@ -165,7 +165,7 @@ namespace UI
             }
         }
 
-        private static void SetOtherStuff()
+        private static void SetOtherStuff(string name)
         {
             switch (GameObject.Find("Difficulty").GetComponent<TMP_Dropdown>().value)
             {
@@ -179,7 +179,7 @@ namespace UI
                     GlobalVar.GameDifficulty = GlobalVar.GameDifficultyEnum.Hard;
                     break;
             }
-
+            Saving.Saving.GetUserInfo(name);
             GlobalVar.UpdateSettings();
         }
 
