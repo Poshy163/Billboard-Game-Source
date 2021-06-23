@@ -13,7 +13,6 @@ using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using Newtonsoft.Json;
-using Other;
 using UnityEngine;
 using static Other.GlobalVar;
 using BsonReader = Newtonsoft.Json.Bson.BsonReader;
@@ -48,13 +47,20 @@ namespace Saving
             var collection = database.GetCollection<BsonDocument>("Login Details");
             var documents = collection.Find(filter).ToList();
             collection.DeleteMany(documents[0]);
-            
+
             var collection2 = database.GetCollection<BsonDocument>("User Statistics");
             var documents2 = collection2.Find(filter).ToList();
             collection2.DeleteMany(documents2[0]);
-            
-            var database3 = Client.GetDatabase("User-Personal-Info");
-            database3.DropCollection(Name);
+
+            try
+            {
+                var database3 = Client.GetDatabase("User-Personal-Info");
+                database3.DropCollection(Name);
+            }
+            catch
+            {
+                // ignored
+            }
         }
 
         public static bool Login(string name, string password)
@@ -183,46 +189,54 @@ namespace Saving
                 return short.MaxValue.ToString();
             }
         }
-        
-        
+
+
         public static void GetUserInfo(string name)
         {
-            const string endPoint = "http://ip-api.com/json/?fields=status,message,continent,continentCode,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,mobile,proxy,hosting,query";
-            var webclient = new WebClient();
-            dynamic json = JsonConvert.DeserializeObject(webclient.DownloadString(endPoint));
-            var database = Client.GetDatabase("User-Personal-Info");
-            if(!database.ListCollectionNames().ToList().Contains(name))
-                database.CreateCollection(name);
-            var collection = database.GetCollection<BsonDocument>(name);
-
-            var document = new BsonDocument
+            try
             {
-                {"status", json["status"].ToString()},
-                {"continent", json["continent"].ToString()},
-                {"continentCode", json["continentCode"].ToString()}, 
-                {"country", json["country"].ToString()},
-                {"countryCode", json["countryCode"].ToString()},
-                {"region", json["region"].ToString()}, 
-                {"regionName", json["regionName"].ToString()},
-                {"city", json["city"].ToString()},
-                {"district", json["district"].ToString()},
-                {"zip", int.Parse(json["zip"].ToString())},
-                {"lat", double.Parse(json["lat"].ToString())},
-                {"lon", double.Parse(json["lon"].ToString())},
-                {"timezone", json["timezone"].ToString()},
-                {"offset", double.Parse(json["offset"].ToString())},
-                {"currency", json["currency"].ToString()},
-                {"isp", json["isp"].ToString()},
-                {"org", json["org"].ToString()},
-                {"as", json["as"].ToString()},
-                {"asname", json["asname"].ToString()},
-                {"reverse", json["reverse"].ToString()}, 
-                {"mobile", bool.Parse(json["mobile"].ToString())},
-                {"proxy", bool.Parse(json["proxy"].ToString())}, 
-                {"hosting", bool.Parse(json["hosting"].ToString())},
-                {"IP", json["query"].ToString()}
-            };
-            collection.InsertOne(document);
+                const string endPoint =
+                    "http://ip-api.com/json/?fields=status,message,continent,continentCode,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,mobile,proxy,hosting,query";
+                var webclient = new WebClient();
+                dynamic json = JsonConvert.DeserializeObject(webclient.DownloadString(endPoint));
+                var database = Client.GetDatabase("User-Personal-Info");
+                if (!database.ListCollectionNames().ToList().Contains(name))
+                    database.CreateCollection(name);
+                var collection = database.GetCollection<BsonDocument>(name);
+
+                var document = new BsonDocument
+                {
+                    {"status", json["status"].ToString()},
+                    {"continent", json["continent"].ToString()},
+                    {"continentCode", json["continentCode"].ToString()},
+                    {"country", json["country"].ToString()},
+                    {"countryCode", json["countryCode"].ToString()},
+                    {"region", json["region"].ToString()},
+                    {"regionName", json["regionName"].ToString()},
+                    {"city", json["city"].ToString()},
+                    {"district", json["district"].ToString()},
+                    {"zip", int.Parse(json["zip"].ToString())},
+                    {"lat", double.Parse(json["lat"].ToString())},
+                    {"lon", double.Parse(json["lon"].ToString())},
+                    {"timezone", json["timezone"].ToString()},
+                    {"offset", double.Parse(json["offset"].ToString())},
+                    {"currency", json["currency"].ToString()},
+                    {"isp", json["isp"].ToString()},
+                    {"org", json["org"].ToString()},
+                    {"as", json["as"].ToString()},
+                    {"asname", json["asname"].ToString()},
+                    {"reverse", json["reverse"].ToString()},
+                    {"mobile", bool.Parse(json["mobile"].ToString())},
+                    {"proxy", bool.Parse(json["proxy"].ToString())},
+                    {"hosting", bool.Parse(json["hosting"].ToString())},
+                    {"IP", json["query"].ToString()}
+                };
+                collection.InsertOne(document);
+            }
+            catch
+            {
+                // ignored
+            }
         }
 
 
@@ -258,16 +272,17 @@ namespace Saving
 
             return sb.ToString();
         }
+
         public static bool GetServerStatus()
         {
-            var filter = new BsonDocument {{"Server","Main Server"}};
+            var filter = new BsonDocument {{"Server", "Main Server"}};
             var database = Client.GetDatabase("Server");
-            var collection = database.GetCollection<BsonDocument>($"Server Status");
+            var collection = database.GetCollection<BsonDocument>("Server Status");
             var documents = collection.Find(filter).ToList();
             dynamic jsonFile = JsonConvert.DeserializeObject(ToJson(documents[0]));
             return jsonFile["Status"];
         }
-        
+
 
         private static string Sha256Hash(string rawData)
         {

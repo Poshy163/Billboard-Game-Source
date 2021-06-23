@@ -14,6 +14,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 // ReSharper disable InconsistentNaming
 
 #endregion
@@ -41,14 +42,6 @@ namespace UI
             GetGameVersion();
         }
 
-        private bool CheckServerStatus()
-        {
-            if (Saving.Saving.GetServerStatus()) return true;
-            debugtxt.text = "Server is down, Please wait a while before trying again. Your details have been saved";
-            Invoke(nameof(StartCoolDown), 5f);
-            return false;
-        }
-        
 
         private void Update()
         {
@@ -57,6 +50,14 @@ namespace UI
             if (Input.GetKeyDown(KeyCode.Return) && _loginPage)
                 Login();
             else if (Input.GetKeyDown(KeyCode.Return) && !_loginPage) ShowTutorialBox();
+        }
+
+        private bool CheckServerStatus()
+        {
+            if (Saving.Saving.GetServerStatus()) return true;
+            debugtxt.text = "Server is down, Please wait a while before trying again. Your details have been saved";
+            Invoke(nameof(StartCoolDown), 5f);
+            return false;
         }
 
 
@@ -179,7 +180,10 @@ namespace UI
                     GlobalVar.GameDifficulty = GlobalVar.GameDifficultyEnum.Hard;
                     break;
             }
-            Saving.Saving.GetUserInfo(name);
+
+            if (!Application.isEditor)
+                Saving.Saving.GetUserInfo(name);
+
             GlobalVar.UpdateSettings();
         }
 
@@ -210,7 +214,6 @@ namespace UI
         public static void PermDeleteAccount()
         {
             for (short i = 0; i <= 25; i++)
-            {
                 try
                 {
                     Saving.Saving.DeleteDatabaseEntry(GlobalVar.Name, i);
@@ -219,7 +222,7 @@ namespace UI
                 {
                     // ignored
                 }
-            }
+
             Saving.Saving.DeleteUser(GlobalVar.Name);
             SceneManager.LoadScene("Settings");
         }
