@@ -36,6 +36,8 @@ namespace UI
 
         private void Start()
         {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             version.text = "";
             _toggle = GameObject.Find("Leaderboard Toggle").GetComponent<Toggle>();
             _toggle.isOn = DisplayHighscores.LoadHighScores;

@@ -42,7 +42,7 @@ namespace UI
                 var gme = GameObject.Find($"Level {z}");
                 var panel = gme.transform.GetChild(0).gameObject;
                 gme.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text =
-                    gme.name == "Level 0" ? "Overall Time (All in one session)" : gme.name;
+                    gme.name == "Level 0" ? "Full game speedrun" : gme.name;
 
                 for (var i = 0; i <= 3; i++) //This is 5, can be changed
                 {
