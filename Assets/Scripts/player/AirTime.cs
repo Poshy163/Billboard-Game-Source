@@ -7,17 +7,20 @@ using UnityEngine;
 
 namespace player
 {
-    public class AirTime : MonoBehaviour
+    public class AirTime:MonoBehaviour
     {
         private static float _currentAirtime;
         private static bool _getTimeAir = true;
 
-        private void Update()
+        private void Update ()
         {
-            if (_getTimeAir) _currentAirtime += Time.deltaTime;
+            if(_getTimeAir)
+            {
+                _currentAirtime += Time.deltaTime;
+            }
         }
 
-        public static void GetTime()
+        public static void GetTime ()
         {
             _getTimeAir = false;
             var time = _currentAirtime;
@@ -25,7 +28,7 @@ namespace player
             GlobalVar.CheckMaxAirtime(time);
         }
 
-        public static void StartTime()
+        public static void StartTime ()
         {
             _getTimeAir = true;
         }

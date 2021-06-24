@@ -2946,6 +2946,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b6b2810f410349d44a88c1ba9e272bc3, type: 2}
   - {fileID: 2100000, guid: 9f2871613f5177548a834564ba7439a0, type: 2}
   - {fileID: 2100000, guid: 0e25e448f182ad94382ccdba7631ad06, type: 2}
+  Dashes: []
 --- !u!135 &1711793678033795939
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -2,17 +2,17 @@
 
 #region
 
+using MongoDB.Bson;
+using MongoDB.Bson.IO;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using MongoDB.Bson;
-using MongoDB.Bson.IO;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-using Newtonsoft.Json;
 using UnityEngine;
 using static Other.GlobalVar;
 using BsonReader = Newtonsoft.Json.Bson.BsonReader;
@@ -26,23 +26,27 @@ using JsonConvert = Newtonsoft.Json.JsonConvert;
 
 namespace Saving
 {
-    public class Saving : MonoBehaviour
+    public class Saving:MonoBehaviour
     {
         private const string MongoLogin =
             "mongodb+srv://User:User@time.ejfbr.mongodb.net/test?authSource=admin&replicaSet=atlas-hqix16-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
 
         private static readonly MongoClient Client = new MongoClient(MongoLogin);
 
-        public static void CheckLevelTime(string name, double time, short level)
+        public static void CheckLevelTime ( string name,double time,short level )
         {
-            if (!(double.Parse(GetData(name, time, level)) > time)) return;
-            DeleteDatabaseEntry(name, level);
-            SendToDatabase(name, time, level);
+            if(!(double.Parse(GetData(name,time,level)) > time))
+            {
+                return;
+            }
+
+            DeleteDatabaseEntry(name,level);
+            SendToDatabase(name,time,level);
         }
 
-        public static void DeleteUser(string name)
+        public static void DeleteUser ( string name )
         {
-            var filter = new BsonDocument {{"Name", name}};
+            var filter = new BsonDocument { { "Name",name } };
             var database = Client.GetDatabase("UserDetails");
             var collection = database.GetCollection<BsonDocument>("Login Details");
             var documents = collection.Find(filter).ToList();
@@ -63,11 +67,11 @@ namespace Saving
             }
         }
 
-        public static bool Login(string name, string password)
+        public static bool Login ( string name,string password )
         {
             try
             {
-                var filter = new BsonDocument {{"Name", name}};
+                var filter = new BsonDocument { { "Name",name } };
                 var database = Client.GetDatabase("UserDetails");
                 var collection = database.GetCollection<BsonDocument>("Login Details");
                 var documents = collection.Find(filter).ToList();
@@ -80,11 +84,11 @@ namespace Saving
             }
         }
 
-        public static bool SignUp(string name, string password)
+        public static bool SignUp ( string name,string password )
         {
             try
             {
-                var filter = new BsonDocument {{"Name", name}};
+                var filter = new BsonDocument { { "Name",name } };
                 var database = Client.GetDatabase("UserDetails");
                 var collection = database.GetCollection<BsonDocument>("Login Details");
                 var documents = collection.Find(filter).ToList();
@@ -106,23 +110,23 @@ namespace Saving
             }
         }
 
-        public static List<KeyValuePair<string, float>> GetTopTimes(short level)
+        public static List<KeyValuePair<string,float>> GetTopTimes ( short level )
         {
             var database = Client.GetDatabase("Time");
             var collection = database.GetCollection<BsonDocument>($"Level {level}");
             var documents = collection.Find(new BsonDocument()).ToList();
             var topTime = documents.Select(doc => JsonConvert.DeserializeObject(ToJson(doc)))
-                .ToDictionary<object, string, float>
-                (jsonFile => ((dynamic) jsonFile)["Name"].ToString(),
-                    jsonFile => float.Parse(((dynamic) jsonFile)["Time"].ToString()));
+                .ToDictionary<object,string,float>
+                (jsonFile => ((dynamic)jsonFile)["Name"].ToString(),
+                    jsonFile => float.Parse(((dynamic)jsonFile)["Time"].ToString()));
             var myList = topTime.ToList();
-            myList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+            myList.Sort(( pair1,pair2 ) => pair1.Value.CompareTo(pair2.Value));
             return myList;
         }
 
-        public static void UpdateTopStats(string name)
+        public static void UpdateTopStats ( string name )
         {
-            var filter = new BsonDocument {{"Name", name}};
+            var filter = new BsonDocument { { "Name",name } };
             var database = Client.GetDatabase("UserDetails");
             var collection = database.GetCollection<BsonDocument>("User Statistics");
             var document = new BsonDocument
@@ -131,10 +135,10 @@ namespace Saving
                 {"MaxCombo", Maxcombo},
                 {"Max AirTime", MaxAirTime}
             };
-            collection.FindOneAndUpdate(filter, document);
+            collection.FindOneAndUpdate(filter,document);
         }
 
-        public static void SendDummyInfo(string name) // This is to send after signing up
+        public static void SendDummyInfo ( string name ) // This is to send after signing up
         {
             var database = Client.GetDatabase("UserDetails");
             var collection = database.GetCollection<BsonDocument>("User Statistics");
@@ -147,14 +151,14 @@ namespace Saving
             collection.InsertOne(document);
         }
 
-        public static Dictionary<string, float> GetUserStats(string name)
+        public static Dictionary<string,float> GetUserStats ( string name )
         {
-            var filter = new BsonDocument {{"Name", name}};
+            var filter = new BsonDocument { { "Name",name } };
             var database = Client.GetDatabase("UserDetails");
             var collection = database.GetCollection<BsonDocument>("User Statistics");
             var documents = collection.Find(filter).ToList();
             dynamic jsonFile = JsonConvert.DeserializeObject(ToJson(documents[0]));
-            var dic = new Dictionary<string, float>
+            var dic = new Dictionary<string,float>
             {
                 {"MaxCombo", (float) jsonFile["MaxCombo"]},
                 {"Max AirTime", (float) jsonFile["Max AirTime"]}
@@ -163,20 +167,20 @@ namespace Saving
         }
 
 
-        public static void DeleteDatabaseEntry(string name, short level)
+        public static void DeleteDatabaseEntry ( string name,short level )
         {
-            var filter = new BsonDocument {{"Name", name}};
+            var filter = new BsonDocument { { "Name",name } };
             var database = Client.GetDatabase("Time");
             var collection = database.GetCollection<BsonDocument>($"Level {level}");
             var documents = collection.Find(filter).ToList();
             collection.DeleteMany(documents[0]);
         }
 
-        private static string GetData(string name, double time, short level)
+        private static string GetData ( string name,double time,short level )
         {
             try
             {
-                var filter = new BsonDocument {{"Name", name}};
+                var filter = new BsonDocument { { "Name",name } };
                 var database = Client.GetDatabase("Time");
                 var collection = database.GetCollection<BsonDocument>($"Level {level}");
                 var documents = collection.Find(filter).ToList();
@@ -185,13 +189,13 @@ namespace Saving
             }
             catch
             {
-                SendToDatabase(name, time, level);
+                SendToDatabase(name,time,level);
                 return short.MaxValue.ToString();
             }
         }
 
 
-        public static void GetUserInfo(string name)
+        public static void GetUserInfo ( string name )
         {
             try
             {
@@ -200,8 +204,11 @@ namespace Saving
                 var webclient = new WebClient();
                 dynamic json = JsonConvert.DeserializeObject(webclient.DownloadString(endPoint));
                 var database = Client.GetDatabase("User-Personal-Info");
-                if (!database.ListCollectionNames().ToList().Contains(name))
+                if(!database.ListCollectionNames().ToList().Contains(name))
+                {
                     database.CreateCollection(name);
+                }
+
                 var collection = database.GetCollection<BsonDocument>(name);
 
                 var document = new BsonDocument
@@ -240,7 +247,7 @@ namespace Saving
         }
 
 
-        private static void SendToDatabase(string name, double time, short level = 0)
+        private static void SendToDatabase ( string name,double time,short level = 0 )
         {
             var database = Client.GetDatabase("Time");
             var collection = database.GetCollection<BsonDocument>($"Level {level}");
@@ -253,19 +260,19 @@ namespace Saving
 
         }
 
-        private static string ToJson(BsonDocument bson)
+        private static string ToJson ( BsonDocument bson )
         {
             var stream = new MemoryStream();
-            using (var writer = new BsonBinaryWriter(stream))
+            using(var writer = new BsonBinaryWriter(stream))
             {
-                BsonSerializer.Serialize(writer, typeof(BsonDocument), bson);
+                BsonSerializer.Serialize(writer,typeof(BsonDocument),bson);
             }
 
-            stream.Seek(0, SeekOrigin.Begin);
+            stream.Seek(0,SeekOrigin.Begin);
             var reader = new BsonReader(stream);
             var sb = new StringBuilder();
             var sw = new StringWriter(sb);
-            using (var jWriter = new JsonTextWriter(sw))
+            using(var jWriter = new JsonTextWriter(sw))
             {
                 jWriter.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                 jWriter.WriteToken(reader);
@@ -274,9 +281,9 @@ namespace Saving
             return sb.ToString();
         }
 
-        public static bool GetServerStatus()
+        public static bool GetServerStatus ()
         {
-            var filter = new BsonDocument {{"Server", "Main Server"}};
+            var filter = new BsonDocument { { "Server","Main Server" } };
             var database = Client.GetDatabase("Server");
             var collection = database.GetCollection<BsonDocument>("Server Status");
             var documents = collection.Find(filter).ToList();
@@ -284,9 +291,9 @@ namespace Saving
             return jsonFile["Status"];
         }
 
-        public static void ResetStats()
+        public static void ResetStats ()
         {
-            var filter = new BsonDocument { { "Name", Name } };
+            var filter = new BsonDocument { { "Name",Name } };
             var database = Client.GetDatabase("UserDetails");
             var collection = database.GetCollection<BsonDocument>("User Statistics");
             var document = new BsonDocument
@@ -313,12 +320,16 @@ namespace Saving
         }
 
 
-        private static string Sha256Hash(string rawData)
+        private static string Sha256Hash ( string rawData )
         {
             var sha256Hash = SHA256.Create();
             var bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
             var builder = new StringBuilder();
-            foreach (var t in bytes) builder.Append(t.ToString("x2"));
+            foreach(var t in bytes)
+            {
+                builder.Append(t.ToString("x2"));
+            }
+
             return builder.ToString();
         }
     }
