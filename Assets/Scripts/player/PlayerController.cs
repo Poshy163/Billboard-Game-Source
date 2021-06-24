@@ -120,7 +120,7 @@ namespace player
             }
             else if (Input.GetKeyDown(KeyCode.T) && SceneManager.GetActiveScene().name == "LevelSelect")
             {
-                SceneManager.LoadScene("Settings");
+                SceneManager.LoadScene("Main Menu");
             }
 
             #region Health
@@ -692,27 +692,6 @@ namespace player
                 Combo.ResetCombo();
                 AirTime.GetTime();
             }
-
-            if (col.gameObject.tag == "Delete")
-            {
-                if (string.IsNullOrEmpty(GlobalVar.Name))
-                {
-                    return;
-                }
-
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                Endlv.gameObject.SetActive(true);
-                Settings.PermDeleteAccount();
-            }
-
-
-            if(col.gameObject.CompareTag("Reset"))
-            {
-                Saving.Saving.ResetStats();
-                SceneManager.LoadScene("LevelSelect");
-            }
-
             if (col.gameObject.CompareTag("shuriken"))
             {
                 takendamage();

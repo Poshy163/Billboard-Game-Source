@@ -31,7 +31,7 @@ namespace Other
 
         public IEnumerator LoadScene()
         {
-            if (nextlevel == "LevelSelect" || nextlevel == "Tutorial")
+            if (nextlevel == "LevelSelect" || nextlevel == "Tutorial" || nextlevel == "Settings")
             {
                 SceneManager.LoadScene(nextlevel);
             }
