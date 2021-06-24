@@ -706,13 +706,20 @@ namespace player
                 Settings.PermDeleteAccount();
             }
 
-            if (col.gameObject.tag == "shuriken")
+
+            if(col.gameObject.CompareTag("Reset"))
+            {
+                Saving.Saving.ResetStats();
+                SceneManager.LoadScene("LevelSelect");
+            }
+
+            if (col.gameObject.CompareTag("shuriken"))
             {
                 takendamage();
                 soundmanagerscript.playsound("playerhurt");
             }
 
-            if (col.gameObject.tag == "Floating enemy" && !col.gameObject.GetComponent<Floatingenemyscript>().kicked &&
+            if (col.gameObject.CompareTag("Floating enemy") && !col.gameObject.GetComponent<Floatingenemyscript>().kicked &&
                 !col.gameObject.GetComponent<greentargetscript>().arrowstate)
             {
                 Debug.Log("Floating head did damage");

@@ -250,6 +250,7 @@ namespace Saving
                 {"Time", time}
             };
             collection.InsertOne(document);
+
         }
 
         private static string ToJson(BsonDocument bson)
@@ -281,6 +282,34 @@ namespace Saving
             var documents = collection.Find(filter).ToList();
             dynamic jsonFile = JsonConvert.DeserializeObject(ToJson(documents[0]));
             return jsonFile["Status"];
+        }
+
+        public static void ResetStats()
+        {
+            var filter = new BsonDocument { { "Name", Name } };
+            var database = Client.GetDatabase("UserDetails");
+            var collection = database.GetCollection<BsonDocument>("User Statistics");
+            var document = new BsonDocument
+            {
+                {"Name", Name},
+                {"MaxCombo", 0},
+                {"Max AirTime", 0}
+            };
+            collection.FindOneAndUpdate(filter,document);
+
+            for(int i = 0;i <= 25;i++)
+            {
+                try
+                {
+                    DeleteDatabaseEntry(Name,(short)i);
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+
+
         }
 
 
