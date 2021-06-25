@@ -1,37 +1,39 @@
-﻿using Other;
-using UI;
+﻿#region
+
+using Other;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Settings:MonoBehaviour
+#endregion
+
+namespace UI
 {
-    private void Start ()
+    public class Settings : MonoBehaviour
     {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-    }
-    public void ClearUserData ()
-    {
-        if(string.IsNullOrEmpty(GlobalVar.Name))
+        private void Start()
         {
-            return;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
 
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        MainMenu.PermDeleteAccount();
+        public void ClearUserData()
+        {
+            if (string.IsNullOrEmpty(GlobalVar.Name)) return;
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            MainMenu.PermDeleteAccount();
+        }
+
+        public void ClearUserScore()
+        {
+            Database.ResetStats();
+            SceneManager.LoadScene("Lobby");
+        }
+
+        public void Back()
+        {
+            SceneManager.LoadScene("Lobby");
+        }
     }
-
-    public void ClearUserScore ()
-    {
-        Saving.Saving.ResetStats();
-        SceneManager.LoadScene("Lobby");
-    }
-
-    public void Back ()
-    {
-        SceneManager.LoadScene("Lobby");
-    }
-
-
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TextMesh_Pro.Scripts
 {
-    public class ObjectSpin:MonoBehaviour
+    public class ObjectSpin : MonoBehaviour
     {
 #pragma warning disable 0414
 
@@ -30,7 +30,7 @@ namespace TextMesh_Pro.Scripts
 
         public MotionType Motion;
 
-        private void Awake ()
+        private void Awake()
         {
             m_transform = transform;
             m_initial_Rotation = m_transform.rotation.eulerAngles;
@@ -42,17 +42,17 @@ namespace TextMesh_Pro.Scripts
 
 
         // Update is called once per frame
-        private void Update ()
+        private void Update()
         {
-            if(Motion == MotionType.Rotation)
+            if (Motion == MotionType.Rotation)
             {
-                m_transform.Rotate(0,SpinSpeed * Time.deltaTime,0);
+                m_transform.Rotate(0, SpinSpeed * Time.deltaTime, 0);
             }
-            else if(Motion == MotionType.BackAndForth)
+            else if (Motion == MotionType.BackAndForth)
             {
                 m_time += SpinSpeed * Time.deltaTime;
                 m_transform.rotation = Quaternion.Euler(m_initial_Rotation.x,
-                    Mathf.Sin(m_time) * RotationRange + m_initial_Rotation.y,m_initial_Rotation.z);
+                    Mathf.Sin(m_time) * RotationRange + m_initial_Rotation.y, m_initial_Rotation.z);
             }
             else
             {
@@ -62,7 +62,7 @@ namespace TextMesh_Pro.Scripts
                 float y = 10; // *Mathf.Sin(m_time * 1f) * Mathf.Cos(m_time * 1f);
                 var z = 0f; // *Mathf.Sin(m_time * .9f);    
 
-                m_transform.position = m_initial_Position + new Vector3(x,z,y);
+                m_transform.position = m_initial_Position + new Vector3(x, z, y);
 
                 // Drawing light patterns because they can be cool looking.
                 //if (frames > 2)
