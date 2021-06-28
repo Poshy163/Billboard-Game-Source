@@ -43,7 +43,7 @@ namespace TextMesh_Pro.Scripts
 
         private void ON_TEXT_CHANGED(Object obj)
         {
-            if (obj = m_TextComponent) hasTextChanged = true;
+            if (obj == m_TextComponent) hasTextChanged = true;
         }
 
         /// <summary>

@@ -3,6 +3,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.TextCore.LowLevel;
+// ReSharper disable InconsistentNaming
 
 #endregion
 
@@ -23,10 +24,6 @@ namespace TextMesh_Pro.Scripts
         public BenchmarkType Benchmark;
 
         public Font SourceFontFile;
-
-
-        private void Awake()
-        { }
 
 
         private void Start()

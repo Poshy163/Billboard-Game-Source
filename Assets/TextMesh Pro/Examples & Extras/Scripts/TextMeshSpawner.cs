@@ -16,9 +16,6 @@ namespace TextMesh_Pro.Scripts
 
         private TextMeshProFloatingText floatingText_Script;
 
-        private void Awake()
-        { }
-
         private void Start()
         {
             for (var i = 0; i < NumberOfNPC; i++)

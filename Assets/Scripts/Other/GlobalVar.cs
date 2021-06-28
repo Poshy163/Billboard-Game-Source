@@ -22,6 +22,7 @@ namespace Other
         public const float SlowModeDrainRate = 400f;
         public static float FloatingSpeed = 4f;
 
+
         public static bool SingleLevel = false;
         public static int Maxcombo;
         public static float MaxAirTime;

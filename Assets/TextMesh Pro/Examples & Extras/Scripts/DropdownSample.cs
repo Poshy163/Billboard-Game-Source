@@ -2,6 +2,8 @@
 
 using TMPro;
 using UnityEngine;
+// ReSharper disable Unity.RedundantSerializeFieldAttribute
+// ReSharper disable InconsistentNaming
 
 #endregion
 

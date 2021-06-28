@@ -3,6 +3,8 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+// ReSharper disable InconsistentNaming
+// ReSharper disable IteratorNeverReturns
 
 #endregion
 
@@ -14,6 +16,7 @@ namespace TextMesh_Pro.Scripts
         public Vector3 RotationSpeeds;
         private Material m_material;
         private TMP_Text m_textMeshPro;
+        private static readonly int EnvMatrix = Shader.PropertyToID("_EnvMatrix");
 
 
         private void Awake()
@@ -35,7 +38,7 @@ namespace TextMesh_Pro.Scripts
                     Quaternion.Euler(Time.time * RotationSpeeds.x, Time.time * RotationSpeeds.y,
                         Time.time * RotationSpeeds.z), Vector3.one);
 
-                m_material.SetMatrix("_EnvMatrix", matrix);
+                m_material.SetMatrix(EnvMatrix, matrix);
 
                 yield return null;
             }

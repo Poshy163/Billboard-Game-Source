@@ -3,6 +3,9 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+// ReSharper disable FunctionRecursiveOnAllPaths
+// ReSharper disable PossibleNullReferenceException
+// ReSharper disable MemberCanBePrivate.Global
 
 #endregion
 
@@ -41,49 +44,50 @@ namespace TextMesh_Pro.Scripts
 
         private void Start()
         {
-            if (SpawnType == 0)
+            switch (SpawnType)
             {
-                // TextMesh Pro Implementation
-                m_textMeshPro = m_floatingText.AddComponent<TextMeshPro>();
-                m_textMeshPro.rectTransform.sizeDelta = new Vector2(3, 3);
+                case 0:
+                    // TextMesh Pro Implementation
+                    m_textMeshPro = m_floatingText.AddComponent<TextMeshPro>();
+                    m_textMeshPro.rectTransform.sizeDelta = new Vector2(3, 3);
 
-                m_floatingText_Transform = m_floatingText.transform;
-                m_floatingText_Transform.position = m_transform.position + new Vector3(0, 15f, 0);
+                    m_floatingText_Transform = m_floatingText.transform;
+                    m_floatingText_Transform.position = m_transform.position + new Vector3(0, 15f, 0);
 
-                //m_textMeshPro.fontAsset = Resources.Load("Fonts & Materials/JOKERMAN SDF", typeof(TextMeshProFont)) as TextMeshProFont; // User should only provide a string to the resource.
-                //m_textMeshPro.fontSharedMaterial = Resources.Load("Fonts & Materials/LiberationSans SDF", typeof(Material)) as Material;
+                    //m_textMeshPro.fontAsset = Resources.Load("Fonts & Materials/JOKERMAN SDF", typeof(TextMeshProFont)) as TextMeshProFont; // User should only provide a string to the resource.
+                    //m_textMeshPro.fontSharedMaterial = Resources.Load("Fonts & Materials/LiberationSans SDF", typeof(Material)) as Material;
 
-                m_textMeshPro.alignment = TextAlignmentOptions.Center;
-                m_textMeshPro.color = new Color32((byte) Random.Range(0, 255), (byte) Random.Range(0, 255),
-                    (byte) Random.Range(0, 255), 255);
-                m_textMeshPro.fontSize = 24;
-                //m_textMeshPro.enableExtraPadding = true;
-                //m_textMeshPro.enableShadows = false;
-                m_textMeshPro.enableKerning = false;
-                m_textMeshPro.text = string.Empty;
-                m_textMeshPro.isTextObjectScaleStatic = true;
+                    m_textMeshPro.alignment = TextAlignmentOptions.Center;
+                    m_textMeshPro.color = new Color32((byte) Random.Range(0, 255), (byte) Random.Range(0, 255),
+                        (byte) Random.Range(0, 255), 255);
+                    m_textMeshPro.fontSize = 24;
+                    //m_textMeshPro.enableExtraPadding = true;
+                    //m_textMeshPro.enableShadows = false;
+                    m_textMeshPro.enableKerning = false;
+                    m_textMeshPro.text = string.Empty;
+                    m_textMeshPro.isTextObjectScaleStatic = true;
 
-                StartCoroutine(DisplayTextMeshProFloatingText());
+                    StartCoroutine(DisplayTextMeshProFloatingText());
+                    break;
+                case 1:
+                    //Debug.Log("Spawning TextMesh Objects.");
+
+                    m_floatingText_Transform = m_floatingText.transform;
+                    m_floatingText_Transform.position = m_transform.position + new Vector3(0, 15f, 0);
+
+                    m_textMesh = m_floatingText.AddComponent<TextMesh>();
+                    m_textMesh.font = Resources.Load<Font>("Fonts/ARIAL");
+                    m_textMesh.GetComponent<Renderer>().sharedMaterial = m_textMesh.font.material;
+                    m_textMesh.color = new Color32((byte) Random.Range(0, 255), (byte) Random.Range(0, 255),
+                        (byte) Random.Range(0, 255), 255);
+                    m_textMesh.anchor = TextAnchor.LowerCenter;
+                    m_textMesh.fontSize = 24;
+
+                    StartCoroutine(DisplayTextMeshFloatingText());
+                    break;
+                case 2:
+                    break;
             }
-            else if (SpawnType == 1)
-            {
-                //Debug.Log("Spawning TextMesh Objects.");
-
-                m_floatingText_Transform = m_floatingText.transform;
-                m_floatingText_Transform.position = m_transform.position + new Vector3(0, 15f, 0);
-
-                m_textMesh = m_floatingText.AddComponent<TextMesh>();
-                m_textMesh.font = Resources.Load<Font>("Fonts/ARIAL");
-                m_textMesh.GetComponent<Renderer>().sharedMaterial = m_textMesh.font.material;
-                m_textMesh.color = new Color32((byte) Random.Range(0, 255), (byte) Random.Range(0, 255),
-                    (byte) Random.Range(0, 255), 255);
-                m_textMesh.anchor = TextAnchor.LowerCenter;
-                m_textMesh.fontSize = 24;
-
-                StartCoroutine(DisplayTextMeshFloatingText());
-            }
-            else if (SpawnType == 2)
-            { }
         }
 
 
@@ -111,7 +115,6 @@ namespace TextMesh_Pro.Scripts
             var start_pos = m_floatingText_Transform.position;
             Color32 start_color = m_textMeshPro.color;
             float alpha = 255;
-            var int_counter = 0;
 
 
             var fadeDuration = 3 / starting_Count * CountDuration;
@@ -124,7 +127,7 @@ namespace TextMesh_Pro.Scripts
                     //Debug.Log("Fading Counter ... " + current_Count.ToString("f2"));
                     alpha = Mathf.Clamp(alpha - Time.deltaTime / fadeDuration * 255, 0, 255);
 
-                int_counter = (int) current_Count;
+                var int_counter = (int) current_Count;
                 m_textMeshPro.text = int_counter.ToString();
                 //m_textMeshPro.SetText("{0}", (int)current_Count);
 
@@ -166,7 +169,6 @@ namespace TextMesh_Pro.Scripts
             var start_pos = m_floatingText_Transform.position;
             Color32 start_color = m_textMesh.color;
             float alpha = 255;
-            var int_counter = 0;
 
             var fadeDuration = 3 / starting_Count * CountDuration;
 
@@ -178,7 +180,7 @@ namespace TextMesh_Pro.Scripts
                     //Debug.Log("Fading Counter ... " + current_Count.ToString("f2"));
                     alpha = Mathf.Clamp(alpha - Time.deltaTime / fadeDuration * 255, 0, 255);
 
-                int_counter = (int) current_Count;
+                var int_counter = (int) current_Count;
                 m_textMesh.text = int_counter.ToString();
                 //Debug.Log("Current Count:" + current_Count.ToString("f2"));
 

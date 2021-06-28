@@ -1,6 +1,8 @@
 ﻿#region
+
 using UnityEngine;
 using UnityEngine.UI;
+
 #endregion
 
 namespace UI

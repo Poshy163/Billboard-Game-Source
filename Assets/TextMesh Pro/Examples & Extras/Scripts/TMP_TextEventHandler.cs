@@ -122,12 +122,17 @@ namespace TextMesh_Pro.Scripts
 
                     var elementType = m_TextComponent.textInfo.characterInfo[charIndex].elementType;
 
-                    // Send event to any event listeners depending on whether it is a character or sprite.
-                    if (elementType == TMP_TextElementType.Character)
-                        SendOnCharacterSelection(m_TextComponent.textInfo.characterInfo[charIndex].character,
-                            charIndex);
-                    else if (elementType == TMP_TextElementType.Sprite)
-                        SendOnSpriteSelection(m_TextComponent.textInfo.characterInfo[charIndex].character, charIndex);
+                    switch (elementType)
+                    {
+                        // Send event to any event listeners depending on whether it is a character or sprite.
+                        case TMP_TextElementType.Character:
+                            SendOnCharacterSelection(m_TextComponent.textInfo.characterInfo[charIndex].character,
+                                charIndex);
+                            break;
+                        case TMP_TextElementType.Sprite:
+                            SendOnSpriteSelection(m_TextComponent.textInfo.characterInfo[charIndex].character, charIndex);
+                            break;
+                    }
                 }
 
                 #endregion

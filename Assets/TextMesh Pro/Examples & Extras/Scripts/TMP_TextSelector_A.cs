@@ -3,6 +3,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+// ReSharper disable UnusedVariable
 
 #endregion
 

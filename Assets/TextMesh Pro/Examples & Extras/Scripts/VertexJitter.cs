@@ -3,6 +3,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+// ReSharper disable NotAccessedField.Local
 
 #endregion
 

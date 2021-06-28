@@ -2,6 +2,9 @@
 
 using TMPro;
 using UnityEngine;
+// ReSharper disable InconsistentNaming
+// ReSharper disable PossibleNullReferenceException
+// ReSharper disable PossibleLossOfFraction
 
 #endregion
 

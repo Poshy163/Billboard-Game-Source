@@ -1,6 +1,7 @@
 #region
 
 using UnityEngine;
+// ReSharper disable InconsistentNaming
 
 #endregion
 
@@ -91,12 +92,17 @@ namespace TextMesh_Pro.Scripts
             // Check if we still have a valid target
             if (CameraTarget != null)
             {
-                if (CameraMode == CameraModes.Isometric)
-                    desiredPosition = CameraTarget.position + Quaternion.Euler(ElevationAngle, OrbitalAngle, 0f) *
-                        new Vector3(0, 0, -FollowDistance);
-                else if (CameraMode == CameraModes.Follow)
-                    desiredPosition = CameraTarget.position + CameraTarget.TransformDirection(
-                        Quaternion.Euler(ElevationAngle, OrbitalAngle, 0f) * new Vector3(0, 0, -FollowDistance));
+                switch (CameraMode)
+                {
+                    case CameraModes.Isometric:
+                        desiredPosition = CameraTarget.position + Quaternion.Euler(ElevationAngle, OrbitalAngle, 0f) *
+                            new Vector3(0, 0, -FollowDistance);
+                        break;
+                    case CameraModes.Follow:
+                        desiredPosition = CameraTarget.position + CameraTarget.TransformDirection(
+                            Quaternion.Euler(ElevationAngle, OrbitalAngle, 0f) * new Vector3(0, 0, -FollowDistance));
+                        break;
+                }
 
                 if (MovementSmoothing)
                     // Using Smoothing
@@ -160,6 +166,7 @@ namespace TextMesh_Pro.Scripts
                 }
 
                 // Get Input from Mobile Device
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
                 if (touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Moved)
                 {
                     var deltaPosition = Input.GetTouch(0).deltaPosition;
@@ -238,6 +245,7 @@ namespace TextMesh_Pro.Scripts
             }
 
             // Check Pinching to Zoom in - out on Mobile device
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (touchCount == 2)
             {
                 var touch0 = Input.GetTouch(0);

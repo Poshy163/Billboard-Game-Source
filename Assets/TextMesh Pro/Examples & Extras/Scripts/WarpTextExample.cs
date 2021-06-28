@@ -3,6 +3,8 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+// ReSharper disable InvalidXmlDocComment
+// ReSharper disable CompareOfFloatsByEqualityOperator
 
 #endregion
 

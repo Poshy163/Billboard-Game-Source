@@ -22,8 +22,6 @@ namespace Spawners
 
         public GameObject particles;
 
-        private float speed;
-
         private Animator anim;
 
         private Color damagedcolor;
@@ -34,6 +32,8 @@ namespace Spawners
         private GameObject player;
 
         private Rigidbody rb;
+
+        private float speed;
 
         private void Awake()
         {

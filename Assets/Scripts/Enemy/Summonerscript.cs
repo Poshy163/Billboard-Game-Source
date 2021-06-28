@@ -27,6 +27,8 @@ namespace Enemy
 
         public GameObject basesummonerposition;
 
+        public GameObject FlyingSummoner;
+
         private readonly float almostdeadcolorrate = 0.14f;
 
         private readonly float enemyspeed;
@@ -57,8 +59,6 @@ namespace Enemy
         private GameObject player;
 
         private Rigidbody rb;
-
-        public GameObject FlyingSummoner;
 
         private bool shooting;
 
@@ -202,8 +202,8 @@ namespace Enemy
                 ball.GetComponent<Rigidbody>()
                     .AddForce((transform.GetChild(0).transform.forward * GlobalVar.BulletSpeed * 100));
                 ball.transform.localScale *= 3;
-                if(GlobalVar.GameDifficulty == GlobalVar.GameDifficultyEnum.Hard) 
-                    Instantiate(FlyingSummoner, transform.position,Quaternion.identity);
+                if (GlobalVar.GameDifficulty == GlobalVar.GameDifficultyEnum.Hard && Random.Range(0, 2) == 2)
+                    Instantiate(FlyingSummoner, transform.position, Quaternion.identity);
             }
         }
 
