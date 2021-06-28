@@ -701,7 +701,6 @@ namespace player
                 !col.gameObject.GetComponent<Floatingenemyscript>().kicked &&
                 !col.gameObject.GetComponent<greentargetscript>().arrowstate)
             {
-                Debug.Log("Floating head did damage");
                 takendamage();
                 Destroy(col.gameObject, 0f);
             }

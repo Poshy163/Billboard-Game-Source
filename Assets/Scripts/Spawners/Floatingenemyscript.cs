@@ -1,6 +1,7 @@
 #region
 
 using Enemy;
+using Other;
 using player;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ namespace Spawners
 
         public GameObject particles;
 
-        public float speed;
+        private float speed;
 
         private Animator anim;
 
@@ -45,6 +46,7 @@ namespace Spawners
         {
             anim = enemysprite.GetComponent<Animator>();
             rb = GetComponent<Rigidbody>();
+            speed = GlobalVar.FloatingSpeed;
             kicked = false;
         }
 
@@ -90,7 +92,7 @@ namespace Spawners
             if (col.gameObject.layer == LayerMask.NameToLayer("Kicked Enemy"))
             {
                 takendamage();
-                enemykickedback(transform.forward * -1f);
+                enemykickedback(transform.forward * -0.5f);
                 if (col.gameObject.CompareTag("Floating enemy"))
                 {
                     Destroy(col.gameObject, 0f);

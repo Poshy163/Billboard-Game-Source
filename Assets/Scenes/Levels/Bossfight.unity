@@ -7034,6 +7034,12 @@ PrefabInstance:
       propertyPath: basesummonerposition
       value: 
       objectReference: {fileID: 164}
+    - target: {fileID: 5480196972770343255, guid: 0f8f7dcd6d84fd64fabc2051616ed407,
+        type: 3}
+      propertyPath: FlyingSummoner
+      value: 
+      objectReference: {fileID: 1424586590454918, guid: cc7743b778d439f438390ce781403f86,
+        type: 3}
     - target: {fileID: 5480196972770343659, guid: 0f8f7dcd6d84fd64fabc2051616ed407,
         type: 3}
       propertyPath: m_Name

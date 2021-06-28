@@ -113,9 +113,10 @@
      <Compile Include="Assets\Scripts\player\playeranimationfunctions.cs" />
      <Compile Include="Assets\Scripts\Other\portalscript.cs" />
      <Compile Include="Assets\Scripts\player\Combo.cs" />
-     <Compile Include="Assets\Scripts\DataBase.cs" />
+     <Compile Include="Assets\Scripts\Database.cs" />
      <Compile Include="Assets\Scripts\Enemy\gargoyleanimationscript.cs" />
      <Compile Include="Assets\Scripts\Enemy\looktowardsplayer.cs" />
+     <Compile Include="Assets\Scripts\UI\CanvasController.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

@@ -19152,11 +19152,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1105964850139087354, guid: 2af8f6bc8a5036440897afc13d239fca,
-        type: 3}
-      propertyPath: m_Name
-      value: Dash (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 6988657466934111493, guid: 2af8f6bc8a5036440897afc13d239fca,
         type: 3}
       propertyPath: m_AnchorMin.x

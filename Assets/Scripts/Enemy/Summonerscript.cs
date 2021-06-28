@@ -58,6 +58,8 @@ namespace Enemy
 
         private Rigidbody rb;
 
+        public GameObject FlyingSummoner;
+
         private bool shooting;
 
         private GameObject[] summonerpositions;
@@ -200,6 +202,8 @@ namespace Enemy
                 ball.GetComponent<Rigidbody>()
                     .AddForce((transform.GetChild(0).transform.forward * GlobalVar.BulletSpeed * 100));
                 ball.transform.localScale *= 3;
+                if(GlobalVar.GameDifficulty == GlobalVar.GameDifficultyEnum.Hard) 
+                    Instantiate(FlyingSummoner, transform.position,Quaternion.identity);
             }
         }
 

@@ -6724,41 +6724,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1711793678033795207, guid: b2a3952796ed0ce4d8f792a51d864e62,
-        type: 3}
-      propertyPath: greencrosshair
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1711793678033795207, guid: b2a3952796ed0ce4d8f792a51d864e62,
-        type: 3}
-      propertyPath: hearts.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1711793678033795207, guid: b2a3952796ed0ce4d8f792a51d864e62,
-        type: 3}
-      propertyPath: hearts.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1711793678033795207, guid: b2a3952796ed0ce4d8f792a51d864e62,
-        type: 3}
-      propertyPath: hearts.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1711793678033795207, guid: b2a3952796ed0ce4d8f792a51d864e62,
-        type: 3}
-      propertyPath: hearts.Array.data[3]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1711793678033795207, guid: b2a3952796ed0ce4d8f792a51d864e62,
-        type: 3}
-      propertyPath: hearts.Array.data[4]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1711793678033795216, guid: b2a3952796ed0ce4d8f792a51d864e62,
-        type: 3}
-      propertyPath: portal
-      value: 
-      objectReference: {fileID: 24}
     - target: {fileID: 1711793678033795691, guid: b2a3952796ed0ce4d8f792a51d864e62,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6767,7 +6732,7 @@ PrefabInstance:
     - target: {fileID: 1711793678033795691, guid: b2a3952796ed0ce4d8f792a51d864e62,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.07
+      value: 2.99
       objectReference: {fileID: 0}
     - target: {fileID: 1711793678033795691, guid: b2a3952796ed0ce4d8f792a51d864e62,
         type: 3}

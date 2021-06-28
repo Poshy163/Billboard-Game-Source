@@ -20,6 +20,7 @@ namespace Other
         public const int AmountOfLevels = 4;
         public const float SlowModeRegenRate = 25f;
         public const float SlowModeDrainRate = 400f;
+        public static float FloatingSpeed = 4f;
 
         public static bool SingleLevel = false;
         public static int Maxcombo;
