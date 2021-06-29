@@ -476,7 +476,6 @@ namespace player
 
         public void kickstate(bool state, bool vault)
         {
-            Combo.AddToCombo();
             if (vault)
             {
                 vaultkick.SetActive(state);
@@ -490,6 +489,7 @@ namespace player
 
             if (state)
             {
+                Combo.AddToCombo();
                 shootend();
                 enddodge();
                 gunanim.SetTrigger("kick");

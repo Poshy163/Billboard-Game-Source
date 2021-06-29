@@ -2,6 +2,7 @@
 
 using Other;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 #endregion
@@ -43,6 +44,7 @@ namespace player
 
         public static void AddToCombo(int addCombo = 1)
         {
+            if(SceneManager.GetActiveScene().name == "Tutorial") return;
             _currentCombo += addCombo;
             ChangedCombo();
         }

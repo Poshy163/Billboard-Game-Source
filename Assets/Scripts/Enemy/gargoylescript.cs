@@ -48,7 +48,7 @@ namespace Enemy
 
         private int dir;
 
-        private float health = 5f;
+        [SerializeField] private float health = 5f;
 
         private Color matcolor;
 

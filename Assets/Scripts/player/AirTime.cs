@@ -2,6 +2,7 @@
 
 using Other;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 #endregion
 
@@ -19,6 +20,7 @@ namespace player
 
         public static void GetTime()
         {
+            if(SceneManager.GetActiveScene().name == "Tutorial") return;
             _getTimeAir = false;
             var time = _currentAirtime;
             _currentAirtime = 0;

@@ -22,7 +22,11 @@ namespace player
 
         private void Start()
         {
-            portal = GameObject.Find("portal");
+            try
+            {
+             portal = GameObject.Find("portal");
+            }
+            catch{}
             cam = GetComponent<Camera>();
             Cursor.visible = false;
             curtime = 1f;
@@ -38,20 +42,25 @@ namespace player
                 Time.timeScale = (Time.timeScale != 0f) ? 0 : 1;
             }
 
-            if (canchecknow && GameObject.FindGameObjectsWithTag("Gargoyle").Length == 0 &&
-                GameObject.FindGameObjectsWithTag("Summoner").Length == 0)
+            try
             {
-                portal.SetActive(true);
-                if (!playedwonsound)
+                if (canchecknow && GameObject.FindGameObjectsWithTag("Gargoyle").Length == 0 &&
+                    GameObject.FindGameObjectsWithTag("Summoner").Length == 0)
                 {
-                    playedwonsound = true;
-                    soundmanagerscript.playsound("won");
+                    portal.SetActive(true);
+                    if (!playedwonsound)
+                    {
+                        playedwonsound = true;
+                        soundmanagerscript.playsound("won");
+                    }
+                }
+                else
+                {
+                    portal.SetActive(false);
                 }
             }
-            else
-            {
-                portal.SetActive(false);
-            }
+            catch
+            { }
         }
 
         private void startchecking()
