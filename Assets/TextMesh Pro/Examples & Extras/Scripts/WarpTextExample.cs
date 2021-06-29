@@ -10,10 +10,10 @@ using UnityEngine;
 
 namespace TextMesh_Pro.Scripts
 {
-    public class WarpTextExample : MonoBehaviour
+    public class WarpTextExample:MonoBehaviour
     {
-        public AnimationCurve VertexCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.25f, 2.0f),
-            new Keyframe(0.5f, 0), new Keyframe(0.75f, 2.0f), new Keyframe(1, 0f));
+        public AnimationCurve VertexCurve = new AnimationCurve(new Keyframe(0,0),new Keyframe(0.25f,2.0f),
+            new Keyframe(0.5f,0),new Keyframe(0.75f,2.0f),new Keyframe(1,0f));
 
         public float AngleMultiplier = 1.0f;
         public float SpeedMultiplier = 1.0f;
@@ -21,19 +21,19 @@ namespace TextMesh_Pro.Scripts
 
         private TMP_Text m_TextComponent;
 
-        private void Awake()
+        private void Awake ()
         {
             m_TextComponent = gameObject.GetComponent<TMP_Text>();
         }
 
 
-        private void Start()
+        private void Start ()
         {
             StartCoroutine(WarpText());
         }
 
 
-        private AnimationCurve CopyAnimationCurve(AnimationCurve curve)
+        private AnimationCurve CopyAnimationCurve ( AnimationCurve curve )
         {
             var newCurve = new AnimationCurve
             {
@@ -49,7 +49,7 @@ namespace TextMesh_Pro.Scripts
         /// </summary>
         /// <param name="textComponent"></param>
         /// <returns></returns>
-        private IEnumerator WarpText()
+        private IEnumerator WarpText ()
         {
             VertexCurve.preWrapMode = WrapMode.Clamp;
             VertexCurve.postWrapMode = WrapMode.Clamp;
@@ -64,9 +64,9 @@ namespace TextMesh_Pro.Scripts
             var old_CurveScale = CurveScale;
             var old_curve = CopyAnimationCurve(VertexCurve);
 
-            while (true)
+            while(true)
             {
-                if (!m_TextComponent.havePropertiesChanged && old_CurveScale == CurveScale &&
+                if(!m_TextComponent.havePropertiesChanged && old_CurveScale == CurveScale &&
                     old_curve.keys[1].value == VertexCurve.keys[1].value)
                 {
                     yield return null;
@@ -83,7 +83,10 @@ namespace TextMesh_Pro.Scripts
                 var characterCount = textInfo.characterCount;
 
 
-                if (characterCount == 0) continue;
+                if(characterCount == 0)
+                {
+                    continue;
+                }
 
                 //vertices = textInfo.meshInfo[0].vertices;
                 //int lastVertexIndex = textInfo.characterInfo[characterCount - 1].vertexIndex;
@@ -92,9 +95,12 @@ namespace TextMesh_Pro.Scripts
                 var boundsMaxX = m_TextComponent.bounds.max.x; //textInfo.meshInfo[0].mesh.bounds.max.x;
 
 
-                for (var i = 0; i < characterCount; i++)
+                for(var i = 0;i < characterCount;i++)
                 {
-                    if (!textInfo.characterInfo[i].isVisible) continue;
+                    if(!textInfo.characterInfo[i].isVisible)
+                    {
+                        continue;
+                    }
 
                     var vertexIndex = textInfo.characterInfo[i].vertexIndex;
 
@@ -122,16 +128,16 @@ namespace TextMesh_Pro.Scripts
                     var y0 = VertexCurve.Evaluate(x0) * CurveScale;
                     var y1 = VertexCurve.Evaluate(x1) * CurveScale;
 
-                    var horizontal = new Vector3(1, 0, 0);
+                    var horizontal = new Vector3(1,0,0);
                     //Vector3 normal = new Vector3(-(y1 - y0), (x1 * (boundsMaxX - boundsMinX) + boundsMinX) - offsetToMidBaseline.x, 0);
-                    var tangent = new Vector3(x1 * (boundsMaxX - boundsMinX) + boundsMinX, y1) -
-                                  new Vector3(offsetToMidBaseline.x, y0);
+                    var tangent = new Vector3(x1 * (boundsMaxX - boundsMinX) + boundsMinX,y1) -
+                                  new Vector3(offsetToMidBaseline.x,y0);
 
-                    var dot = Mathf.Acos(Vector3.Dot(horizontal, tangent.normalized)) * 57.2957795f;
-                    var cross = Vector3.Cross(horizontal, tangent);
+                    var dot = Mathf.Acos(Vector3.Dot(horizontal,tangent.normalized)) * 57.2957795f;
+                    var cross = Vector3.Cross(horizontal,tangent);
                     var angle = cross.z > 0 ? dot : 360 - dot;
 
-                    matrix = Matrix4x4.TRS(new Vector3(0, y0, 0), Quaternion.Euler(0, 0, angle), Vector3.one);
+                    matrix = Matrix4x4.TRS(new Vector3(0,y0,0),Quaternion.Euler(0,0,angle),Vector3.one);
 
                     vertices[vertexIndex + 0] = matrix.MultiplyPoint3x4(vertices[vertexIndex + 0]);
                     vertices[vertexIndex + 1] = matrix.MultiplyPoint3x4(vertices[vertexIndex + 1]);
