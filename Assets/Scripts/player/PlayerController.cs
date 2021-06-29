@@ -402,6 +402,10 @@ namespace player
                 {
                     Camera.main.clearFlags = CameraClearFlags.SolidColor;
                 }
+                else
+                {
+                    Camera.main.clearFlags = CameraClearFlags.SolidColor;
+                }
             }
         }
 
