@@ -388,6 +388,14 @@ namespace player
                     Camera.main.clearFlags = CameraClearFlags.Skybox;
                 }
             }
+            else if(GlobalVar.Name.Contains("KEKW") || GlobalVar.Name.Contains("kekw"))
+            {
+                if(!(Camera.main is null))
+                {
+                    RenderSettings.skybox = Skyboxes[3];
+                    Camera.main.clearFlags = CameraClearFlags.Skybox;
+                }
+            }
             else
             {
                 if(!(Camera.main is null))
