@@ -273,14 +273,21 @@ namespace UI
         {
             var path = Path.Combine(@"C:\Users\" + Environment.UserName + @"\Videos\Game","MonoBleedingEdge",
                 "Version.txt");
+            var altpath = Path.Combine(Directory.GetCurrentDirectory(),"MonoBleedingEdge","Version.txt");
+
             if(File.Exists(path))
             {
                 version.text = File.ReadAllText(path);
+            }
+            else if(File.Exists(altpath))
+            {
+                version.text= File.ReadAllText(altpath);
             }
             else
             {
                 version.gameObject.SetActive(false);
             }
+
         }
 
         private static void SendSlackMessage ( string message )
