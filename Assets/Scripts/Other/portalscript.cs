@@ -1,5 +1,6 @@
 #region
 
+using Enemy;
 using player;
 using System.Collections;
 using UnityEngine;
@@ -25,6 +26,14 @@ namespace Other
                 }
                 catch
                 { }
+            }
+
+            if(col.gameObject.CompareTag("arrow") && !col.gameObject.GetComponent<arrowscript>().hit)
+            {
+                col.gameObject.GetComponent<arrowscript>().hit = true;
+                transform.GetChild(1).gameObject.SetActive(true);
+                transform.GetChild(1).GetComponent<greentargetscript>().arrowstate = true;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().enemytodashto = gameObject;
             }
         }
 

@@ -486,7 +486,7 @@ namespace player
 
         #region Move and Shoot
 
-        public void kickstate ( bool state,bool vault )
+        public void kickstate ( bool state,bool vault)
         {
             if(vault)
             {
@@ -501,7 +501,9 @@ namespace player
 
             if(state)
             {
+                
                 Combo.AddToCombo();
+
                 shootend();
                 enddodge();
                 gunanim.SetTrigger("kick");
