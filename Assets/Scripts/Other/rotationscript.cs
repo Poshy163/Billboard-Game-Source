@@ -7,13 +7,13 @@ using UnityEngine;
 // ReSharper disable All
 namespace Other
 {
-    public class rotationscript:MonoBehaviour
+    public class rotationscript : MonoBehaviour
     {
         private readonly GameObject player;
 
-        private void FixedUpdate ()
+        private void FixedUpdate()
         {
-            transform.Rotate(new Vector3(0f,0f,18f),Space.Self);
+            transform.Rotate(new Vector3(0f, 0f, 18f), Space.Self);
         }
     }
 }
