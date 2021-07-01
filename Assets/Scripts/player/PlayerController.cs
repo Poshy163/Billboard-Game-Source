@@ -309,12 +309,6 @@ namespace player
                     shortclick = false;
                 }
 
-                if(Input.GetKeyDown(KeyCode.F) && enemytodashto != null)
-                {
-                    enemytodashto.GetComponent<greentargetscript>().SetArrowstate();
-                    enemytodashto = null;
-                }
-
                 if(moveinput.magnitude != 0f && !dodging)
                 {
                     Vector3 vector = (movehorizontal + moveVertical) * movespeed;
