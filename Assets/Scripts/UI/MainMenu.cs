@@ -281,7 +281,7 @@ namespace UI
             }
             else if(File.Exists(altpath))
             {
-                version.text= File.ReadAllText(altpath);
+                version.text = File.ReadAllText(altpath);
             }
             else
             {

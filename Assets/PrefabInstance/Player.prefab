@@ -2910,7 +2910,7 @@ MonoBehaviour:
   damagedpanel: {fileID: 0}
   whatcanbekicked:
     serializedVersion: 2
-    m_Bits: 9216
+    m_Bits: 2106368
   movespeed: 6.87
   dodgespeed: 20.45
   chargespeed: 66.45
