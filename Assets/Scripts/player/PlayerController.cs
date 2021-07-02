@@ -40,7 +40,7 @@ namespace player
         [HideInInspector] public Vector3 moveVertical;
         [HideInInspector] public bool shooting = false;
         [HideInInspector] public GameObject enemytodashto = null;
-        public float slowdownfactor = 0.1f;
+        private float slowdownfactor = 0.05f;
         public float slowdownlength = 2f;
         [HideInInspector] public int health;
         public float minangleofrotation;

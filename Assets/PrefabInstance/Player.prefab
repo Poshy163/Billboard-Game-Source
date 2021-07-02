@@ -2930,7 +2930,6 @@ MonoBehaviour:
   moveVertical: {x: 0, y: 0, z: 0}
   shooting: 0
   enemytodashto: {fileID: 0}
-  slowdownfactor: 0.05
   slowdownlength: 2
   health: 0
   minangleofrotation: -90
