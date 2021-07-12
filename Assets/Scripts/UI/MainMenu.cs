@@ -143,7 +143,7 @@ namespace UI
             if (await CheckForBadWords(localname))
             {
                 TutorialBox.SetActive(false);
-                debugtxt.text = "Nice try, dont do bad words";
+                debugtxt.text = "Nice try, dont have bad words in your name";
                 Invoke(nameof(StartCoolDown), 2.5f);
                 return;
             }
@@ -203,26 +203,34 @@ namespace UI
 
         private static async Task<bool> CheckForBadWords(string name)
         {
-            var client = new HttpClient();
-            var request = new HttpRequestMessage
+            try
             {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri("https://neutrinoapi-bad-word-filter.p.rapidapi.com/bad-word-filter"),
-                Headers =
+                var client = new HttpClient();
+                var request = new HttpRequestMessage
                 {
-                    {"x-rapidapi-key", "1ebdde9fcamsh8ba5f97b8811643p177dfajsn16cfa7d49c86"},
-                    {"x-rapidapi-host", "neutrinoapi-bad-word-filter.p.rapidapi.com"}
-                },
-                Content = new FormUrlEncodedContent(new Dictionary<string, string>
-                {
-                    {"censor-character", "*"},
-                    {"content", name}
-                })
-            };
-            var response = await client.SendAsync(request);
-            var body = await response.Content.ReadAsStringAsync();
-            dynamic jsonFile = JsonConvert.DeserializeObject(body);
-            return bool.Parse(jsonFile["is-bad"].ToString());
+                    Method = HttpMethod.Post,
+                    RequestUri = new Uri("https://neutrinoapi-bad-word-filter.p.rapidapi.com/bad-word-filter"),
+                    Headers =
+                    {
+                        {"x-rapidapi-key", "1ebdde9fcamsh8ba5f97b8811643p177dfajsn16cfa7d49c86"},
+                        {"x-rapidapi-host", "neutrinoapi-bad-word-filter.p.rapidapi.com"}
+                    },
+                    Content = new FormUrlEncodedContent(new Dictionary<string, string>
+                    {
+                        {"censor-character", "*"},
+                        {"content", name}
+                    })
+                
+                };
+                var response = await client.SendAsync(request);
+                var body = await response.Content.ReadAsStringAsync();
+                dynamic jsonFile = JsonConvert.DeserializeObject(body);
+                return bool.Parse(jsonFile["is-bad"].ToString());
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public static void PermDeleteAccount()
@@ -251,12 +259,11 @@ namespace UI
         {
             var path = Path.Combine(@"C:\Users\" + Environment.UserName + @"\Videos\Game", "MonoBleedingEdge",
                 "Version.txt");
-            var altpath = Path.Combine(Directory.GetCurrentDirectory(), "MonoBleedingEdge", "Version.txt");
-
+            var altar = Path.Combine(Directory.GetCurrentDirectory(), "MonoBleedingEdge", "Version.txt");
             if (File.Exists(path))
                 version.text = File.ReadAllText(path);
-            else if (File.Exists(altpath))
-                version.text = File.ReadAllText(altpath);
+            else if (File.Exists(altar))
+                version.text = File.ReadAllText(altar);
             else
                 version.gameObject.SetActive(false);
         }

@@ -1,5 +1,8 @@
-﻿using System;
+﻿#region
+
 using UnityEngine;
+
+#endregion
 
 public class Tutorial : MonoBehaviour
 {
@@ -9,9 +12,5 @@ public class Tutorial : MonoBehaviour
     }
 
     private void StartTutorial()
-    {
-        
-        
-    }
-    
+    { }
 }
