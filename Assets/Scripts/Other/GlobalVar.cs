@@ -22,12 +22,12 @@ namespace Other
         public const float SlowModeDrainRate = 400f;
         public static float FloatingSpeed = 4f;
 
-
         public static bool SingleLevel = false;
         public static int Maxcombo;
         public static float MaxAirTime;
         public static int ShootChance = 3; //1-5 smaller the lower chance
         public static string Name = null;
+        public static string DevName = "Dev";
         public static bool IsSignUp;
 
         public static GameDifficultyEnum GameDifficulty;

@@ -34,6 +34,7 @@ namespace Enemy
             rb = GetComponent<Rigidbody>();
             matcolor = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
         }
+
         public void Update()
         {
             Vector3 worldPosition =

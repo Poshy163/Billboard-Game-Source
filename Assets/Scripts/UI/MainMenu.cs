@@ -170,7 +170,7 @@ namespace UI
                 SendSlackMessage($"User signed up with the username: {localname}");
                 SetOtherStuff(localname);
                 GlobalVar.IsSignUp = true;
-                debugtxt.text = "Done Sign up";
+                debugtxt.text = "Completed Sign up";
                 SceneManager.LoadScene(_tutorial ? "Tutorial" : "Lobby");
             }
             else
@@ -220,7 +220,6 @@ namespace UI
                         {"censor-character", "*"},
                         {"content", name}
                     })
-                
                 };
                 var response = await client.SendAsync(request);
                 var body = await response.Content.ReadAsStringAsync();
