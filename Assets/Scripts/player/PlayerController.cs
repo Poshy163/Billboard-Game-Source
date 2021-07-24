@@ -20,6 +20,7 @@ namespace player
     {
         public static Slider SlowTimer;
         public static GameObject Endlv;
+        public static bool PlayerMove = true;
         public GameObject damagedpanel;
         public LayerMask whatcanbekicked;
         public float movespeed;
@@ -95,8 +96,12 @@ namespace player
 
         public void Update()
         {
-            horizontal = horizontalaxis();
-            vertical = verticalaxis();
+            if (PlayerMove)
+            {
+                horizontal = horizontalaxis();
+                vertical = verticalaxis();
+            }
+
             moveinput = new Vector3(horizontal, 0f, vertical).normalized;
             movehorizontal = transform.right * moveinput.x;
             moveVertical = transform.forward * moveinput.z;
@@ -152,8 +157,8 @@ namespace player
             #region slow mode
 
             slowmoscreen.SetActive(inslowmo);
-            if (Input.GetMouseButtonDown(1) && SlowTimer.value > 0.5f ||
-                Input.GetKeyDown(KeyCode.E) && SlowTimer.value > 0.5f)
+            if (Input.GetMouseButtonDown(1) && SlowTimer.value > 0.5f && PlayerMove ||
+                Input.GetKeyDown(KeyCode.E) && SlowTimer.value > 0.5f && PlayerMove)
             {
                 charging = false;
                 dodging = false;
@@ -255,7 +260,7 @@ namespace player
             else
             {
                 gunanim.SetBool("charge", false);
-                if (Input.GetKeyDown(KeyCode.LeftShift) && !Kick.activeSelf && !dodging &&
+                if (Input.GetKeyDown(KeyCode.LeftShift) && !Kick.activeSelf && !dodging && PlayerMove &&
                     (movehorizontal + moveVertical).magnitude != 0f && Time.time > nextdodge)
                 {
                     if (inslowmo)
@@ -268,7 +273,7 @@ namespace player
                     soundmanagerscript.playsound("dodge");
                 }
 
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && PlayerMove)
                 {
                     mouseclickstart = Time.time;
                 }
