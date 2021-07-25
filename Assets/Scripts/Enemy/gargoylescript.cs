@@ -27,7 +27,7 @@ namespace Enemy
 
         [HideInInspector] public bool kicked = false;
 
-        [SerializeField] private float health = 5f;
+        [SerializeField] public float health = 5f;
 
         private readonly float almostdeadcolorrate = 0.14f;
 

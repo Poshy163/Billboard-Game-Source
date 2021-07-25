@@ -1,6 +1,7 @@
 ﻿#region
 
 using System.Collections;
+using Enemy;
 using player;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,11 +20,29 @@ public class Tutorial : MonoBehaviour
 
     private readonly string[] moving =
     {
-        "To move around, use WASD.",
+        "To move around, use WASD. And use the spacebar to jump",
         "Now, lets see how much you have learnt\n Dodge this enemy!",
         "",
         "Good work!"
     };
+
+    private readonly string[] shooting =
+    {
+        "Now, lets move you on to shooting!",
+        "To shoot, Click your left mouse button down.",
+        "Try it out!",
+        "Nice work!\n Now shoot this enemy!",
+        "Good Work!",
+        ""
+    };
+
+    private readonly string[] slowMo =
+    {
+        "Now, lets teach you about slow-mode",
+        "To enter this mode, click the right mouse button, or E",
+        ""
+    };
+
 
     private int _firstLoop;
     private GameObject dummy;
@@ -41,7 +60,7 @@ public class Tutorial : MonoBehaviour
     private void StartTutorial()
     {
         PlayerController.PlayerMove = false;
-        StartCoroutine(NewTxt());
+        StartCoroutine(Shooting());
     }
 
     private IEnumerator NewTxt()
@@ -96,6 +115,52 @@ public class Tutorial : MonoBehaviour
             yield return new WaitForSeconds(3);
         }
 
-        HelpTxt.text = "DONE AT THIS POINT";
+        StartCoroutine(Shooting());
+    }
+
+
+    private IEnumerator Shooting()
+    {
+        PlayerController.PlayerMove = false;
+        for (var i = 0; i < 6; i++)
+        {
+            HelpTxt.text = shooting[i];
+
+            switch (i)
+            {
+                case 2:
+                    PlayerController.PlayerMove = true;
+                    break;
+                case 3:
+                    dummy.SetActive(true);
+                    dummy.GetComponent<gargoylescript>().health = 1;
+                    dummy.transform.position = new Vector3(0, -3.72f, -7.86f);
+                    for (var j = 0; j < 10000; j++)
+                    {
+                        yield return new WaitForSeconds(0.1f);
+                        if (GameObject.Find("Gargoyle")) continue;
+                        HelpTxt.text = shooting[i + 1];
+                        break;
+                    }
+
+                    break;
+                case 5:
+                    StartCoroutine(SlowMode());
+                    break;
+            }
+
+            yield return new WaitForSeconds(5);
+        }
+    }
+
+    private IEnumerator SlowMode()
+    {
+        for (var i = 0; i < 4; i++)
+        {
+            HelpTxt.text = slowMo[i];
+            yield return new WaitForSeconds(3);
+        }
+
+        yield return new WaitForSeconds(3);
     }
 }

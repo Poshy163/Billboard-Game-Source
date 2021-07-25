@@ -100,11 +100,11 @@ namespace player
             {
                 horizontal = horizontalaxis();
                 vertical = verticalaxis();
+                moveinput = new Vector3(horizontal, 0f, vertical).normalized;
+                movehorizontal = transform.right * moveinput.x;
+                moveVertical = transform.forward * moveinput.z;
             }
 
-            moveinput = new Vector3(horizontal, 0f, vertical).normalized;
-            movehorizontal = transform.right * moveinput.x;
-            moveVertical = transform.forward * moveinput.z;
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Application.Quit();
@@ -314,7 +314,7 @@ namespace player
                     shortclick = false;
                 }
 
-                if (moveinput.magnitude != 0f && !dodging)
+                if (moveinput.magnitude != 0f && !dodging && PlayerMove)
                 {
                     Vector3 vector = (movehorizontal + moveVertical) * movespeed;
                     rb.velocity = new Vector3(vector.x, rb.velocity.y, vector.z);
