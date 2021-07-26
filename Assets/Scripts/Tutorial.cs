@@ -5,6 +5,7 @@ using Enemy;
 using player;
 using UnityEngine;
 using UnityEngine.UI;
+#pragma warning disable 652
 
 #endregion
 
@@ -40,6 +41,7 @@ public class Tutorial : MonoBehaviour
     {
         "Now, lets teach you about slow-mode",
         "To enter this mode, click the right mouse button, or E",
+        "You see that bar? That is how much juice you have got \n You can exit and enter at any time",
         ""
     };
 
@@ -60,7 +62,7 @@ public class Tutorial : MonoBehaviour
     private void StartTutorial()
     {
         PlayerController.PlayerMove = false;
-        StartCoroutine(Shooting());
+        StartCoroutine(SlowMode());
     }
 
     private IEnumerator NewTxt()
@@ -135,7 +137,7 @@ public class Tutorial : MonoBehaviour
                     dummy.SetActive(true);
                     dummy.GetComponent<gargoylescript>().health = 1;
                     dummy.transform.position = new Vector3(0, -3.72f, -7.86f);
-                    for (var j = 0; j < 10000; j++)
+                    for (var j = 0; j < long.MaxValue; j++)
                     {
                         yield return new WaitForSeconds(0.1f);
                         if (GameObject.Find("Gargoyle")) continue;
@@ -155,9 +157,26 @@ public class Tutorial : MonoBehaviour
 
     private IEnumerator SlowMode()
     {
-        for (var i = 0; i < 4; i++)
+        for (var i = 0; i < 10; i++)
         {
             HelpTxt.text = slowMo[i];
+            switch (i)
+            {
+                case 1:
+                    PlayerController.PlayerMove = true;
+                    for (var j = 0; j < long.MaxValue; j++)
+                    {
+                        if (!Input.GetMouseButtonDown(1))
+                            yield return new WaitForSeconds(0.000001f);
+                        else
+                        {
+                            HelpTxt.text = slowMo[i + 1];
+                            break;
+                        }
+                    }
+                    break;
+            }
+            
             yield return new WaitForSeconds(3);
         }
 
