@@ -11,15 +11,15 @@ using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
 {
-    private readonly string[] first =
+    private readonly string[] firstTxt =
     {
         "Here you will learn how to play",
         "The objective is to kill all of the minions and advance to the next level",
-        "They look like this",
-        "Now, lets get you moving"
+        "The minions look like this",
+        "Now, lets get you movingTxt"
     };
 
-    private readonly string[] moving =
+    private readonly string[] movingTxt =
     {
         "To move around, use WASD. And use the spacebar to jump",
         "Now, lets see how much you have learnt\n Dodge this enemy!",
@@ -27,7 +27,7 @@ public class Tutorial : MonoBehaviour
         "Good work!"
     };
 
-    private readonly string[] shooting =
+    private readonly string[] shootingTxt =
     {
         "Now, lets move you on to shooting!",
         "To shoot, Click your left mouse button down.",
@@ -37,11 +37,19 @@ public class Tutorial : MonoBehaviour
         ""
     };
 
-    private readonly string[] slowMo =
+    private readonly string[] slowMoTxt =
     {
         "Now, lets teach you about slow-mode",
         "To enter this mode, click the right mouse button, or E",
         "You see that bar? That is how much juice you have got \n You can exit and enter at any time",
+        ""
+    };
+    
+    private readonly string[] GrappleTxt =
+    {
+        "Now, lets teach you about grappling",
+        "To do this, shoot an enemy, then click again \n Try it!",
+        "You see that bar? That is how much longer you have left \n You can exit and enter at any time",
         ""
     };
 
@@ -67,36 +75,32 @@ public class Tutorial : MonoBehaviour
 
     private IEnumerator NewTxt()
     {
-        _firstLoop++;
-        if (_firstLoop >= 4)
+        for (var i = 0; i <= 5; i++)
         {
-            PlayerController.PlayerMove = true;
-            StartCoroutine(Moving());
-            yield break;
-        }
+            if (_firstLoop >= 4)
+            {
+                PlayerController.PlayerMove = true;
+                StartCoroutine(Moving());
+                yield break;
+            }
+            yield return new WaitForSeconds(5);
 
-        yield return new WaitForSeconds(5);
+            HelpTxt.text = firstTxt[_firstLoop];
 
-
-        HelpTxt.text = first[_firstLoop];
-
-        if (_firstLoop == 2)
-        {
+            if (_firstLoop != 2) continue;
             dummy.SetActive(true);
             yield return new WaitForSeconds(5);
             _firstLoop++;
-            HelpTxt.text = first[_firstLoop];
+            HelpTxt.text = firstTxt[_firstLoop];
             dummy.SetActive(false);
         }
-
-        StartCoroutine(NewTxt());
     }
 
     private IEnumerator Moving()
     {
         for (var i = 0; i < 4; i++)
         {
-            HelpTxt.text = moving[i];
+            HelpTxt.text = movingTxt[i];
             switch (i)
             {
                 case 2:
@@ -110,7 +114,7 @@ public class Tutorial : MonoBehaviour
                     }
 
                     dummy.SetActive(false);
-                    HelpTxt.text = moving[i + 1];
+                    HelpTxt.text = movingTxt[i + 1];
                     break;
             }
 
@@ -126,7 +130,7 @@ public class Tutorial : MonoBehaviour
         PlayerController.PlayerMove = false;
         for (var i = 0; i < 6; i++)
         {
-            HelpTxt.text = shooting[i];
+            HelpTxt.text = shootingTxt[i];
 
             switch (i)
             {
@@ -141,7 +145,7 @@ public class Tutorial : MonoBehaviour
                     {
                         yield return new WaitForSeconds(0.1f);
                         if (GameObject.Find("Gargoyle")) continue;
-                        HelpTxt.text = shooting[i + 1];
+                        HelpTxt.text = shootingTxt[i + 1];
                         break;
                     }
 
@@ -159,7 +163,7 @@ public class Tutorial : MonoBehaviour
     {
         for (var i = 0; i < 10; i++)
         {
-            HelpTxt.text = slowMo[i];
+            HelpTxt.text = slowMoTxt[i];
             switch (i)
             {
                 case 1:
@@ -170,7 +174,7 @@ public class Tutorial : MonoBehaviour
                             yield return new WaitForSeconds(0.000001f);
                         else
                         {
-                            HelpTxt.text = slowMo[i + 1];
+                            HelpTxt.text = slowMoTxt[i + 1];
                             break;
                         }
                     }
