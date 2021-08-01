@@ -70,12 +70,12 @@ public class Tutorial : MonoBehaviour
     private void StartTutorial()
     {
         PlayerController.PlayerMove = false;
-        StartCoroutine(SlowMode());
+        StartCoroutine(IntroTxt());
     }
 
-    private IEnumerator NewTxt()
+    private IEnumerator IntroTxt()
     {
-        for (var i = 0; i <= 5; i++)
+        for (var i = 0; i <= 10; i++)
         {
             if (_firstLoop >= 4)
             {
@@ -83,16 +83,17 @@ public class Tutorial : MonoBehaviour
                 StartCoroutine(Moving());
                 yield break;
             }
-            yield return new WaitForSeconds(5);
-
+            yield return new WaitForSeconds(4);
             HelpTxt.text = firstTxt[_firstLoop];
-
-            if (_firstLoop != 2) continue;
-            dummy.SetActive(true);
-            yield return new WaitForSeconds(5);
-            _firstLoop++;
-            HelpTxt.text = firstTxt[_firstLoop];
-            dummy.SetActive(false);
+            if (_firstLoop == 2) 
+            {
+                dummy.SetActive(true);
+                yield return new WaitForSeconds(4);
+                _firstLoop++;
+                HelpTxt.text = firstTxt[_firstLoop];
+                dummy.SetActive(false);
+            }
+            continue;
         }
     }
 
