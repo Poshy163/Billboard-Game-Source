@@ -18,6 +18,7 @@ TagManager:
   - invisiblewall
   - Delete
   - Reset
+  - TuTFloor
   layers:
   - Default
   - TransparentFX
