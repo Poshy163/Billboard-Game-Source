@@ -40,16 +40,15 @@ public class Tutorial:MonoBehaviour
     {
         "Now, lets teach you about slow-mode",
         "To enter this mode, click the right mouse button, or E",
-        "That bar at the top is how much energy you have got \n You can exit and enter at any time",
+        "That bar at the top is how much energy you have got.",
     };
 
     private readonly string[] EndTxt =
     {
         "This is all you need to know now",
-        "There is many more tricks to learn which you will relise as you play",
+        "There are many more tricks to learn which you will relise as you play",
         "Good Luck!, enter the portal to return to the menu.",
         ""
-
     };
 
 
@@ -71,7 +70,7 @@ public class Tutorial:MonoBehaviour
     private void StartTutorial ()
     {
         PlayerController.PlayerMove = false;
-        StartCoroutine(Shooting());
+        StartCoroutine(IntroTxt());
     }
 
     private IEnumerator IntroTxt ()
@@ -203,7 +202,7 @@ public class Tutorial:MonoBehaviour
     }
 
 
-    private IEnumerator End()
+    private IEnumerator End ()
     {
         for(var i = 0;i < 4;i++)
         {
@@ -216,7 +215,7 @@ public class Tutorial:MonoBehaviour
                 case 3:
                     PlayerController.PlayerMove = true;
                     break;
-                    
+
             }
             yield return new WaitForSeconds(5);
         }
