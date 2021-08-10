@@ -123,6 +123,7 @@ namespace player
             }
             else if(Input.GetKeyDown(KeyCode.T) && SceneManager.GetActiveScene().name == "Lobby")
             {
+                PlayerController.PlayerMove = true;
                 SceneManager.LoadScene("Main Menu");
             }
 
