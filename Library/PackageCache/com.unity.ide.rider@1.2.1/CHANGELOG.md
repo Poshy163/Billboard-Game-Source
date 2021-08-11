@@ -1,4 +1,5 @@
 # Code Editor Package for Rider
+
 ## [1.2.1] - 2019-12-09
 
 - Load optimised EditorPlugin version compiled to net 461, with fallback to previous version.
@@ -8,43 +9,38 @@
 - Added support for Player Project generation
 
 ## [1.1.4] - 2019-11-21
- - Fix warning - unreachable code
+
+- Fix warning - unreachable code
 
 ## [1.1.3] - 2019-10-17
 
- - Update External Editor, when new toolbox build was installed
- - Add xaml to default list of extensions to include in csproj
- - Avoid initializing Rider package in secondary Unity process, which does Asset processing
- - Reflect multiple csc.rsp arguments to generated csproj files: https://github.com/JetBrains/resharper-unity/issues/1337
- - Setting, which allowed to override LangVersion removed in favor of langversion in csc.rsp
- - Environment.NewLine is used in generated project files instead of Windows line separator.
+- Update External Editor, when new toolbox build was installed
+- Add xaml to default list of extensions to include in csproj
+- Avoid initializing Rider package in secondary Unity process, which does Asset processing
+- Reflect multiple csc.rsp arguments to generated csproj files: https://github.com/JetBrains/resharper-unity/issues/1337
+- Setting, which allowed to override LangVersion removed in favor of langversion in csc.rsp
+- Environment.NewLine is used in generated project files instead of Windows line separator.
 
 ## [1.1.2] - 2019-09-18
 
 performance optimizations:
- - avoid multiple evaluations
- - avoid reflection in DisableSyncSolutionOnceCallBack
- - project generation optimization
-fixes:
- - avoid compilation error with incompatible `Test Framework` package
+
+- avoid multiple evaluations
+- avoid reflection in DisableSyncSolutionOnceCallBack
+- project generation optimization fixes:
+- avoid compilation error with incompatible `Test Framework` package
 
 ## [1.1.1] - 2019-08-26
 
-parse nowarn in csc.rsp
-warning, when Unity was started from Rider, but external editor was different
-improved unit test support
-workaround to avoid Unity internal project-generation (fix #28)
-
+parse nowarn in csc.rsp warning, when Unity was started from Rider, but external editor was different improved unit test
+support workaround to avoid Unity internal project-generation (fix #28)
 
 ## [1.1.0] - 2019-07-02
 
-new setting to manage list of extensions to be opened with Rider
-avoid breaking everything on any unhandled exception in RiderScriptEditor cctor
-hide Rider settings, when different Editor is selected
-dynamically load only newer rider plugins
+new setting to manage list of extensions to be opened with Rider avoid breaking everything on any unhandled exception in
+RiderScriptEditor cctor hide Rider settings, when different Editor is selected dynamically load only newer rider plugins
 path detection (work on unix symlinks)
-speed up for project generation
-lots of bug fixing
+speed up for project generation lots of bug fixing
 
 ## [1.0.8] - 2019-05-20
 
@@ -52,8 +48,7 @@ Fix NullReferenceException when External editor was pointing to non-existing Rid
 
 ## [1.0.7] - 2019-05-16
 
-Initial migration steps from rider plugin to package.
-Fix OSX check and opening of files.
+Initial migration steps from rider plugin to package. Fix OSX check and opening of files.
 
 ## [1.0.6] - 2019-04-30
 
@@ -65,8 +60,7 @@ Add support for generating all csproj files.
 
 ## [1.0.4] - 2019-04-18
 
-Fix relative package paths.
-Fix opening editor on mac.
+Fix relative package paths. Fix opening editor on mac.
 
 ## [1.0.3] - 2019-04-12
 

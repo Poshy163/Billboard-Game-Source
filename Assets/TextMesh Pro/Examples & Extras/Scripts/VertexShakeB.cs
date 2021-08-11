@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace TextMesh_Pro.Scripts
 {
-    public class VertexShakeB:MonoBehaviour
+    public class VertexShakeB : MonoBehaviour
     {
         public float AngleMultiplier = 1.0f;
         public float SpeedMultiplier = 1.0f;
@@ -18,42 +18,39 @@ namespace TextMesh_Pro.Scripts
         private TMP_Text m_TextComponent;
 
 
-        private void Awake ()
+        private void Awake()
         {
             m_TextComponent = GetComponent<TMP_Text>();
         }
 
 
-        private void Start ()
+        private void Start()
         {
             StartCoroutine(AnimateVertexColors());
         }
 
-        private void OnEnable ()
+        private void OnEnable()
         {
             // Subscribe to event fired when text object has been regenerated.
             TMPro_EventManager.TEXT_CHANGED_EVENT.Add(ON_TEXT_CHANGED);
         }
 
-        private void OnDisable ()
+        private void OnDisable()
         {
             TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(ON_TEXT_CHANGED);
         }
 
 
-        private void ON_TEXT_CHANGED ( Object obj )
+        private void ON_TEXT_CHANGED(Object obj)
         {
-            if(obj == m_TextComponent)
-            {
-                hasTextChanged = true;
-            }
+            if (obj == m_TextComponent) hasTextChanged = true;
         }
 
         /// <summary>
         ///     Method to animate vertex colors of a TMP Text object.
         /// </summary>
         /// <returns></returns>
-        private IEnumerator AnimateVertexColors ()
+        private IEnumerator AnimateVertexColors()
         {
             // We force an update of the text object since it would only be updated at the end of the frame. Ie. before this code is executed on the first frame.
             // Alternatively, we could yield and wait until the end of the frame when the text object will be generated.
@@ -66,17 +63,15 @@ namespace TextMesh_Pro.Scripts
 
             hasTextChanged = true;
 
-            while(true)
+            while (true)
             {
                 // Allocate new vertices 
-                if(hasTextChanged)
+                if (hasTextChanged)
                 {
-                    if(copyOfVertices.Length < textInfo.meshInfo.Length)
-                    {
+                    if (copyOfVertices.Length < textInfo.meshInfo.Length)
                         copyOfVertices = new Vector3[textInfo.meshInfo.Length][];
-                    }
 
-                    for(var i = 0;i < textInfo.meshInfo.Length;i++)
+                    for (var i = 0; i < textInfo.meshInfo.Length; i++)
                     {
                         var length = textInfo.meshInfo[i].vertices.Length;
                         copyOfVertices[i] = new Vector3[length];
@@ -88,7 +83,7 @@ namespace TextMesh_Pro.Scripts
                 var characterCount = textInfo.characterCount;
 
                 // If No Characters then just yield and wait for some text to be added
-                if(characterCount == 0)
+                if (characterCount == 0)
                 {
                     yield return new WaitForSeconds(0.25f);
                     continue;
@@ -97,7 +92,7 @@ namespace TextMesh_Pro.Scripts
                 var lineCount = textInfo.lineCount;
 
                 // Iterate through each line of the text.
-                for(var i = 0;i < lineCount;i++)
+                for (var i = 0; i < lineCount; i++)
                 {
                     var first = textInfo.lineInfo[i].firstCharacterIndex;
                     var last = textInfo.lineInfo[i].lastCharacterIndex;
@@ -105,16 +100,13 @@ namespace TextMesh_Pro.Scripts
                     // Determine the center of each line
                     var centerOfLine =
                         (textInfo.characterInfo[first].bottomLeft + textInfo.characterInfo[last].topRight) / 2;
-                    var rotation = Quaternion.Euler(0,0,Random.Range(-0.25f,0.25f));
+                    var rotation = Quaternion.Euler(0, 0, Random.Range(-0.25f, 0.25f));
 
                     // Iterate through each character of the line.
-                    for(var j = first;j <= last;j++)
+                    for (var j = first; j <= last; j++)
                     {
                         // Skip characters that are not visible and thus have no geometry to manipulate.
-                        if(!textInfo.characterInfo[j].isVisible)
-                        {
-                            continue;
-                        }
+                        if (!textInfo.characterInfo[j].isVisible) continue;
 
                         // Get the index of the material used by the current character.
                         var materialIndex = textInfo.characterInfo[j].materialReferenceIndex;
@@ -136,10 +128,10 @@ namespace TextMesh_Pro.Scripts
                         copyOfVertices[materialIndex][vertexIndex + 3] = sourceVertices[vertexIndex + 3] - charCenter;
 
                         // Determine the random scale change for each character.
-                        var randomScale = Random.Range(0.95f,1.05f);
+                        var randomScale = Random.Range(0.95f, 1.05f);
 
                         // Setup the matrix for the scale change.
-                        matrix = Matrix4x4.TRS(Vector3.one,Quaternion.identity,Vector3.one * randomScale);
+                        matrix = Matrix4x4.TRS(Vector3.one, Quaternion.identity, Vector3.one * randomScale);
 
                         // Apply the scale change relative to the center of each character.
                         copyOfVertices[materialIndex][vertexIndex + 0] =
@@ -165,7 +157,7 @@ namespace TextMesh_Pro.Scripts
                         copyOfVertices[materialIndex][vertexIndex + 3] -= centerOfLine;
 
                         // Setup the matrix rotation.
-                        matrix = Matrix4x4.TRS(Vector3.one,rotation,Vector3.one);
+                        matrix = Matrix4x4.TRS(Vector3.one, rotation, Vector3.one);
 
                         // Apply the matrix TRS to the individual characters relative to the center of the current line.
                         copyOfVertices[materialIndex][vertexIndex + 0] =
@@ -186,10 +178,10 @@ namespace TextMesh_Pro.Scripts
                 }
 
                 // Push changes into meshes
-                for(var i = 0;i < textInfo.meshInfo.Length;i++)
+                for (var i = 0; i < textInfo.meshInfo.Length; i++)
                 {
                     textInfo.meshInfo[i].mesh.vertices = copyOfVertices[i];
-                    m_TextComponent.UpdateGeometry(textInfo.meshInfo[i].mesh,i);
+                    m_TextComponent.UpdateGeometry(textInfo.meshInfo[i].mesh, i);
                 }
 
                 yield return new WaitForSeconds(0.1f);
