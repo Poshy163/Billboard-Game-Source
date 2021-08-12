@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 namespace TextMesh_Pro.Scripts
 {
-    public class Benchmark01_UGUI : MonoBehaviour
+    public class Benchmark01_UGUI:MonoBehaviour
     {
         private const string label01 = "The <#0050FF>count is: </color>";
         private const string label02 = "The <color=#0050FF>count is: </color>";
@@ -38,9 +38,9 @@ namespace TextMesh_Pro.Scripts
         private TextMeshProUGUI m_textMeshPro;
 
 
-        private IEnumerator Start()
+        private IEnumerator Start ()
         {
-            if (BenchmarkType == 0) // TextMesh Pro Component
+            if(BenchmarkType == 0) // TextMesh Pro Component
             {
                 m_textMeshPro = gameObject.AddComponent<TextMeshProUGUI>();
                 //m_textContainer = GetComponent<TextContainer>();
@@ -48,7 +48,7 @@ namespace TextMesh_Pro.Scripts
 
                 //m_textMeshPro.anchorDampening = true;
 
-                if (TMProFont != null)
+                if(TMProFont != null)
                 {
                     m_textMeshPro.font = TMProFont;
                 }
@@ -74,11 +74,11 @@ namespace TextMesh_Pro.Scripts
                     Resources.Load<Material>(
                         "Fonts & Materials/LiberationSans SDF - BEVEL"); // Make sure the LiberationSans SDF exists before calling this...  
             }
-            else if (BenchmarkType == 1) // TextMesh
+            else if(BenchmarkType == 1) // TextMesh
             {
                 m_textMesh = gameObject.AddComponent<Text>();
 
-                if (TextMeshFont != null)
+                if(TextMeshFont != null)
                 {
                     m_textMesh.font = TextMeshFont;
                 }
@@ -91,19 +91,19 @@ namespace TextMesh_Pro.Scripts
             }
 
 
-            for (var i = 0; i <= 1000000; i++)
+            for(var i = 0;i <= 1000000;i++)
             {
-                if (BenchmarkType == 0)
+                if(BenchmarkType == 0)
                 {
                     m_textMeshPro.text = label01 + i % 1000;
-                    if (i % 1000 == 999)
+                    if(i % 1000 == 999)
                     {
                         m_textMeshPro.fontSharedMaterial = m_textMeshPro.fontSharedMaterial == m_material01
                             ? m_textMeshPro.fontSharedMaterial = m_material02
                             : m_textMeshPro.fontSharedMaterial = m_material01;
                     }
                 }
-                else if (BenchmarkType == 1)
+                else if(BenchmarkType == 1)
                 {
                     m_textMesh.text = label02 + i % 1000;
                 }

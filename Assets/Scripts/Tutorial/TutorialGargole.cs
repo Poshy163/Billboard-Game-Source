@@ -4,11 +4,20 @@ using UnityEngine;
 
 #endregion
 
-public class TutorialGargole : MonoBehaviour
+public class TutorialGargole:MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    public static bool CanDie = false;
+    private void OnCollisionEnter ( Collision collision )
     {
-        if (!collision.gameObject.CompareTag("arrow")) return;
+        if(!CanDie)
+        {
+            return;
+        }
+
+        if(!collision.gameObject.CompareTag("arrow"))
+        {
+            return;
+        }
 
         Destroy(gameObject);
     }
