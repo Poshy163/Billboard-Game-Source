@@ -71,9 +71,11 @@ namespace player
         public static bool CanShoot;
 
 
+
         private void Awake ()
         {
             SetSkyBox();
+            CanShoot = true;
         }
 
         private void Start ()

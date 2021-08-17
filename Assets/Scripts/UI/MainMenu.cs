@@ -291,7 +291,7 @@ namespace UI
             }
             else
             {
-                version.gameObject.SetActive(false);
+                version.text = "1.9";
             }
         }
 
