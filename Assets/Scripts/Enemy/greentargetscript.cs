@@ -8,18 +8,18 @@ using UnityEngine;
 //Formatted
 namespace Enemy
 {
-    public class greentargetscript : MonoBehaviour
+    public class greentargetscript:MonoBehaviour
     {
         public GameObject greenarrow;
 
         [HideInInspector] public bool arrowstate;
 
-        public void Start()
+        public void Start ()
         {
             arrowstate = false;
         }
 
-        public void Update()
+        public void Update ()
         {
             try
             {
@@ -29,7 +29,7 @@ namespace Enemy
             { }
         }
 
-        public void SetArrowstate()
+        public void SetArrowstate ()
         {
             arrowstate = !arrowstate;
         }

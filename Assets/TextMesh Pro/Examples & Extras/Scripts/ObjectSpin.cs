@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace TextMesh_Pro.Scripts
 {
-    public class ObjectSpin : MonoBehaviour
+    public class ObjectSpin:MonoBehaviour
     {
 #pragma warning disable 0414
 
@@ -32,7 +32,7 @@ namespace TextMesh_Pro.Scripts
 
         public MotionType Motion;
 
-        private void Awake()
+        private void Awake ()
         {
             m_transform = transform;
             m_initial_Rotation = m_transform.rotation.eulerAngles;
@@ -44,36 +44,36 @@ namespace TextMesh_Pro.Scripts
 
 
         // Update is called once per frame
-        private void Update()
+        private void Update ()
         {
-            switch (Motion)
+            switch(Motion)
             {
                 case MotionType.Rotation:
-                    m_transform.Rotate(0, SpinSpeed * Time.deltaTime, 0);
+                    m_transform.Rotate(0,SpinSpeed * Time.deltaTime,0);
                     break;
                 case MotionType.BackAndForth:
                     m_time += SpinSpeed * Time.deltaTime;
                     m_transform.rotation = Quaternion.Euler(m_initial_Rotation.x,
-                        Mathf.Sin(m_time) * RotationRange + m_initial_Rotation.y, m_initial_Rotation.z);
+                        Mathf.Sin(m_time) * RotationRange + m_initial_Rotation.y,m_initial_Rotation.z);
                     break;
                 default:
-                {
-                    m_time += SpinSpeed * Time.deltaTime;
+                    {
+                        m_time += SpinSpeed * Time.deltaTime;
 
-                    var x = 15 * Mathf.Cos(m_time * .95f);
-                    float y = 10; // *Mathf.Sin(m_time * 1f) * Mathf.Cos(m_time * 1f);
-                    var z = 0f; // *Mathf.Sin(m_time * .9f);    
+                        var x = 15 * Mathf.Cos(m_time * .95f);
+                        float y = 10; // *Mathf.Sin(m_time * 1f) * Mathf.Cos(m_time * 1f);
+                        var z = 0f; // *Mathf.Sin(m_time * .9f);    
 
-                    m_transform.position = m_initial_Position + new Vector3(x, z, y);
+                        m_transform.position = m_initial_Position + new Vector3(x,z,y);
 
-                    // Drawing light patterns because they can be cool looking.
-                    //if (frames > 2)
-                    //    Debug.DrawLine(m_transform.position, m_prevPOS, m_lightColor, 100f);
+                        // Drawing light patterns because they can be cool looking.
+                        //if (frames > 2)
+                        //    Debug.DrawLine(m_transform.position, m_prevPOS, m_lightColor, 100f);
 
-                    m_prevPOS = m_transform.position;
-                    frames += 1;
-                    break;
-                }
+                        m_prevPOS = m_transform.position;
+                        frames += 1;
+                        break;
+                    }
             }
         }
     }
