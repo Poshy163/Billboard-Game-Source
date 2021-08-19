@@ -1,8 +1,8 @@
 ﻿#region
 
+using System.Collections;
 using Enemy;
 using player;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,8 +10,18 @@ using UnityEngine.UI;
 
 #endregion
 
-public class Tutorial:MonoBehaviour
+public class Tutorial : MonoBehaviour
 {
+    private const float constantNextSegmentTimer = 5.5f;
+
+    private readonly string[] EndTxt =
+    {
+        "This is all you need to know now",
+        "There are many more tricks to learn which you will relise as you play",
+        "Good Luck!, enter the portal to return to the menu.",
+        ""
+    };
+
     private readonly string[] firstTxt =
     {
         "Here you will learn how to play",
@@ -44,21 +54,12 @@ public class Tutorial:MonoBehaviour
         "That bar at the top is how much energy you have left"
     };
 
-    private readonly string[] EndTxt =
-{
-        "This is all you need to know now",
-        "There are many more tricks to learn which you will relise as you play",
-        "Good Luck!, enter the portal to return to the menu.",
-        ""
-    };
-
     private GameObject dummy;
     private Text HelpTxt;
-    private const float constantNextSegmentTimer = 5.5f;
 
     private GameObject Portal;
 
-    private void Start ()
+    private void Start()
     {
         dummy = GameObject.Find("Gargoyle");
         dummy.SetActive(false);
@@ -69,17 +70,17 @@ public class Tutorial:MonoBehaviour
         StartTutorial();
     }
 
-    private void StartTutorial ()
+    private void StartTutorial()
     {
         PlayerController.PlayerMove = false;
         StartCoroutine(IntroTxt());
     }
 
-    private IEnumerator IntroTxt ()
+    private IEnumerator IntroTxt()
     {
-        for(var i = 0;i <= 10;i++)
+        for (var i = 0; i <= 10; i++)
         {
-            if(i >= 4)
+            if (i >= 4)
             {
                 PlayerController.PlayerMove = true;
                 StartCoroutine(Moving());
@@ -90,7 +91,7 @@ public class Tutorial:MonoBehaviour
 
             HelpTxt.text = firstTxt[i];
 
-            if(i == 2)
+            if (i == 2)
             {
                 dummy.SetActive(true);
                 yield return new WaitForSeconds(constantNextSegmentTimer);
@@ -101,30 +102,31 @@ public class Tutorial:MonoBehaviour
         }
     }
 
-    private IEnumerator Moving ()
+    private IEnumerator Moving()
     {
-        for(var i = 0;i < 3;i++)
+        for (var i = 0; i < 3; i++)
         {
             HelpTxt.text = movingTxt[i];
-            switch(i)
+            switch (i)
             {
                 case 1:
                     PlayerController.PlayerMove = false;
-                    GameObject.Find("Player").transform.position = new Vector3(0,-5.47f,-20.12f);
+                    GameObject.Find("Player").transform.position = new Vector3(0, -5.47f, -20.12f);
                     break;
 
                 case 2:
                     PlayerController.PlayerMove = true;
                     PlayerController.CanShoot = false;
-                    dummy.transform.position = new Vector3(0,-4.652f,-10.19f);
+                    dummy.transform.position = new Vector3(0, -4.652f, -10.19f);
                     dummy.SetActive(true);
                     TutorialGargole.CanDie = false;
-                    for(var j = 0;j < 100;j++)
+                    for (var j = 0; j < 100; j++)
                     {
                         yield return new WaitForSeconds(0.05f);
                         dummy.transform.position = Vector3.Lerp(dummy.transform.position,
-                            new Vector3(0,-4.652f,-34.66f),0.02f);
+                            new Vector3(0, -4.652f, -34.66f), 0.02f);
                     }
+
                     dummy.SetActive(false);
                     PlayerController.CanShoot = true;
                     HelpTxt.text = movingTxt[i + 1];
@@ -138,14 +140,14 @@ public class Tutorial:MonoBehaviour
     }
 
 
-    private IEnumerator Shooting ()
+    private IEnumerator Shooting()
     {
         PlayerController.PlayerMove = false;
-        for(var i = 0;i < 5;i++)
+        for (var i = 0; i < 5; i++)
         {
             HelpTxt.text = shootingTxt[i];
 
-            switch(i)
+            switch (i)
             {
                 case 2:
                     PlayerController.PlayerMove = true;
@@ -154,14 +156,11 @@ public class Tutorial:MonoBehaviour
                     dummy.SetActive(true);
                     dummy.GetComponent<gargoylescript>().health = 10f;
                     TutorialGargole.CanDie = true;
-                    dummy.transform.position = new Vector3(0,-3.72f,-7.86f);
-                    for(var j = 0;j < long.MaxValue;j++)
+                    dummy.transform.position = new Vector3(0, -3.72f, -7.86f);
+                    for (var j = 0; j < long.MaxValue; j++)
                     {
                         yield return new WaitForSeconds(0.1f);
-                        if(GameObject.Find("Gargoyle"))
-                        {
-                            continue;
-                        }
+                        if (GameObject.Find("Gargoyle")) continue;
 
                         HelpTxt.text = shootingTxt[i + 1];
                         break;
@@ -177,18 +176,17 @@ public class Tutorial:MonoBehaviour
         }
     }
 
-    private IEnumerator SlowMode ()
+    private IEnumerator SlowMode()
     {
-        for(var i = 0;i < 10;i++)
+        for (var i = 0; i < 10; i++)
         {
             HelpTxt.text = slowMoTxt[i];
-            switch(i)
+            switch (i)
             {
                 case 1:
                     PlayerController.PlayerMove = true;
-                    for(var j = 0;j < long.MaxValue;j++)
-                    {
-                        if(!Input.GetMouseButtonDown(1))
+                    for (var j = 0; j < long.MaxValue; j++)
+                        if (!Input.GetMouseButtonDown(1))
                         {
                             yield return new WaitForSeconds(0.000001f);
                         }
@@ -197,7 +195,6 @@ public class Tutorial:MonoBehaviour
                             HelpTxt.text = slowMoTxt[i + 1];
                             break;
                         }
-                    }
 
                     break;
 
@@ -214,12 +211,12 @@ public class Tutorial:MonoBehaviour
     }
 
 
-    private IEnumerator End ()
+    private IEnumerator End()
     {
-        for(var i = 0;i < 4;i++)
+        for (var i = 0; i < 4; i++)
         {
             HelpTxt.text = EndTxt[i];
-            switch(i)
+            switch (i)
             {
                 case 2:
                     Portal.SetActive(true);

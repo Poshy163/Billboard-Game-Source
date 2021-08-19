@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace Spawners
 {
-    public class Floatingenemyscript:MonoBehaviour
+    public class Floatingenemyscript : MonoBehaviour
     {
         [HideInInspector] public bool kicked;
 
@@ -35,14 +35,14 @@ namespace Spawners
 
         private float speed;
 
-        private void Awake ()
+        private void Awake()
         {
             anim = enemysprite.GetComponent<Animator>();
             rb = GetComponent<Rigidbody>();
             kicked = false;
         }
 
-        private void Start ()
+        private void Start()
         {
             anim = enemysprite.GetComponent<Animator>();
             rb = GetComponent<Rigidbody>();
@@ -50,58 +50,58 @@ namespace Spawners
             kicked = false;
         }
 
-        private void Update ()
+        private void Update()
         {
             player = GameObject.FindGameObjectWithTag("MainCamera");
             Vector3 position = player.transform.position;
-            Vector3 worldPosition = new Vector3(position.x,position.y,
+            Vector3 worldPosition = new Vector3(position.x, position.y,
                 position.z);
             transform.LookAt(worldPosition);
-            if(kicked)
+            if (kicked)
             {
                 rb.velocity = dir * (speed + 20f);
                 return;
             }
 
-            if(!(Vector3.Distance(transform.position,player.transform.position) > 0.3f))
+            if (!(Vector3.Distance(transform.position, player.transform.position) > 0.3f))
             {
                 return;
             }
 
             float maxDistanceDelta = 0f;
-            if(Time.timeScale < 0.5f && !kicked)
+            if (Time.timeScale < 0.5f && !kicked)
             {
                 maxDistanceDelta = Time.deltaTime * (speed - 5.34f);
             }
-            else if(Time.timeScale > 0.5f && !kicked)
+            else if (Time.timeScale > 0.5f && !kicked)
             {
                 maxDistanceDelta = Time.deltaTime * speed;
             }
 
-            transform.position = Vector3.MoveTowards(transform.position,player.transform.position,maxDistanceDelta);
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, maxDistanceDelta);
         }
 
-        private void OnCollisionEnter ( Collision col )
+        private void OnCollisionEnter(Collision col)
         {
-            if(kicked)
+            if (kicked)
             {
-                Instantiate(particles,transform.position,Quaternion.identity).transform.forward = transform.forward;
-                Destroy(gameObject,0f);
+                Instantiate(particles, transform.position, Quaternion.identity).transform.forward = transform.forward;
+                Destroy(gameObject, 0f);
             }
 
-            if(col.gameObject.layer == LayerMask.NameToLayer("Kicked Enemy"))
+            if (col.gameObject.layer == LayerMask.NameToLayer("Kicked Enemy"))
             {
                 takendamage();
                 enemykickedback(transform.forward * -0.5f);
-                if(col.gameObject.CompareTag("Floating enemy"))
+                if (col.gameObject.CompareTag("Floating enemy"))
                 {
-                    Destroy(col.gameObject,0f);
+                    Destroy(col.gameObject, 0f);
                 }
             }
 
-            if(col.gameObject.tag == "arrow")
+            if (col.gameObject.tag == "arrow")
             {
-                if(col.gameObject.GetComponent<arrowscript>().cancausegrapple &&
+                if (col.gameObject.GetComponent<arrowscript>().cancausegrapple &&
                     !transform.GetComponent<greentargetscript>().arrowstate)
                 {
                     gameObject.GetComponent<greentargetscript>().SetArrowstate();
@@ -109,33 +109,33 @@ namespace Spawners
                         gameObject;
                 }
 
-                rb.velocity = new Vector3(0f,0f,0f);
+                rb.velocity = new Vector3(0f, 0f, 0f);
             }
         }
 
-        public void enemykickedback ( Vector3 direction )
+        public void enemykickedback(Vector3 direction)
         {
             gameObject.layer = LayerMask.NameToLayer("Kicked Enemy");
             anim.SetTrigger("kicked");
             kicked = true;
             dir = direction;
-            Invoke(nameof(Destroythehead),4.89f);
+            Invoke(nameof(Destroythehead), 4.89f);
         }
 
-        public void takendamage ()
+        public void takendamage()
         {
             transform.GetChild(0).GetComponent<SpriteRenderer>().color = damagedcolor;
-            Invoke(nameof(resetcolor),0.098f);
+            Invoke(nameof(resetcolor), 0.098f);
         }
 
-        private void resetcolor ()
+        private void resetcolor()
         {
             transform.GetChild(0).GetComponent<SpriteRenderer>().color = matcolor;
         }
 
-        private void Destroythehead ()
+        private void Destroythehead()
         {
-            Destroy(gameObject,0f);
+            Destroy(gameObject, 0f);
         }
     }
 }

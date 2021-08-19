@@ -1,8 +1,11 @@
 # Unity Collaborate Common Code
+
 This directory contains common classes and logic for the package.
 
 ## Overview
+
 This is the structure of the directory:
+
 ```none
 <root>
   ├── LocationAttribute.cs
